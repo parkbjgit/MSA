@@ -7,10 +7,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import net.daum.mf.map.api.MapView;
 
-import com.pedro.library.AutoPermissions;
-import com.pedro.library.AutoPermissionsListener;
+//import com.pedro.library.AutoPermissions;
+
+import net.daum.mf.map.api.MapView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,26 +30,26 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         listView.setAdapter(adapter);
 
-        AutoPermissions.Companion.loadPermissions(this, 101);
+//        AutoPermissions.Companion.loadPermissions(this, 101);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[],
-                                           int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String permissions[],
+//                                           int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
+//    }
 
-    @Override
-    public void onDenied(int requestCode, String[] permissions) {
-        Toast.makeText(this, "permissions denied : " + permissions.length,
-                Toast.LENGTH_LONG).show();
-    }
+//    @Override
+//    public void onDenied(int requestCode, String[] permissions) {
+//        Toast.makeText(this, "permissions denied : " + permissions.length,
+//                Toast.LENGTH_LONG).show();
+//    }
 
-    @Override
-    public void onGranted(int requestCode, String[] permissions) {
-        Toast.makeText(this, "permissions granted : " + permissions.length, Toast.LENGTH_LONG).show();
-    }
+//    @Override
+//    public void onGranted(int requestCode, String[] permissions) {
+//        Toast.makeText(this, "permissions granted : " + permissions.length, Toast.LENGTH_LONG).show();
+//    }
 }
 
 

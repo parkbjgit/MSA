@@ -20,7 +20,7 @@
         android:theme="@style/Theme.MSA"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="41be6ecd9ae493778cc588b2856bdacd"/>
     </application>
 

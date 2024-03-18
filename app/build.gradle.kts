@@ -42,5 +42,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
+    //implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
 }
