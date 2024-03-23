@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".SignUpActivity"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="41be6ecd9ae493778cc588b2856bdacd"/>
     </application>
 
