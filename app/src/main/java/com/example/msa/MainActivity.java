@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.home_ly, new InfoFragment())
                         .commit();
                 return true;
-            } else if (itemId == R.id.tab_info) {
+            } else if (itemId == R.id.tab_congestion) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.home_ly, new MapFragment())
                         .commit();
