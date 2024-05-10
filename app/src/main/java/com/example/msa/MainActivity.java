@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         //맨 처음 시작할 탭 설정
         bottomNavigationView.setSelectedItemId(R.id.tab_home);
+        //테스트용 주석입니다
     }
 
     private void init() {
