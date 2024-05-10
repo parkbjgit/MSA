@@ -9,13 +9,13 @@
     <item
         android:id="@+id/tab_reservation"
         android:enabled="true"
-        android:icon="@drawable/ic_add"
+        android:icon="@drawable/ic_reservation"
         android:title="예약"/>
 
     <item
         android:id="@+id/tab_info"
         android:enabled="true"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_congestion"
         android:title="혼잡도"/>
 
     <item
