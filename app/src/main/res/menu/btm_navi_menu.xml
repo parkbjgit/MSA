@@ -3,19 +3,19 @@
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
-        android:icon="@drawable/ic_home"
-        android:title="홈"/>
+        android:icon="@drawable/ic_add"
+        android:title="예약"/>
 
     <item
         android:id="@+id/tab_reservation"
         android:enabled="true"
-        android:icon="@drawable/ic_reservation"
-        android:title="예약"/>
+        android:icon="@drawable/ic_list"
+        android:title="내역"/>
 
     <item
         android:id="@+id/tab_info"
         android:enabled="true"
-        android:icon="@drawable/ic_congestion"
+        android:icon="@drawable/ic_map"
         android:title="혼잡도"/>
 
     <item

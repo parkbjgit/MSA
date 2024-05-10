@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
             int itemId = menuItem.getItemId();
             if (itemId == R.id.tab_home) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new MainMenuFragment())
+                        .replace(R.id.home_ly, new ReservationFragment())
                         .commit();
                 return true;
             } else if (itemId == R.id.tab_reservation) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new ReservationFragment())
+                        .replace(R.id.home_ly, new InfoFragment())
                         .commit();
                 return true;
             } else if (itemId == R.id.tab_info) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new InfoFragment())
+                        .replace(R.id.home_ly, new MapFragment())
                         .commit();
                 return true;
             } else if (itemId == R.id.tab_mypage) {
