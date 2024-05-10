@@ -16,7 +16,7 @@
         android:id="@+id/tab_info"
         android:enabled="true"
         android:icon="@drawable/ic_info"
-        android:title="내역"/>
+        android:title="혼잡도"/>
 
     <item
         android:id="@+id/tab_mypage"
