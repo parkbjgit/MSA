@@ -40,5 +40,4 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
             startActivity(intent);
         }
     }
-
 }

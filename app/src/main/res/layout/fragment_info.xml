@@ -1,146 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoFragment">
+    android:background="#ffffff"
+    android:fillViewport="true">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="현재 예약"
             android:textColor="@color/black"
-            android:text="예약 현황"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:gravity="center" />
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recyclerview_round"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height = "wrap_content"
+                android:text = "시설명"
+                android:textSize = "18dp"
+                android:layout_gravity = "center"
+                android:padding = "10dp"
+                android:layout_weight="1"
+                android:textColor = "#000000"
+                android:textStyle = "bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="시간"
+                android:textSize = "18dp"
+                android:layout_gravity = "center"
+                android:layout_marginRight="20dp"
+                android:padding = "10dp"
+                android:textColor = "#000000"
+                android:textStyle = "bold"
+                />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textColor="@color/black"
-            android:text="오늘 예약 내역"
-            android:textSize="18dp"
             android:layout_marginTop="20dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:text="지난 예약 내역"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+
+        <!-- 이 부분에 RecyclerView를 비롯한 여러 View들을 배치하면 된다. -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/reservation_cus_list"/>
+
+
+        <ProgressBar
+            android:id="@+id/reservation_progress_bar"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <android.widget.Button
-            android:id="@+id/btn_today_info"
+            android:id="@+id/btn_go_reservation"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="오늘"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_purple" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:textColor="@color/black"
-            android:text="지난 1주일 예약 내역"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b1_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="1일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b2_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="2일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b3_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="3일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b4_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="4일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b5_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="5일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b6_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="6일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
-        <android.widget.Button
-            android:id="@+id/btn_b7_info"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:text="7일 전"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_gray" />
-
+            android:layout_marginBottom="10dp"
+            android:text="시설 예약하러 가기"
+            android:textColor="@color/text_selector"
+            android:textSize="15dp"
+            />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

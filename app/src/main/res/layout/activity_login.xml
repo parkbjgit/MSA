@@ -48,7 +48,6 @@
         />
 
 
-
         <EditText
             android:id="@+id/editPassword"
             android:layout_width="270dp"

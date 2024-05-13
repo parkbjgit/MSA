@@ -43,5 +43,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    //implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+//implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
 }
