@@ -20,11 +20,6 @@ public class Reservation_Adapter extends RecyclerView.Adapter<Reservation_Adapte
         data2 = s2;
     }
 
-    @NonNull
-//    @Override
-//    public Reservation_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        return null;
-//    }
 
     @Override
     public void onBindViewHolder(@NonNull Reservation_Adapter.MyViewHolder holder, int position) {
@@ -34,7 +29,7 @@ public class Reservation_Adapter extends RecyclerView.Adapter<Reservation_Adapte
 
     @Override
     public int getItemCount() {
-        Log.d("ReservationAdapter", "data1.length: " + data1.length);
+        //Log.d("ReservationAdapter", "data1.length: " + data1.length);
         return data1.length;
     }
 

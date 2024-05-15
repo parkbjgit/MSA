@@ -1,5 +1,6 @@
 package com.example.msa;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
 
+        //예약하러 가기 버튼 선언
+        Button go_reservation = view.findViewById(R.id.btn_go_reservation);
+
         recyclerView = view.findViewById(R.id.recyclerview);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager((getActivity()));
@@ -31,13 +35,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         Reservation_Adapter reservationAdapter = new Reservation_Adapter(getActivity(), s1, s2);
         recyclerView.setAdapter(reservationAdapter);
 
-        //버튼 선언
-
-        Button go_reservation = view.findViewById((R.id.btn_go_reservation));
-
-
         // 버튼 클릭 이벤트 리스너
-
         go_reservation.setOnClickListener(this);
 
         return view;
@@ -47,13 +45,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_go_reservation) {
-            //버튼 클릭 이벤트 - 팝업창 추가
-            Toast.makeText(getActivity(), "기구 시간 선택으로 넘어갑니다.", Toast.LENGTH_SHORT).show();}
-//        } else if (view.getId() == R.id.btn_b1_info) {
-//            Toast.makeText(getActivity(), "1일 전 예약 내역입니다.", Toast.LENGTH_SHORT).show();
-//        } else if (view.getId() == R.id.btn_b7_info) {
-//            Toast.makeText(getActivity(), "7일 전 예약 내역입니다.", Toast.LENGTH_SHORT).show();
-//        }
-
+            Intent intent = new Intent(getActivity(), InfoFragment2.class);
+            startActivity(intent);
+        }
     }
 }

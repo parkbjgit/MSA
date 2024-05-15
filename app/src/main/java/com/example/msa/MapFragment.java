@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,28 +21,29 @@ public class MapFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-//        //MapView 추가
-//        MapView mapView = new MapView(requireContext());
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(36.62845944143315, 127.45744134094953), true);
-//        ViewGroup mapViewContainer = getView().findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
-//
-//        //여기서부터 마커
-//        addMarkers(mapView);
+        //MapView 추가
+        MapView mapView = new MapView(requireContext());
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(36.62845944143315, 127.45744134094953), true);
+        //ViewGroup mapViewContainer = getView().findViewById(R.id.map_view);
+        ViewGroup mapViewContainer = view.findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
 
-//        mapView.setZoomLevel(1, true);
-//        mapView.zoomIn(true);
-//        mapView.zoomOut(true);
-//
-//        //경영학관 36.63010160647784, 경도는 127.45689202384503
-//        MapPoint MARKER_POINT1 = MapPoint.mapPointWithGeoCoord(36.63010160647784, 127.45689202384503);
-//        //자연대2호관 36.62713695432668, 경도는 127.45687452412538
-//        MapPoint MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(36.62713695432668, 127.45687452412538);
-//        //인문대학본관 36.63014875672698, 경도는 127.45869235613091
-//        MapPoint MARKER_POINT3 = MapPoint.mapPointWithGeoCoord(36.63014875672698, 127.45869235613091);
-//
-//        // 마커 아이콘 추가하는 함수
-//        MapPOIItem marker1 = new MapPOIItem();
+        //여기서부터 마커
+        addMarkers(mapView);
+
+        mapView.setZoomLevel(1, true);
+        mapView.zoomIn(true);
+        mapView.zoomOut(true);
+
+        //경영학관 36.63010160647784, 경도는 127.45689202384503
+        MapPoint MARKER_POINT1 = MapPoint.mapPointWithGeoCoord(36.63010160647784, 127.45689202384503);
+        //자연대2호관 36.62713695432668, 경도는 127.45687452412538
+        MapPoint MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(36.62713695432668, 127.45687452412538);
+        //인문대학본관 36.63014875672698, 경도는 127.45869235613091
+        MapPoint MARKER_POINT3 = MapPoint.mapPointWithGeoCoord(36.63014875672698, 127.45869235613091);
+
+        // 마커 아이콘 추가하는 함수
+        MapPOIItem marker1 = new MapPOIItem();
 
 
 //        // ListView 추가
