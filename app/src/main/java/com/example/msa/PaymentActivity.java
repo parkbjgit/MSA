@@ -28,9 +28,11 @@ public class PaymentActivity extends AppCompatActivity {
             dateTextView.setText("예약 날짜: " + year + "년 " + (month + 1) + "월 " + day + "일");
         }
 
+
         //선택된 시설 이름 출력 추가 예정
+        String ticketName = dateintent.getStringExtra("ticket_name");
         TextView nameTextView = findViewById(R.id.name_title);
-        nameTextView.setText("시설명: " + "ABC");
+        nameTextView.setText("시설명: " + ticketName);
 
 
 
