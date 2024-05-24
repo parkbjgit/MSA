@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".TicketSelectActivity"
+            android:exported="false" />
+        <activity
             android:name=".FacilityTimeSelectActivity"
             android:exported="false" />
         <activity
@@ -28,7 +31,6 @@
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true">

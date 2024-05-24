@@ -18,11 +18,11 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_reservation, container, false);
 
         Button ticket = view.findViewById(R.id.btn_ticket_reservation);
-        Button attraction = view.findViewById(R.id.btn_attraction_reservation);
+        //Button attraction = view.findViewById(R.id.btn_attraction_reservation);
 
         // 버튼 클릭 이벤트 리스너
         ticket.setOnClickListener(this);
-        attraction.setOnClickListener(this);
+        //attraction.setOnClickListener(this);
 
         return view;
     }
@@ -30,6 +30,11 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
     // 버튼 클릭 이벤트 리스너
     @Override
     public void onClick(View view) {
+
+        Intent intent = new Intent(getActivity(), TicketSelectActivity.class);
+        startActivity(intent);
+
+        /*
         if (view.getId() == R.id.btn_ticket_reservation) {
             //버튼 클릭 이벤트
             DialogFragment dialogFragment = new DatePickerFragment();
@@ -39,5 +44,6 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
             Intent intent = new Intent(getActivity(), FacilitySelectActivity.class);
             startActivity(intent);
         }
+        */
     }
 }

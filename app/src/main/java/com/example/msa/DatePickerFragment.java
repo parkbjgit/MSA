@@ -26,6 +26,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         //입력 받은 날짜를 전달 받아 활용
         Intent intent = new Intent(getActivity(), PaymentActivity.class);
+        intent.putExtra("ticket_name", getArguments().getString("ticket_name"));
         intent.putExtra("year", year);
         intent.putExtra("month", month);
         intent.putExtra("day", day);
