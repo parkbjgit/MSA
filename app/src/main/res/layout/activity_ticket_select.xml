@@ -8,11 +8,12 @@
 
     <TextView
         android:id="@+id/header_title"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:text="티켓을 예매할 시설을 선택하세요"
+        android:textAlignment="center"
         android:textSize="22dp" />
 
     <ImageButton
