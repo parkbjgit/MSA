@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {       //범준 테스트용 주석
 
     LinearLayout home_ly;
     BottomNavigationView bottomNavigationView;
