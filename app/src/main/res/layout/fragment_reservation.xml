@@ -20,7 +20,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="입장권 구매"
-        android:background="@drawable/btn_purple"
         android:textSize="20sp"
         android:textStyle="bold" />
 

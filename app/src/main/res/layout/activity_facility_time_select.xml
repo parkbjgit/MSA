@@ -19,7 +19,6 @@
         android:id="@+id/facility_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/btn_purple"
         android:textColor="@color/black"
         android:text="기구 이름"
         android:textSize="20dp"

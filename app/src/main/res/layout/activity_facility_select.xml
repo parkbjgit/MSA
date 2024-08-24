@@ -29,8 +29,7 @@
             android:textSize="18dp"
             android:layout_marginTop="20dp"
             android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_purple" />
+            android:paddingLeft="10dp" />
 
         <android.widget.Button
             android:id="@+id/btn_facility2"
@@ -42,8 +41,7 @@
             android:textSize="18dp"
             android:layout_marginTop="20dp"
             android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_purple" />
+            android:paddingLeft="10dp" />
 
         <android.widget.Button
             android:id="@+id/btn_facility3"
@@ -55,8 +53,7 @@
             android:textSize="18dp"
             android:layout_marginTop="20dp"
             android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_purple" />
+            android:paddingLeft="10dp" />
 
         <android.widget.Button
             android:id="@+id/btn_facility4"
@@ -68,8 +65,7 @@
             android:textSize="18dp"
             android:layout_marginTop="20dp"
             android:gravity="center|left"
-            android:paddingLeft="10dp"
-            android:background="@drawable/btn_purple" />
+            android:paddingLeft="10dp" />
 
     </LinearLayout>
 
