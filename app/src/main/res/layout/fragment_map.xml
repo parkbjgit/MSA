@@ -1,25 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    xmlns:radius="http://schemas.android.com/apk/res-auto"
     tools:context=".MapFragment">
 
+    <!-- 지도 뷰 -->
     <LinearLayout
         android:id="@+id/map_view"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_alignParentTop="true"/>
+        android:layout_height="match_parent"/>
 
-<!--    <ListView-->
-<!--        android:id="@+id/list_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/map_view"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:padding="8dp"/>-->
+    <!-- 검색창 및 필터 버튼 영역 -->
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:queryHint="검색"
+            android:background="@drawable/search_view_background"
+        android:iconifiedByDefault="false"
+        android:layout_gravity="center_vertical"
+        android:padding="8dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"/>
+
+    </LinearLayout>
+
+    <!-- 필터 옵션 버튼들 -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_bar"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- "필터" 버튼 -->
+            <Button
+                android:id="@+id/cafe_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="필터"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_black"
+                android:padding="8dp"
+                />
+
+            <!-- "거리순" 버튼 -->
+            <Button
+                android:id="@+id/near_me_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="거리순"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_black"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"/>
+
+            <!-- "인기순" 버튼 -->
+            <Button
+                android:id="@+id/restaurant_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인기순"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_black"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"/>
+
+            <!-- "추천순" 버튼 -->
+            <Button
+                android:id="@+id/bar_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추천순"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_black"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"/>
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>
+
