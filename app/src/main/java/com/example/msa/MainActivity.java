@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {       //범준 테스트�
     LinearLayout home_ly;
     BottomNavigationView bottomNavigationView;
 
-    //브랜치 생성 커밋
+    //브랜치 생성
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
