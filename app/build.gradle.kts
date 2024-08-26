@@ -45,12 +45,6 @@ dependencies {
 
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
-<<<<<<< Updated upstream
     implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
-=======
 
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")        //통신을 위한 Retrofit2 라이브러리
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
->>>>>>> Stashed changes
 }
