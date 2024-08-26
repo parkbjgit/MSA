@@ -56,7 +56,6 @@
         android:id="@+id/btn_payment_cancel"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:background="@drawable/btn_gray"
         android:text="취소"
         android:textColor="@color/black"
         android:textSize="18dp"

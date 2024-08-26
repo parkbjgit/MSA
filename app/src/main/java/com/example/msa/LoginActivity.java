@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btn_google_login, btn_signup;
+    private Button btn_google_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
