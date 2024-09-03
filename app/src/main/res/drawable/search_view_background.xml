@@ -4,7 +4,7 @@
     <solid android:color="@color/black"/>
 
     <!-- 둥근 모서리 설정 -->
-    <corners android:radius="30dp" />
+    <corners android:radius="23dp" />
 
     <!-- 테두리 설정 (선택 사항, 색상과 두께 조정 가능) -->
     <stroke
