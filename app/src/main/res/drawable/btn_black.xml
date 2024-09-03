@@ -6,7 +6,7 @@
     <!-- 네 귀퉁이? 모양 -->
     <corners
         android:radius="30dp"/>
-    <!-- 테두리 색깔 -->
-    <stroke android:width="3dp"
-        android:color="#FFFFFF"/>
+<!--    &lt;!&ndash; 테두리 색깔 &ndash;&gt;-->
+<!--    <stroke android:width="3dp"-->
+<!--        android:color="#FFFFFF"/>-->
 </shape>
