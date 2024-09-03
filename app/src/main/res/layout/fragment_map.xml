@@ -63,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="41dp"
                 android:background="@drawable/btn_black"
+                android:layout_height="wrap_content"
                 android:text="필터"
                 android:padding="8dp"
                 />
