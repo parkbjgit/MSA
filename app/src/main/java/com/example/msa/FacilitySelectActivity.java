@@ -12,7 +12,7 @@ public class FacilitySelectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_facility_select);
+        setContentView(R.layout.facility_select);
 
         Button fac1 = (Button) findViewById(R.id.btn_facility1);
         //Button fac2 = (Button) findViewById(R.id.btn_facility2);

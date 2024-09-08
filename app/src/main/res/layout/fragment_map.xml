@@ -39,7 +39,6 @@
             android:padding="13dp"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
-
     </LinearLayout>
 
     <!-- 필터 옵션 버튼들 -->
@@ -106,6 +105,7 @@
                 android:layout_marginLeft="8dp"/>
         </LinearLayout>
     </HorizontalScrollView>
+
 
 </RelativeLayout>
 
