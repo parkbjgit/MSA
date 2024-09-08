@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -80,13 +80,23 @@
             android:layout_height="wrap_content"/>
 
         <android.widget.Button
+            android:id="@+id/btn_cancel_reservation"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="현재 예약 취소"
+            android:textSize="15dp"
+            />
+
+        <android.widget.Button
             android:id="@+id/btn_go_reservation"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="시설 예약하러 가기"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="시설 예약하기"
             android:textSize="15dp"
             />
     </LinearLayout>

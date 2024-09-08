@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:textColor="@color/black"
-        android:text="기구 이용 시간"
+        android:text="기구 이용 시간 목록"
         android:textStyle="bold"
         android:textSize="25dp"
         android:gravity="center" />
@@ -31,67 +31,75 @@
         android:id="@+id/btn_select_time1"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_white"
         android:text="09:00"
         android:textSize="15dp"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
+        android:gravity="center"
         android:layout_below="@+id/facility_name" />
 
     <android.widget.Button
         android:id="@+id/btn_select_time2"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_white"
         android:text="09:30"
         android:textSize="15dp"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="150dp"
+        android:gravity="center"
         android:layout_below="@+id/facility_name" />
 
     <android.widget.Button
         android:id="@+id/btn_select_time3"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_white"
         android:text="10:00"
         android:textSize="15dp"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="280dp"
+        android:gravity="center"
         android:layout_below="@+id/facility_name" />
 
     <android.widget.Button
         android:id="@+id/btn_select_time4"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_white"
         android:text="10:30"
         android:textSize="15dp"
         android:layout_marginTop="110dp"
         android:layout_marginLeft="20dp"
+        android:gravity="center"
         android:layout_below="@+id/facility_name" />
 
     <android.widget.Button
         android:id="@+id/btn_select_time5"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_white"
         android:text="11:00"
         android:textSize="15dp"
         android:layout_marginTop="110dp"
         android:layout_marginLeft="150dp"
+        android:gravity="center"
         android:layout_below="@+id/facility_name" />
 
     <android.widget.Button
         android:id="@+id/btn_select_time6"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:background="@drawable/btn_selector"
+        android:background="@drawable/btn_white"
         android:text="11:30"
         android:textSize="15dp"
         android:layout_marginTop="110dp"
         android:layout_marginLeft="280dp"
+        android:gravity="center"
         android:layout_below="@+id/facility_name" />
+
+
 
 
 </RelativeLayout>
