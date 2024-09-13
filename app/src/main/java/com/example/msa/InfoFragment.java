@@ -45,8 +45,13 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_go_reservation) {
-            Intent intent = new Intent(getActivity(), InfoFragment2.class);
-            startActivity(intent);
+            // ChildFragment 전환
+            InfoFragment2 childFragment = new InfoFragment2();
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, childFragment)
+                    .addToBackStack(null) // 뒤로 가기 시 이전 프래그먼트로 돌아가기 가능
+                    .commit();
         }
     }
+
 }

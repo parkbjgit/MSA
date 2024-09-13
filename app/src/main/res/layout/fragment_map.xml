@@ -6,11 +6,12 @@
     tools:context=".MapFragment">
 
     <!-- 지도 뷰 -->
-    <LinearLayout
-        android:id="@+id/map_view"
-        android:orientation="vertical"
+    <fragment
+        android:id="@+id/map_view_container"
+        android:name="com.naver.maps.map.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
 
     <!-- 검색창 및 필터 버튼 영역 -->
     <LinearLayout
