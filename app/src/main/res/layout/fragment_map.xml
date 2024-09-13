@@ -6,12 +6,11 @@
     tools:context=".MapFragment">
 
     <!-- 지도 뷰 -->
-    <fragment
-        android:id="@+id/map_view_container"
+    <com.naver.maps.map.MapView
+        android:id="@+id/map_fragment"
         android:name="com.naver.maps.map.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
     <!-- 검색창 및 필터 버튼 영역 -->
     <LinearLayout
@@ -36,7 +35,6 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/cookieregular"
             android:hint="검색어를 입력해주세요."
-            android:inputType="textPersonName"
             android:padding="13dp"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
