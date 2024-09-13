@@ -11,6 +11,11 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraPosition;
+import com.naver.maps.map.NaverMapOptions;
+import com.naver.maps.map.NaverMapSdk;
+
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -19,31 +24,39 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NaverMapSdk.getInstance(requireContext()).setClient(new NaverMapSdk.NaverCloudPlatformClient("lubhho3zva"));
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        //MapView 추가
-        MapView mapView = new MapView(requireContext());
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(36.62845944143315, 127.45744134094953), true);
-        //ViewGroup mapViewContainer = getView().findViewById(R.id.map_view);
-        ViewGroup mapViewContainer = view.findViewById(R.id.map_view);
-        mapViewContainer.addView(mapView);
+        //NaverMapOptions options = new NaverMapOptions().camera(new CameraPosition(new LatLng(37.5666102, 126.9783881), 16));
+        //MapFragment mapFragment = (MapFragment) getChildFragmentManager().findFragmentById(R.id.map_view);
+//        if (mapFragment == null) {
+//            //mapFragment = MapFragment.newInstance(options);
+//            getChildFragmentManager().beginTransaction().add(R.id.map_view, mapFragment).commit();
+//        }
 
-        //여기서부터 마커
-        addMarkers(mapView);
-
-        mapView.setZoomLevel(1, true);
-        mapView.zoomIn(true);
-        mapView.zoomOut(true);
-
-        //경영학관 36.63010160647784, 경도는 127.45689202384503
-        MapPoint MARKER_POINT1 = MapPoint.mapPointWithGeoCoord(36.63010160647784, 127.45689202384503);
-        //자연대2호관 36.62713695432668, 경도는 127.45687452412538
-        MapPoint MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(36.62713695432668, 127.45687452412538);
-        //인문대학본관 36.63014875672698, 경도는 127.45869235613091
-        MapPoint MARKER_POINT3 = MapPoint.mapPointWithGeoCoord(36.63014875672698, 127.45869235613091);
-
-        // 마커 아이콘 추가하는 함수
-        MapPOIItem marker1 = new MapPOIItem();
+//        //MapView 추가
+//        MapView mapView = new MapView(requireContext());
+//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(36.62845944143315, 127.45744134094953), true);
+//        //ViewGroup mapViewContainer = getView().findViewById(R.id.map_view);
+//        ViewGroup mapViewContainer = view.findViewById(R.id.map_view);
+//        mapViewContainer.addView(mapView);
+//
+//        //여기서부터 마커
+//        addMarkers(mapView);
+//
+//        mapView.setZoomLevel(1, true);
+//        mapView.zoomIn(true);
+//        mapView.zoomOut(true);
+//
+//        //경영학관 36.63010160647784, 경도는 127.45689202384503
+//        MapPoint MARKER_POINT1 = MapPoint.mapPointWithGeoCoord(36.63010160647784, 127.45689202384503);
+//        //자연대2호관 36.62713695432668, 경도는 127.45687452412538
+//        MapPoint MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(36.62713695432668, 127.45687452412538);
+//        //인문대학본관 36.63014875672698, 경도는 127.45869235613091
+//        MapPoint MARKER_POINT3 = MapPoint.mapPointWithGeoCoord(36.63014875672698, 127.45869235613091);
+//
+//        // 마커 아이콘 추가하는 함수
+//        MapPOIItem marker1 = new MapPOIItem();
 
 
 //        // ListView 추가
@@ -56,26 +69,26 @@ public class MapFragment extends Fragment {
     }
 
     private void addMarkers(MapView mapView) {
-        // 경영학관
-        MapPOIItem marker1 = new MapPOIItem();
-        marker1.setItemName("경영학관");
-        marker1.setTag(0);
-        marker1.setMapPoint(mapPointWithGeoCoord(36.63010160647784, 127.45689202384503));
-        mapView.addPOIItem(marker1);
-
-        // 자연대2호관
-        MapPOIItem marker2 = new MapPOIItem();
-        marker2.setItemName("자연대2호관");
-        marker2.setTag(1);
-        marker2.setMapPoint(mapPointWithGeoCoord(36.62713695432668, 127.45687452412538));
-        mapView.addPOIItem(marker2);
-
-        // 인문대학본관
-        MapPOIItem marker3 = new MapPOIItem();
-        marker3.setItemName("인문대학본관");
-        marker3.setTag(2);
-        marker3.setMapPoint(mapPointWithGeoCoord(36.63014875672698, 127.45869235613091));
-        mapView.addPOIItem(marker3);
+//        // 경영학관
+//        MapPOIItem marker1 = new MapPOIItem();
+//        marker1.setItemName("경영학관");
+//        marker1.setTag(0);
+//        marker1.setMapPoint(mapPointWithGeoCoord(36.63010160647784, 127.45689202384503));
+//        mapView.addPOIItem(marker1);
+//
+//        // 자연대2호관
+//        MapPOIItem marker2 = new MapPOIItem();
+//        marker2.setItemName("자연대2호관");
+//        marker2.setTag(1);
+//        marker2.setMapPoint(mapPointWithGeoCoord(36.62713695432668, 127.45687452412538));
+//        mapView.addPOIItem(marker2);
+//
+//        // 인문대학본관
+//        MapPOIItem marker3 = new MapPOIItem();
+//        marker3.setItemName("인문대학본관");
+//        marker3.setTag(2);
+//        marker3.setMapPoint(mapPointWithGeoCoord(36.63014875672698, 127.45869235613091));
+//        mapView.addPOIItem(marker3);
+//    }
     }
-
 }

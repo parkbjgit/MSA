@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSA"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
             android:name=".TicketSelectActivity"
             android:exported="false" />
@@ -40,12 +40,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
 
         <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="41be6ecd9ae493778cc588b2856bdacd" />
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="lubhho3zva"
+            />
     </application>
 
 </manifest>

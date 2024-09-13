@@ -5,12 +5,15 @@ plugins {
 
 buildscript {
     repositories {
+        google()
+        mavenCentral()
         maven { url = uri("https://jitpack.io") }
+        maven("https://repository.map.naver.com/archive/maven")
     }
 }
 
 allprojects {
     repositories {
-        //maven { url = uri("https://jitpack.io") }
+        //maven { url = uri("https://naver.jfrog.io/artifactory/maven/") }
     }
 }

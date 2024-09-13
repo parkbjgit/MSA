@@ -7,97 +7,108 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends AppCompatActivity {       //범준 테스트용 주석
+public class MainActivity extends AppCompatActivity {
 
-    LinearLayout home_ly;
+    FrameLayout fragment_container;
     BottomNavigationView bottomNavigationView;
-
-    //브랜치 생성
-    //풀리퀘스트 테스트
+    private Fragment activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init(); //객체 정의
-        SettingListener(); //리스너 등록
+        init(); // 객체 정의
+        SettingListener(); // 리스너 등록
 
-        //맨 처음 시작할 탭 설정
-        bottomNavigationView.setSelectedItemId(R.id.tab_home);
+        if (savedInstanceState != null) {
+            activeFragment = getSupportFragmentManager().getFragment(savedInstanceState, "activeFragment");
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.tab_home);
+            switchFragment(new ReservationFragment());
+        }
 
         getHashKey();
     }
 
-    private void getHashKey(){
-        PackageInfo packageInfo = null;
+    private void getHashKey() {
         try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : packageInfo.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
+            Log.e("KeyHash", "Unable to get MessageDigest.", e);
         }
     }
+
     private void init() {
-        home_ly = findViewById(R.id.home_ly);
+        fragment_container = findViewById(R.id.fragment_container);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
 
     private void SettingListener() {
-        //선택 리스너 등록
         bottomNavigationView.setOnNavigationItemSelectedListener(new TabSelectedListener());
     }
 
-    class TabSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+    private void switchFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+        if (activeFragment != null) {
+            transaction.hide(activeFragment);
+        }
+
+        if (!fragment.isAdded()) {
+            transaction.add(R.id.fragment_container, fragment);
+        } else {
+            transaction.show(fragment);
+        }
+
+        transaction.commit();
+        activeFragment = fragment;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (activeFragment != null) {
+            getSupportFragmentManager().putFragment(outState, "activeFragment", activeFragment);
+        }
+    }
+
+    class TabSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             int itemId = menuItem.getItemId();
+
             if (itemId == R.id.tab_home) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new ReservationFragment())
-                        .commit();
+                switchFragment(new ReservationFragment());
                 return true;
             } else if (itemId == R.id.tab_reservation) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new InfoFragment())
-                        .commit();
+                switchFragment(new InfoFragment());
                 return true;
             } else if (itemId == R.id.tab_congestion) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new MapFragment())
-                        .commit();
+                switchFragment(new MapFragment());
                 return true;
             } else if (itemId == R.id.tab_mypage) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_ly, new MypageFragment())
-                        .commit();
+                switchFragment(new MypageFragment());
                 return true;
             }
             return false;
         }
     }
-
-
 }

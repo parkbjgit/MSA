@@ -43,6 +43,9 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    // 네이버 지도 SDK
+    implementation("com.naver.maps:map-sdk:3.19.1")
+
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
     //implementation ("com.github.pedroSG94:AutoPermission:1.0.3")

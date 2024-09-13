@@ -1,104 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:fillViewport="true">
-    >
+    android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
-            android:text="현재 예약"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+        android:background="#ffffff"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/recyclerview_round"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "시설명"
-                android:textSize = "18dp"
-                android:layout_gravity = "center"
-                android:padding = "10dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:text="현재 예약"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/recyclerview_round"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시설명"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="시간"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:text="지난 예약 내역"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textColor = "#000000"
-                android:textStyle = "bold" />
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/reservation_cus_list" />
 
-            <TextView
+            <ProgressBar
+                android:id="@+id/reservation_progress_bar"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.widget.Button
+                android:id="@+id/btn_cancel_reservation"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="시간"
-                android:textSize = "18dp"
-                android:layout_gravity = "center"
-                android:layout_marginRight="20dp"
-                android:padding = "10dp"
-                android:textColor = "#000000"
-                android:textStyle = "bold"
-                />
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="현재 예약 취소"
+                android:textSize="15dp" />
 
+            <android.widget.Button
+                android:id="@+id/btn_go_reservation"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="시설 예약하기"
+                android:textSize="15dp" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
-            android:text="지난 예약 내역"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-
-        <!-- 이 부분에 RecyclerView를 비롯한 여러 View들을 배치하면 된다. -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/reservation_cus_list"/>
-
-
-        <ProgressBar
-            android:id="@+id/reservation_progress_bar"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <android.widget.Button
-            android:id="@+id/btn_cancel_reservation"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:text="현재 예약 취소"
-            android:textSize="15dp"
-            />
-
-        <android.widget.Button
-            android:id="@+id/btn_go_reservation"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:text="시설 예약하기"
-            android:textSize="15dp"
-            />
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
