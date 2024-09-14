@@ -47,7 +47,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         if (view.getId() == R.id.btn_go_reservation) {
             // ChildFragment 전환
             InfoFragment2 childFragment = new InfoFragment2();
-            getChildFragmentManager().beginTransaction()
+            getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, childFragment)
                     .addToBackStack(null) // 뒤로 가기 시 이전 프래그먼트로 돌아가기 가능
                     .commit();
