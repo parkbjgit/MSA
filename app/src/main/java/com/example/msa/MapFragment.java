@@ -17,13 +17,13 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.CircleOverlay;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     Marker marker = new Marker(); // 지도 상 마커를 나타내는 Marker 객체 선언
     private static NaverMap naverMap; // 지도를 나타내는 NaverMap 객체 선언
     private MapView map_fragment; // 지도를 나타내는 MapView 객체 선언
-    private static int distance = 2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +44,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setMapType(NaverMap.MapType.Navi); // 지도 타입 설정
     }
 
-    public void setMoveLocation(double x, double y, int move) {
+    public void setMoveLocation(double x, double y) {
         CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(x, y)); // 해당 좌표로 카메라 이동
         naverMap.moveCamera(cameraUpdate);
+    }
+
+    private void addMarkerAndCircle(LatLng position, String caption, Integer color) {
+        // 마커 설정
+        Marker marker = new Marker();
+        marker.setPosition(position);
+        marker.setCaptionText(caption);
+        marker.setWidth(80);
+        marker.setHeight(80);
+        marker.setMap(naverMap);
+
+        //color가 null이 아닐때만 원을 그림
+        if(color != null) {
+            CircleOverlay circle = new CircleOverlay();
+            circle.setCenter(position);
+            circle.setRadius(100); // 원의 반경 설정 (단위: 미터)
+            circle.setColor(Color.argb(80, Color.red(color), Color.green(color), Color.blue(color))); // 색상 설정 (50% 투명도)
+            circle.setMap(naverMap);
+        }
     }
 
     @Override
@@ -54,51 +73,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         this.naverMap = naverMap;
         setMapOptions(naverMap); // 지도 옵션 설정
         CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(37.51103128734522, 127.09836284873701), // 초기 좌표 설정
+                new LatLng(37.51103128734522, 127.09836284873701), // 초기 카메라 위치 설정
                 16 // 줌 레벨 설정
         );
         naverMap.setCameraPosition(cameraPosition); // 카메라 위치 설정
 
-        marker.setPosition(new LatLng(37.51103128734522, 127.09836284873701)); // 초기 마커 위치 설정
-        marker.setIconTintColor(Color.RED);
-        marker.setCaptionText("롯데월드");
-        marker.setMap(naverMap);
+        // 마커와 원을 추가하는 메소드
+        addMarkerAndCircle(new LatLng(37.51103128734522, 127.09836284873701), "롯데월드", null); //색 선택 안해
+        addMarkerAndCircle(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Color.RED);
+        addMarkerAndCircle(new LatLng(37.51120620917864 ,127.09922739837569), "후룸라이드", Color.GREEN);
+        addMarkerAndCircle(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Color.YELLOW);
+        addMarkerAndCircle(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Color.GREEN);
+        addMarkerAndCircle(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Color.RED);
 
-        Marker marker2 = new Marker();
-        marker2.setPosition(new LatLng( 37.511034520520695, 127.09717806527742 )); // 후렌치레볼루션
-        marker2.setWidth(80);
-        marker2.setHeight(80);
-        marker2.setCaptionText("후렌치레볼루션");
-        marker2.setMap(naverMap);
-
-        Marker marker3 = new Marker();
-        marker3.setPosition(new LatLng( 37.51120620917864 ,127.09922739837569)); //후룸라이드
-        marker3.setWidth(80);
-        marker3.setHeight(80);
-        marker3.setCaptionText("후룸라이드");
-        marker3.setMap(naverMap);
-
-        Marker marker4 = new Marker();
-        marker4.setPosition(new LatLng(37.50877477183853, 127.10051625967026)); //자이로드롭
-        marker4.setWidth(80);
-        marker4.setHeight(80);
-        marker4.setCaptionText("자이로드롭");
-        marker4.setMap(naverMap);
-
-        Marker marker5 = new Marker();
-        marker5.setPosition(new LatLng(37.50883221943, 127.09914028644562)); //아틀란티스
-        marker5.setWidth(80);
-        marker5.setHeight(80);
-        marker5.setCaptionText("아틀란티스");
-        marker5.setMap(naverMap);
-
-        Marker marker6 = new Marker();
-        marker6.setPosition(new LatLng(37.50827786219699, 127.09969707129508));//자이로스윙
-        marker6.setWidth(80);
-        marker6.setHeight(80);
-        marker6.setCaptionText("자이로스윙");
-        marker6.setMap(naverMap);
-
-        setMoveLocation(37.51103128734522, 127.09836284873701, distance); // 초기 반경 설정
+        setMoveLocation(37.51103128734522, 127.09836284873701); // 초기 반경 설정
     }
 }
