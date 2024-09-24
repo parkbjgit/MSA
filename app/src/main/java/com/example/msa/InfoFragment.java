@@ -21,7 +21,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        //예약하러 가기 버튼 선언
+        //예약하러 가기 버튼
         Button go_reservation = view.findViewById(R.id.btn_go_reservation);
 
         recyclerView = view.findViewById(R.id.recyclerview);
