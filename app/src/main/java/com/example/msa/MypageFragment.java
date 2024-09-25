@@ -34,15 +34,6 @@ public class MypageFragment extends Fragment {
         // Inflate the layout for this fragment first
         View view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        // Initialize the progress bar after inflating the layout
-        RoundCornerProgressBar progressBar = view.findViewById(R.id.progress_bar);
-
-        // Set the dynamic percentage based on the current reservation status
-        int currentReservation = 30;  // 현재 예약된 인원
-        int maxReservation = 100;     // 최대 예약 가능 인원
-        float percentage = (currentReservation / (float) maxReservation) * 100;
-        progressBar.setProgress(percentage);
-
         return view;
     }
 }

@@ -8,17 +8,4 @@
     tools:context=".MypageFragment">
 
 
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:rcMax="100"
-        app:rcProgress="50"
-    app:rcRadius="10dp"
-    app:rcProgressColor="@color/progressColor"
-    app:rcBackgroundColor="@color/backgroundColor"
-    app:rcBackgroundPadding="5dp"/>
-
-
-
 </FrameLayout>

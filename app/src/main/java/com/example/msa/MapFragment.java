@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     Marker marker = new Marker(); // 지도 상 마커를 나타내는 Marker 객체 선언
     private static NaverMap naverMap; // 지도를 나타내는 NaverMap 객체 선언
     private MapView map_fragment; // 지도를 나타내는 MapView 객체 선언
+    private Button selectedbutton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +37,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map_fragment.onCreate(savedInstanceState);
         map_fragment.getMapAsync(this);
 
+        //필터버튼들 초기화 및 리스너 설정
+        Button ridingFilter = view.findViewById(R.id.riding_filter);
+        Button restaurantFilter = view.findViewById(R.id.restaurant_filter);
+        Button cafeFilter = view.findViewById(R.id.cafe_filter);
+        Button convenienceFilter = view.findViewById(R.id.convenience_filter);
+
+        selectedbutton = ridingFilter;
+        ridingFilter.setSelected(true);
+
+        ridingFilter.setOnClickListener(this::onFilterClicked);
+        restaurantFilter.setOnClickListener(this::onFilterClicked);
+        cafeFilter.setOnClickListener(this::onFilterClicked);
+        convenienceFilter.setOnClickListener(this::onFilterClicked);
+
         return view;
+    }
+
+    private void onFilterClicked(View view) {
+        Button clickedButton = (Button) view;
+
+        //이전에 선택된 버튼은 선택해제
+        if(selectedbutton != null){
+            selectedbutton.setSelected(false);
+        }
+
+        //새로 클릭된 버튼 선택
+        clickedButton.setSelected(true);
+        selectedbutton = clickedButton;
     }
 
     public void setMapOptions(NaverMap naverMap) {
@@ -79,7 +108,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setCameraPosition(cameraPosition); // 카메라 위치 설정
 
         // 마커와 원을 추가하는 메소드
-        addMarkerAndCircle(new LatLng(37.51103128734522, 127.09836284873701), "롯데월드", null); //색 선택 안해
+        //addMarkerAndCircle(new LatLng(37.51103128734522, 127.09836284873701), "롯데월드", null); //색 선택 안해
         addMarkerAndCircle(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Color.RED);
         addMarkerAndCircle(new LatLng(37.51120620917864 ,127.09922739837569), "후룸라이드", Color.GREEN);
         addMarkerAndCircle(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Color.YELLOW);
