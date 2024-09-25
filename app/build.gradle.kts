@@ -51,5 +51,4 @@ dependencies {
     //implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
 
     implementation ("com.akexorcist:RoundCornerProgressBar:2.0.3")
-    implementation ("com.vipulasri:ticketview:1.0.7")
 }

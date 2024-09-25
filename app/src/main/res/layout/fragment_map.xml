@@ -55,50 +55,50 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- "필터" 버튼 -->
+            <!-- "놀이기구" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/filter_button"
+                android:id="@+id/riding_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="41dp"
-                android:background="@drawable/btn_black"
-                android:text="필터"
+                android:background="@drawable/button_background"
+                android:text="놀이기구"
                 android:textColor="#ffffff"
                 android:padding="8dp"
                 />
 
-            <!-- "거리순" 버튼 -->
+            <!-- "음식점" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/near_me_button"
+                android:id="@+id/restaurant_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="41dp"
-                android:background="@drawable/btn_black"
-                android:text="거리순"
+                android:background="@drawable/button_background"
+                android:text="음식점"
                 android:textColor="#ffffff"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"/>
 
-            <!-- "인기순" 버튼 -->
+            <!-- "카페" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/popular_button"
+                android:id="@+id/cafe_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="41dp"
-                android:background="@drawable/btn_black"
-                android:text="인기순"
+                android:background="@drawable/button_background"
+                android:text="카페"
                 android:textColor="#ffffff"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"/>
 
-            <!-- "추천순" 버튼 -->
+            <!-- "편의점" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/bar_button"
+                android:id="@+id/convenience_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="41dp"
-                android:background="@drawable/btn_black"
-                android:text="추천순"
+                android:background="@drawable/button_background"
+                android:text="편의점"
                 android:textColor="#ffffff"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"/>
