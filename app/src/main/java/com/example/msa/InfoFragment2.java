@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
-import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
@@ -21,7 +19,6 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
         //super.onCreateView(inflater, container, savedInstanceState);
         NaverMapSdk.getInstance(requireContext()).setClient(new NaverMapSdk.NaverCloudPlatformClient("lubhho3zva"));
 
-        View view = inflater.inflate(R.layout.facility_select, container, false);
+        View view = inflater.inflate(R.layout.fragment_info2, container, false);
 
         map_facility_choice = view.findViewById(R.id.map_facility_choice);
         map_facility_choice.onCreate(savedInstanceState);
@@ -61,6 +58,16 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
         uiSettings.setZoomControlEnabled(false);
     }
 
+    @Override
+    public boolean onClick(@NonNull Overlay overlay) {
+        if (overlay instanceof Marker) {
+            Marker clickedMarker = (Marker) overlay;
+            // 여기에서 필요한 동작 수행
+            return true;
+        }
+        return false;
+    }
+
     public class MapMarker {
         Marker marker;
 
@@ -68,6 +75,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
             this.marker = marker;
         }
     }
+
     private void addMapMarker(LatLng position, String caption) {
         try {
             // 마커 생성 및 설정
@@ -80,34 +88,23 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
             marker.setMap(naverMap);
 
             // 마커 클릭 리스너 설정
-            marker.setOnClickListener(this); // 프래그먼트가 클릭 리스너를 처리하도록 설정
+            //marker.setOnClickListener(this); // 프래그먼트가 클릭 리스너를 처리하도록 설정
 
+            marker.setOnClickListener(overlay ->{
+                //다른 fragment로 전환
+                InfoFragment3 childFragment = new InfoFragment3();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, childFragment)
+                        .addToBackStack(null) // 뒤로 가기 시 이전 프래그먼트로 돌아가기 가능
+                        .commit();
+                return true;
+            });
             // 마커를 리스트에 추가 (필요 시 사용)
             markers.add(new MapMarker(marker));
         } catch (Exception e) {
             e.printStackTrace();
             // 필요 시 사용자에게 오류 메시지 표시
         }
-    }
-
-    @Override
-    public boolean onClick(@NonNull Overlay overlay) {
-        if (overlay instanceof Marker) {
-            Marker clickedMarker = (Marker) overlay;
-            String caption = clickedMarker.getCaptionText();
-
-            // 마커 클릭 시 수행할 작업 (예: 토스트 메시지 표시)
-            Toast.makeText(getContext(), "Clicked marker: " + caption, Toast.LENGTH_SHORT).show();
-
-            // 추가적인 작업 수행 가능 (예: 상세 정보 화면으로 이동)
-            // 예시:
-            // Intent intent = new Intent(getActivity(), DetailActivity.class);
-            // intent.putExtra("marker_caption", caption);
-            // startActivity(intent);
-
-            return true; // 이벤트 소비
-        }
-        return false;
     }
 
 

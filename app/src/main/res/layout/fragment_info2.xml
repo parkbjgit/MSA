@@ -25,7 +25,7 @@
             android:id="@+id/map_facility_choice"
             android:name="com.naver.maps.map.MapFragment"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="350dp" />
 
 
         <android.widget.Button
