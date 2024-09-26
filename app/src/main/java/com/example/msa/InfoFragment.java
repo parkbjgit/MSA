@@ -1,12 +1,10 @@
 package com.example.msa;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class InfoFragment extends Fragment implements View.OnClickListener {
 
     RecyclerView recyclerView;
-    String s1[], s2[];
+    String lists[], times[];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,10 +27,10 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager((getActivity()));
         recyclerView.setLayoutManager(layoutManager);
 
-        s1 = getResources().getStringArray(R.array.reservation_lists);
-        s2 = getResources().getStringArray(R.array.reservation_times);
+        lists = getResources().getStringArray(R.array.reservation_lists);
+        times = getResources().getStringArray(R.array.reservation_times);
 
-        Reservation_Adapter reservationAdapter = new Reservation_Adapter(getActivity(), s1, s2);
+        Reservation_Adapter reservationAdapter = new Reservation_Adapter(getActivity(), lists, times);
         recyclerView.setAdapter(reservationAdapter);
 
         // 버튼 클릭 이벤트 리스너
