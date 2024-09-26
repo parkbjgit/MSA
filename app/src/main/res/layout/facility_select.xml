@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:text="기구 예약"
             android:textStyle="bold"
             android:textSize="25dp"

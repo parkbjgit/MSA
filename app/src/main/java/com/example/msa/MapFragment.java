@@ -52,13 +52,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private List<MapMarker> cafeMarkers = new ArrayList<>();
     private List<MapMarker> convenienceMarkers = new ArrayList<>();
 
-    private static NaverMap naverMap; // NaverMap instance
+    private NaverMap naverMap; // NaverMap instance
     private MapView map_fragment; // MapView instance
     private Button selectedButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         NaverMapSdk.getInstance(requireContext()).setClient(new NaverMapSdk.NaverCloudPlatformClient("lubhho3zva"));
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
@@ -115,6 +114,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setNightModeEnabled(true); // Enable night mode
         naverMap.setMapType(NaverMap.MapType.Navi); // Set map type to Navi
 
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setCompassEnabled(false);
+        uiSettings.setScaleBarEnabled(false);
+        uiSettings.setLocationButtonEnabled(false);
+        uiSettings.setZoomControlEnabled(false);
         // POI 레이어 숨기기
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING, false);
     }
@@ -224,30 +228,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    /**
-     * Called when the map is ready to be used.
-     */
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         this.naverMap = naverMap;
         setMapOptions(naverMap); // Configure map options
 
-        // Set initial camera position
         CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(37.51103128734522, 127.09836284873701), // Initial position
+                new LatLng(37.51103128734522, 127.09836284873701),
                 16 // Zoom level
         );
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setCompassEnabled(false);
-        uiSettings.setScaleBarEnabled(false);
-        uiSettings.setCompassEnabled(false);
-        uiSettings.setLocationButtonEnabled(false);
-        uiSettings.setZoomControlEnabled(false);
 
-        naverMap.setCameraPosition(cameraPosition); // Apply camera position
+        naverMap.setCameraPosition(cameraPosition);
 
-        // Add markers for each category
-        // Example: Riding Category
         addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Color.RED, Category.RIDING);
         addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Color.GREEN, Category.RIDING);
         addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Color.YELLOW, Category.RIDING);
@@ -256,22 +248,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Color.RED, Category.RIDING);
         addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Color.RED, Category.RIDING);
         addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Color.YELLOW, Category.RIDING);
-        // Example: Restaurant Category
+
         addMapMarker(new LatLng(37.510000, 127.098000), "맛집 A", Color.BLUE, Category.RESTAURANT);
         addMapMarker(new LatLng(37.509000, 127.097500), "맛집 B", Color.BLUE, Category.RESTAURANT);
 
-        // Example: Cafe Category
+
         addMapMarker(new LatLng(37.507000, 127.100000), "카페 A", Color.MAGENTA, Category.CAFE);
         addMapMarker(new LatLng(37.506500, 127.101000), "카페 B", Color.MAGENTA, Category.CAFE);
 
-        // Example: Convenience Category
         addMapMarker(new LatLng(37.508500, 127.099500), "편의점 A", Color.GRAY, Category.CONVENIENCE);
         addMapMarker(new LatLng(37.509500, 127.098500), "편의점 B", Color.GRAY, Category.CONVENIENCE);
 
-        // Move camera to initial location
         setMoveLocation(37.51103128734522, 127.09836284873701);
 
-        // Initially show Riding markers
         showCategory(Category.RIDING);
     }
 

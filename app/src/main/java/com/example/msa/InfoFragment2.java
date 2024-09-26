@@ -1,6 +1,6 @@
 package com.example.msa;
 
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +19,24 @@ import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.CircleOverlay;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
+public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overlay.OnClickListener {
 
-    private List<MapMarker> ridingMarkers = new ArrayList<>();
-    private static NaverMap naverMap;
+    private List<MapMarker> markers = new ArrayList<>();
+
+    private NaverMap naverMap;
     private MapView map_facility_choice;
 
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+        //super.onCreateView(inflater, container, savedInstanceState);
         NaverMapSdk.getInstance(requireContext()).setClient(new NaverMapSdk.NaverCloudPlatformClient("lubhho3zva"));
 
         View view = inflater.inflate(R.layout.facility_select, container, false);
@@ -50,23 +53,12 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
        naverMap.setNightModeEnabled(true);
        naverMap.setMapType(NaverMap.MapType.Navi);
        //naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING, true);
-    }
 
-    public void setMoveLocation(double x, double y){
-        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(x, y));
-        naverMap.moveCamera(cameraUpdate);
-    }
-
-    private void addMapMarker(LatLng position, String caption) {
-        // Create and configure the marker
-        Marker marker = new Marker();
-        marker.setPosition(position);
-        marker.setCaptionText(caption);
-        marker.setWidth(80);
-        marker.setHeight(80);
-        marker.setIcon(OverlayImage.fromResource(R.drawable.ic_marker));
-        marker.setMap(naverMap);
-
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setCompassEnabled(false);
+        uiSettings.setScaleBarEnabled(false);
+        uiSettings.setLocationButtonEnabled(false);
+        uiSettings.setZoomControlEnabled(false);
     }
 
     public class MapMarker {
@@ -76,6 +68,48 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
             this.marker = marker;
         }
     }
+    private void addMapMarker(LatLng position, String caption) {
+        try {
+            // 마커 생성 및 설정
+            Marker marker = new Marker();
+            marker.setPosition(position);
+            marker.setCaptionText(caption);
+            marker.setWidth(80);
+            marker.setHeight(80);
+            marker.setIcon(OverlayImage.fromResource(R.drawable.ic_marker));
+            marker.setMap(naverMap);
+
+            // 마커 클릭 리스너 설정
+            marker.setOnClickListener(this); // 프래그먼트가 클릭 리스너를 처리하도록 설정
+
+            // 마커를 리스트에 추가 (필요 시 사용)
+            markers.add(new MapMarker(marker));
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 필요 시 사용자에게 오류 메시지 표시
+        }
+    }
+
+    @Override
+    public boolean onClick(@NonNull Overlay overlay) {
+        if (overlay instanceof Marker) {
+            Marker clickedMarker = (Marker) overlay;
+            String caption = clickedMarker.getCaptionText();
+
+            // 마커 클릭 시 수행할 작업 (예: 토스트 메시지 표시)
+            Toast.makeText(getContext(), "Clicked marker: " + caption, Toast.LENGTH_SHORT).show();
+
+            // 추가적인 작업 수행 가능 (예: 상세 정보 화면으로 이동)
+            // 예시:
+            // Intent intent = new Intent(getActivity(), DetailActivity.class);
+            // intent.putExtra("marker_caption", caption);
+            // startActivity(intent);
+
+            return true; // 이벤트 소비
+        }
+        return false;
+    }
+
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
@@ -87,12 +121,6 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 new LatLng(37.51103128734522, 127.09836284873701), // Initial position
                 16 // Zoom level
         );
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setCompassEnabled(false);
-        uiSettings.setScaleBarEnabled(false);
-        uiSettings.setCompassEnabled(false);
-        uiSettings.setLocationButtonEnabled(false);
-        uiSettings.setZoomControlEnabled(false);
 
         naverMap.setCameraPosition(cameraPosition); // Apply camera position
 
