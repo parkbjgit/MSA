@@ -13,11 +13,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:text="기구 예약"
             android:textStyle="bold"
             android:textSize="25dp"
             android:gravity="center" />
+
+
+        <!-- 지도 뷰 -->
+        <com.naver.maps.map.MapView
+            android:id="@+id/map_facility_choice"
+            android:name="com.naver.maps.map.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
 
         <android.widget.Button
             android:id="@+id/btn_facility1"
