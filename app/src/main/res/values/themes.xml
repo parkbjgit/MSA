@@ -15,5 +15,10 @@
         <item name="android:checkboxStyle">@font/cookieregular</item>
     </style>
 
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/btn_time</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
     <style name="Theme.MSA" parent="Base.Theme.MSA" />
 </resources>
