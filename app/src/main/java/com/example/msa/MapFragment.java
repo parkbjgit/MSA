@@ -2,12 +2,16 @@ package com.example.msa;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -57,6 +61,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView map_fragment; // MapView instance
     private Button selectedButton;
     private TextView markerinformation;
+    private EditText searchEditText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +78,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Button cafeFilter = view.findViewById(R.id.cafe_filter);
         Button convenienceFilter = view.findViewById(R.id.convenience_filter);
 
+        searchEditText = view.findViewById(R.id.editFindSearch);
+        searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                String searchText = searchEditText.getText().toString().trim();
+                searchMarker(searchText);
+                return true; // 이벤트 소비
+            }
+            return false;
+        });
+
         selectedButton = ridingFilter;
         ridingFilter.setSelected(true);
 
@@ -83,6 +99,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         return view;
     }
+
+    /**
+     * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메소드
+     */
+    private void searchMarker(String searchText) {
+        if (searchText.isEmpty()) {
+            Toast.makeText(getContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean found = false;
+
+        // 모든 카테고리 마커를 순회하며 검색
+        List<MapMarker> allMarkers = new ArrayList<>();
+        allMarkers.addAll(ridingMarkers);
+        allMarkers.addAll(restaurantMarkers);
+        allMarkers.addAll(cafeMarkers);
+        allMarkers.addAll(convenienceMarkers);
+
+        for (MapMarker mapMarker : allMarkers) {
+            if (mapMarker.marker.getCaptionText().equalsIgnoreCase(searchText)) {
+                // 카메라 이동
+                moveCameraToMarker(mapMarker.marker);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            Toast.makeText(getContext(), "해당하는 장소가 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void moveCameraToMarker(Marker marker) {
+        LatLng position = marker.getPosition();
+        CameraPosition cameraPosition = new CameraPosition(position, 17); // 더 높은 줌 레벨
+        naverMap.moveCamera(CameraUpdate.toCameraPosition(cameraPosition));
+
+        // BottomSheet 내용 업데이트 및 확장
+        onMarkerClicked(marker);
+    }
+
 
     private void onFilterClicked(View view) {
         Button clickedButton = (Button) view;
