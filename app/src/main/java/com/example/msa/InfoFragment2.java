@@ -33,7 +33,6 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //super.onCreateView(inflater, container, savedInstanceState);
         NaverMapSdk.getInstance(requireContext()).setClient(new NaverMapSdk.NaverCloudPlatformClient("lubhho3zva"));
 
         View view = inflater.inflate(R.layout.fragment_info2, container, false);
@@ -62,7 +61,20 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
     public boolean onClick(@NonNull Overlay overlay) {
         if (overlay instanceof Marker) {
             Marker clickedMarker = (Marker) overlay;
-            // 여기에서 필요한 동작 수행
+            String caption = clickedMarker.getCaptionText();
+
+            InfoFragment3 infoFragment3 = new InfoFragment3();
+            Bundle args = new Bundle();
+            args.putString("markerName", caption);
+            infoFragment3.setArguments(args);
+
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, infoFragment3)
+                    .addToBackStack(null)
+                    .commit();
+
+
+
             return true;
         }
         return false;
@@ -87,20 +99,11 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
             marker.setIcon(OverlayImage.fromResource(R.drawable.ic_marker));
             marker.setMap(naverMap);
 
-            // 마커 클릭 리스너 설정
-            //marker.setOnClickListener(this); // 프래그먼트가 클릭 리스너를 처리하도록 설정
+            //마커 클릭 리스너 설정
+            marker.setOnClickListener(this); // 프래그먼트가 클릭 리스너를 처리하도록 설정
 
-            marker.setOnClickListener(overlay ->{
-                //다른 fragment로 전환
-                InfoFragment3 childFragment = new InfoFragment3();
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, childFragment)
-                        .addToBackStack(null) // 뒤로 가기 시 이전 프래그먼트로 돌아가기 가능
-                        .commit();
-                return true;
-            });
-            // 마커를 리스트에 추가 (필요 시 사용)
             markers.add(new MapMarker(marker));
+            // 마커 클릭 시 이벤트 처리
         } catch (Exception e) {
             e.printStackTrace();
             // 필요 시 사용자에게 오류 메시지 표시
@@ -129,7 +132,6 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback, Overl
         addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭");
         addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선");
         addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마");
-
     }
 
     @Override

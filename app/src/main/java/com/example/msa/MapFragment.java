@@ -249,15 +249,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Color.RED, Category.RIDING);
         addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Color.YELLOW, Category.RIDING);
 
-        addMapMarker(new LatLng(37.510000, 127.098000), "맛집 A", Color.BLUE, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.509000, 127.097500), "맛집 B", Color.BLUE, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.510776900704585, 127.09908127784729), "구복만두", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.510452000958864, 127.0965120788493), "명동할머니국수", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.51050881855063, 127.09903836250305), "라라코스트", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.51202643912463, 127.09936594924115), "여섯시오븐", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "롯데호텔월드 도림", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.5112875307151, 127.09793865680695), "아우어베이커리", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Color.RED, Category.RESTAURANT);
+        addMapMarker(new LatLng(37.508925590377515,127.1006056053824 ), "샬레카페", Color.RED, Category.RESTAURANT);
 
 
-        addMapMarker(new LatLng(37.507000, 127.100000), "카페 A", Color.MAGENTA, Category.CAFE);
-        addMapMarker(new LatLng(37.506500, 127.101000), "카페 B", Color.MAGENTA, Category.CAFE);
+        addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.51089029383816, 127.09797656497143), "투썸플레이스 롯데월드점", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.51158815291703, 127.09855592211865), "공차 롯데월드점", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.51209664978282, 127.09877586325787), "풀바셋", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.511098801197626, 127.09975755175732), "엔제리너스", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.50898091016943, 127.09947907759614), "투썸플레이스 롯데월드매직아일랜드점", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Color.RED, Category.CAFE);
+        addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Color.RED, Category.CAFE);
 
-        addMapMarker(new LatLng(37.508500, 127.099500), "편의점 A", Color.GRAY, Category.CONVENIENCE);
-        addMapMarker(new LatLng(37.509500, 127.098500), "편의점 B", Color.GRAY, Category.CONVENIENCE);
+
+        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Color.RED, Category.CONVENIENCE);
+        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Color.RED, Category.CONVENIENCE);
 
         setMoveLocation(37.51103128734522, 127.09836284873701);
 
