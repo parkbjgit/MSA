@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,13 +23,12 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.CircleOverlay;
 import com.naver.maps.map.overlay.OverlayImage;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-
-    // Define category enum
     public enum Category {
         RIDING,
         RESTAURANT,
@@ -55,6 +56,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private NaverMap naverMap; // NaverMap instance
     private MapView map_fragment; // MapView instance
     private Button selectedButton;
+    private TextView markerinformation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,6 +133,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         naverMap.moveCamera(cameraUpdate);
     }
 
+
     private void addMapMarker(LatLng position, String caption, Integer color, Category category) {
         // Create and configure the marker
         Marker marker = new Marker();
@@ -167,6 +170,66 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 convenienceMarkers.add(mapMarker);
                 break;
         }
+
+        marker.setOnClickListener(overlay -> {
+            onMarkerClicked(marker);
+            return true;
+        });
+    }
+
+    //marker를 클릭했을때 해당 마커의 정보를 보여주는 bottomsheet 호출
+    public void onMarkerClicked(Marker clickedMarker) {
+        String caption = null;
+        Category clickedCategory = null;
+        markerinformation = getView().findViewById(R.id.bottom_sheet_text);
+
+        // 마커가 속한 카테고리와 캡션을 찾기
+        for (MapMarker mapMarker : ridingMarkers) {
+            if (mapMarker.marker.equals(clickedMarker)) {
+                caption = mapMarker.marker.getCaptionText();
+                clickedCategory = mapMarker.category;
+                break;
+            }
+        }
+
+        if (caption == null) { // 다른 카테고리에서도 찾기
+            for (MapMarker mapMarker : restaurantMarkers) {
+                if (mapMarker.marker.equals(clickedMarker)) {
+                    caption = mapMarker.marker.getCaptionText();
+                    clickedCategory = mapMarker.category;
+                    break;
+                }
+            }
+        }
+
+        if (caption == null) {
+            for (MapMarker mapMarker : cafeMarkers) {
+                if (mapMarker.marker.equals(clickedMarker)) {
+                    caption = mapMarker.marker.getCaptionText();
+                    clickedCategory = mapMarker.category;
+                    break;
+                }
+            }
+        }
+
+        if (caption == null) {
+            for (MapMarker mapMarker : convenienceMarkers) {
+                if (mapMarker.marker.equals(clickedMarker)) {
+                    caption = mapMarker.marker.getCaptionText();
+                    clickedCategory = mapMarker.category;
+                    break;
+                }
+            }
+        }
+
+        // Create a new BottomSheet instance
+        BottomSheet bottomSheet = new BottomSheet();
+        Bundle args = new Bundle();
+        args.putString("markerName", caption);
+        bottomSheet.setArguments(args);
+
+        // Show the BottomSheet
+        bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
     }
 
     private void showCategory(Category category) {
@@ -281,6 +344,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         showCategory(Category.RIDING);
     }
+
 
     @Override
     public void onStart() {

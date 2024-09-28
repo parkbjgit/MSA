@@ -24,7 +24,6 @@ public class InfoFragment3 extends Fragment {
             markerNameTextView.setText(markerName);
         }
 
-
         return view;
     }
 }
