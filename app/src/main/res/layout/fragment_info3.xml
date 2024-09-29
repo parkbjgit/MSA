@@ -11,7 +11,7 @@
         android:id="@+id/choiced_facility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ex)자이로드롭"
+        android:text="시설명"
         android:textSize="25sp"
         android:gravity="center"/>
     <!-- 오전 텍스트 -->
@@ -331,5 +331,15 @@
             android:textColor="#FFFFFF"
             android:textSize="12sp"/>
     </GridLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="선택완료"
+            android:background="@drawable/btn_background_green"
+            android:textSize="17sp"
+            android:layout_marginTop="20dp"
+        />
+
 
 </LinearLayout>
