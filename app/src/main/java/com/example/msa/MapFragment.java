@@ -33,6 +33,7 @@ import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     public enum Category {
+        ALL,
         RIDING,
         RESTAURANT,
         CAFE,
@@ -65,6 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Button selectedButton;
     private TextView markerInformation;
     private EditText searchEditText;
+    private Category currentCategory = Category.ALL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map_fragment.getMapAsync(this);
 
         // 필터 버튼 및 리스너 초기화
+        Button allFilter = view.findViewById(R.id.all_filter);
         Button ridingFilter = view.findViewById(R.id.riding_filter);
         Button restaurantFilter = view.findViewById(R.id.restaurant_filter);
         Button cafeFilter = view.findViewById(R.id.cafe_filter);
@@ -96,10 +99,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
 
         // 초기 선택된 필터 버튼 설정
-        selectedButton = ridingFilter;
-        ridingFilter.setSelected(true);
+        selectedButton = allFilter;
+        allFilter.setSelected(true);
 
         // 필터 버튼 클릭 리스너 설정
+        allFilter.setOnClickListener(this::onFilterClicked);
         ridingFilter.setOnClickListener(this::onFilterClicked);
         restaurantFilter.setOnClickListener(this::onFilterClicked);
         cafeFilter.setOnClickListener(this::onFilterClicked);
@@ -120,13 +124,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         boolean found = false;
 
         // 모든 카테고리 마커를 순회하며 검색
-        List<MapMarker> allMarkers = new ArrayList<>();
-        allMarkers.addAll(ridingMarkers);
-        allMarkers.addAll(restaurantMarkers);
-        allMarkers.addAll(cafeMarkers);
-        allMarkers.addAll(convenienceMarkers);
+        List<MapMarker> searchMarkers = new ArrayList<>();
+        switch (currentCategory) {
+            case ALL:
+                searchMarkers.addAll(ridingMarkers);
+                searchMarkers.addAll(restaurantMarkers);
+                searchMarkers.addAll(cafeMarkers);
+                searchMarkers.addAll(convenienceMarkers);
+                break;
+            case RIDING:
+                searchMarkers.addAll(ridingMarkers);
+                break;
+            case CAFE:
+                searchMarkers.addAll(cafeMarkers);
+                break;
+            case RESTAURANT:
+                searchMarkers.addAll(restaurantMarkers);
+                break;
+            case CONVENIENCE:
+                searchMarkers.addAll(convenienceMarkers);
+                break;
+        }
 
-        for (MapMarker mapMarker : allMarkers) {
+        for (MapMarker mapMarker : searchMarkers) {
             if (mapMarker.marker.getCaptionText().equalsIgnoreCase(searchText)) {
                 // 카메라 이동
                 moveCameraToMarker(mapMarker.marker);
@@ -170,7 +190,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // 클릭된 버튼에 따라 카테고리 선택
         Category selectedCategory;
 
-        if (view.getId() == R.id.riding_filter) {
+        if (view.getId() == R.id.all_filter) {
+            selectedCategory = Category.ALL;
+        } else if (view.getId() == R.id.riding_filter) {
             selectedCategory = Category.RIDING;
         } else if (view.getId() == R.id.restaurant_filter) {
             selectedCategory = Category.RESTAURANT;
@@ -181,6 +203,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } else {
             selectedCategory = Category.RIDING; // 기본 카테고리
         }
+
+        currentCategory = selectedCategory;
 
         // 선택된 카테고리의 마커들만 표시
         showCategory(selectedCategory);
@@ -197,6 +221,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         uiSettings.setScaleBarEnabled(false); // 축척 바 비활성화
         uiSettings.setLocationButtonEnabled(false); // 위치 버튼 비활성화
         uiSettings.setZoomControlEnabled(false); // 줌 컨트롤 비활성화
+        uiSettings.setLogoMargin(1000, 200, 300, 400);
+        uiSettings.setLogoClickEnabled(false);
     }
 
     /**
@@ -225,7 +251,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (color != null) {
             circle = new CircleOverlay();
             circle.setCenter(position);
-            circle.setRadius(45); // 반경 설정 (미터 단위)
+            circle.setRadius(20); // 반경 설정 (미터 단위)
             circle.setColor(Color.argb(80, Color.red(color), Color.green(color), Color.blue(color))); // 80% 투명도 적용
             circle.setMap(naverMap);
         }
@@ -311,38 +337,68 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
     }
 
-    /**
-     * 선택된 카테고리의 마커만 표시하는 메소드
-     */
+
     private void showCategory(Category category) {
         hideAllMarkers(); // 모든 마커를 숨김
 
-        List<MapMarker> markersToShow;
-        switch (category) {
-            case RIDING:
-                markersToShow = ridingMarkers;
-                break;
-            case RESTAURANT:
-                markersToShow = restaurantMarkers;
-                break;
-            case CAFE:
-                markersToShow = cafeMarkers;
-                break;
-            case CONVENIENCE:
-                markersToShow = convenienceMarkers;
-                break;
-            default:
-                markersToShow = new ArrayList<>();
-        }
+        if (category == Category.ALL) {
+            // 모든 카테고리의 마커를 표시
+            for (MapMarker mapMarker : ridingMarkers) {
+                mapMarker.marker.setMap(naverMap);
+                if (mapMarker.circle != null) {
+                    mapMarker.circle.setMap(naverMap);
+                }
+            }
 
-        // 선택된 카테고리의 마커와 서클 오버레이를 지도에 표시
-        for (MapMarker mapMarker : markersToShow) {
-            mapMarker.marker.setMap(naverMap);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setMap(naverMap);
+            for (MapMarker mapMarker : restaurantMarkers) {
+                mapMarker.marker.setMap(naverMap);
+                if (mapMarker.circle != null) {
+                    mapMarker.circle.setMap(naverMap);
+                }
+            }
+
+            for (MapMarker mapMarker : cafeMarkers) {
+                mapMarker.marker.setMap(naverMap);
+                if (mapMarker.circle != null) {
+                    mapMarker.circle.setMap(naverMap);
+                }
+            }
+
+            for (MapMarker mapMarker : convenienceMarkers) {
+                mapMarker.marker.setMap(naverMap);
+                if (mapMarker.circle != null) {
+                    mapMarker.circle.setMap(naverMap);
+                }
+            }
+        } else {
+            // 선택된 카테고리의 마커만 표시
+            List<MapMarker> markersToShow;
+            switch (category) {
+                case RIDING:
+                    markersToShow = ridingMarkers;
+                    break;
+                case RESTAURANT:
+                    markersToShow = restaurantMarkers;
+                    break;
+                case CAFE:
+                    markersToShow = cafeMarkers;
+                    break;
+                case CONVENIENCE:
+                    markersToShow = convenienceMarkers;
+                    break;
+                default:
+                    markersToShow = new ArrayList<>();
+            }
+
+            for (MapMarker mapMarker : markersToShow) {
+                mapMarker.marker.setMap(naverMap);
+                if (mapMarker.circle != null) {
+                    mapMarker.circle.setMap(naverMap);
+                }
             }
         }
     }
+
 
     /**
      * 모든 마커를 지도에서 숨기는 메소드
@@ -429,7 +485,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         setMoveLocation(37.51103128734522, 127.09836284873701);
 
-        showCategory(Category.RIDING);
+        showCategory(Category.ALL);
     }
 
 
