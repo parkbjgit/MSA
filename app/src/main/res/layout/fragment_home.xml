@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff"
-    tools:context=".ReservationFragment">
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        android:layout_marginTop="-150dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/qr" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_ticket_reservation"
+        android:background="@drawable/recyclerview_round"
+        android:orientation="horizontal"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
+        android:textAlignment="center"
+        android:gravity="center"
         android:layout_marginTop="100dp"
         android:text="입장권 구매"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
-
-</FrameLayout>
+</LinearLayout>
