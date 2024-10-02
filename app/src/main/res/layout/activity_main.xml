@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:menu="@menu/btm_navi_menu"
-        app:itemBackground="@android:color/black">
+        app:itemBackground="@color/black"
+        app:itemIconTint="@color/white">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 </LinearLayout>

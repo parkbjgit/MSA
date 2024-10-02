@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#2C2C2C"
+    android:background="#282828"
     android:padding="10dp">
 
 
@@ -33,15 +33,15 @@
         android:alignmentMode="alignBounds"
         android:layout_marginBottom="16dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:layout_margin="4dp"
             android:text="10:00"
-            android:backgroundTint="#4A4A4A"
             android:textColor="#FFFFFF"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            />
 
         <Button
             android:layout_width="0dp"
@@ -332,11 +332,10 @@
             android:textSize="12sp"/>
     </GridLayout>
 
-        <Button
+        <android.widget.Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="선택완료"
-            android:background="@drawable/btn_background_green"
             android:textSize="17sp"
             android:layout_marginTop="20dp"
         />

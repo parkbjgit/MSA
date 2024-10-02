@@ -5,14 +5,14 @@
     xmlns:radius="http://schemas.android.com/apk/res-auto"
     tools:context=".MapFragment">
 
-    <!-- 지도 뷰 -->
+    <!-- 검색창 및 필터 버튼 영역 -->
+
     <com.naver.maps.map.MapView
         android:id="@+id/map_fragment"
         android:name="com.naver.maps.map.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- 검색창 및 필터 버튼 영역 -->
     <LinearLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/btn_black"
+            android:background="@drawable/map_filter_black"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
             android:fontFamily="@font/cookieregular"
@@ -59,35 +59,38 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/all_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="41dp"
-                android:background="@drawable/button_background"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:background="@drawable/map_filter_selecter"
+                android:padding="8dp"
                 android:text="전체"
                 android:textColor="#ffffff"
-                android:padding="8dp"
-                />
+                android:textSize="14sp" />
 
             <!-- "놀이기구" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/riding_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="41dp"
-                android:background="@drawable/button_background"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:background="@drawable/map_filter_selecter"
                 android:text="놀이기구"
                 android:textColor="#ffffff"
+                android:textSize="14sp"
                 android:padding="8dp"
+                android:layout_marginLeft="8dp"
                 />
 
             <!-- "음식점" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/restaurant_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="41dp"
-                android:background="@drawable/button_background"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:background="@drawable/map_filter_selecter"
                 android:text="음식점"
                 android:textColor="#ffffff"
+                android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"/>
 
@@ -95,11 +98,12 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cafe_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="41dp"
-                android:background="@drawable/button_background"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:background="@drawable/map_filter_selecter"
                 android:text="카페"
                 android:textColor="#ffffff"
+                android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"/>
 
@@ -107,11 +111,12 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/convenience_filter"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="41dp"
-                android:background="@drawable/button_background"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:background="@drawable/map_filter_selecter"
                 android:text="편의점"
                 android:textColor="#ffffff"
+                android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"/>
         </LinearLayout>
