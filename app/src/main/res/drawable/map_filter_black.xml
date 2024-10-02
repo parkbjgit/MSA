@@ -2,8 +2,13 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" android:padding = "10dp">
     <!-- 버튼 색깔 -->
-    <solid android:color="#FFFFFF"/>
+    <solid android:color="#121212"/>
     <!-- 네 귀퉁이? 모양 -->
     <corners
-        android:radius="10dp"/>
+        android:radius="13dp"/>
+
+    <!-- 버튼 테두리 -->
+    <stroke
+        android:width="0.2dp"
+        android:color="#f5f5f5"/>
 </shape>
