@@ -50,5 +50,5 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     //implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
 
-    implementation ("com.akexorcist:RoundCornerProgressBar:2.0.3")
+    implementation ("com.google.android.gms:play-services-auth:20.5.0") //구글 로그인
 }
