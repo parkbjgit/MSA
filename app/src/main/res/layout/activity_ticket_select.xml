@@ -1,55 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
+    android:padding="8dp"
     tools:context=".TicketSelectActivity">
 
     <TextView
-        android:id="@+id/header_title"
+        android:id="@+id/ticket_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:text="티켓을 예매할 시설을 선택하세요"
-        android:textAlignment="center"
-        android:textSize="22dp" />
-
-    <ImageButton
-        android:id="@+id/ticket1"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/header_title"
-        android:layout_marginLeft="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/everland_logo" />
+        android:text="구매할 입장권을 선택하세요"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ImageButton
-        android:id="@+id/ticket2"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/header_title"
-        android:layout_marginLeft="230dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ticket_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/lotteworld_logo" />
+        app:layout_constraintTop_toBottomOf="@id/ticket_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ImageButton
-        android:id="@+id/ticket3"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/ticket1"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/edittext_bg" />
-
-    <ImageButton
-        android:id="@+id/ticket4"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/ticket2"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/edittext_bg" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

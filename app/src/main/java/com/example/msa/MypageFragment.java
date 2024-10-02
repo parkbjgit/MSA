@@ -1,5 +1,6 @@
 package com.example.msa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,58 +8,34 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MypageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MypageFragment extends Fragment {
+public class MypageFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+        Button facilityadd = view.findViewById(R.id.btn_facility_add);
+        Button logout = view.findViewById(R.id.btnLogout);
+        //버튼 클릭 리스터 등록
+        facilityadd.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
-    public MypageFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MypageFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MypageFragment newInstance(String param1, String param2) {
-        MypageFragment fragment = new MypageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        return view;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_facility_add) {
+            Toast.makeText(getActivity(), "관리자 승인 계정만 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (view.getId() == R.id.btnLogout) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage, container, false);
-    }
 }
