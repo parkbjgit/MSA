@@ -25,7 +25,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        markerNameTextView = view.findViewById(R.id.bottom_sheet_text);
+        markerNameTextView = view.findViewById(R.id.facility_name);
         Bundle args = getArguments();
         if (args != null) {
             String markerName = args.getString("markerName");

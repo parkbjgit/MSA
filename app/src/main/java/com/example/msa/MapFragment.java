@@ -215,6 +215,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setIndoorEnabled(true); // 실내 지도 활성화
         naverMap.setNightModeEnabled(true); // 야간 모드 활성화
         naverMap.setMapType(NaverMap.MapType.Navi); // 지도 타입을 네비게이션 모드로 설정
+        //건물정보들 끄기
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, false);
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING,false);
+
 
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setCompassEnabled(false); // 나침반 비활성화
@@ -223,6 +227,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         uiSettings.setZoomControlEnabled(false); // 줌 컨트롤 비활성화
         uiSettings.setLogoMargin(1000, 200, 300, 400);
         uiSettings.setLogoClickEnabled(false);
+
     }
 
     /**
@@ -286,7 +291,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMarkerClicked(Marker clickedMarker) {
         String caption = null;
         Category clickedCategory = null;
-        markerInformation = getView().findViewById(R.id.bottom_sheet_text);
+        markerInformation = getView().findViewById(R.id.facility_name);
 
         // 클릭된 마커가 속한 카테고리와 캡션을 찾기
         for (MapMarker mapMarker : ridingMarkers) {

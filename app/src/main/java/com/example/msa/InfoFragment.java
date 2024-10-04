@@ -22,16 +22,16 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         //예약하러 가기 버튼
         Button go_reservation = view.findViewById(R.id.btn_go_reservation);
 
-        recyclerView = view.findViewById(R.id.recyclerview);
+        //recyclerView = view.findViewById(R.id.recyclerview);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager((getActivity()));
-        recyclerView.setLayoutManager(layoutManager);
-
-        lists = getResources().getStringArray(R.array.reservation_lists);
-        times = getResources().getStringArray(R.array.reservation_times);
-
-        Reservation_Adapter reservationAdapter = new Reservation_Adapter(getActivity(), lists, times);
-        recyclerView.setAdapter(reservationAdapter);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager((getActivity()));
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        lists = getResources().getStringArray(R.array.reservation_lists);
+//        times = getResources().getStringArray(R.array.reservation_times);
+//
+//        Reservation_Adapter reservationAdapter = new Reservation_Adapter(getActivity(), lists, times);
+//        recyclerView.setAdapter(reservationAdapter);
 
         // 버튼 클릭 이벤트 리스너
         go_reservation.setOnClickListener(this);
