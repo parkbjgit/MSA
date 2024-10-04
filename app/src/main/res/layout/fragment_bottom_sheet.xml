@@ -1,44 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".BottomSheet"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="#121212">
 
+    <!-- 시설 이름 -->
     <TextView
+        android:id="@+id/facility_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bottomsheet\n놀이기구나 가게 정보,리뷰들\n카드뷰로 보여주기"
-
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:text="놀이기구 이름"
+        android:textSize="24sp"
+        android:textColor="#F5F5F5"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        />
-    <LinearLayout
+        android:layout_marginBottom="10dp"/>
+
+    <!-- 시설 설명 -->
+    <TextView
+        android:id="@+id/facility_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/bottom_sheet_text"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="text"
-            android:layout_marginRight="5dp"
-            />
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="닫기"
-            android:layout_marginLeft="5dp"
-            />
-    </LinearLayout>
+        android:text="이곳은 놀이기구에 대한 상세한 설명이 들어갑니다. 방문객들이 이해하기 쉽도록 명확하고 간결하게 작성해주세요."
+        android:textSize="16sp"
+        android:textColor="#F5F5F5"
+
+        android:layout_marginBottom="15dp"/>
+
+    <!-- 리뷰 섹션 제목 -->
+    <TextView
+        android:id="@+id/reviews_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="리뷰"
+        android:textSize="20sp"
+        android:textColor="#F5F5F5"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- 리뷰 목록을 담을 ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/reviews_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 예시 리뷰 MaterialCardView -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="#FFFFFF"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="#1A1A1A"> <!-- 다크 그레이 배경 -->
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/review_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="작성자 이름"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#F5F5F5"/>
+
+                    <TextView
+                        android:id="@+id/review_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="여기에 리뷰 내용이 들어갑니다. 사용자들이 작성한 실제 리뷰를 표시합니다."
+                        android:textSize="14sp"
+                        android:textColor="#F5F5F5"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 추가적인 리뷰 MaterialCardView는 동적으로 추가 -->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 닫기 버튼 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="닫기"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

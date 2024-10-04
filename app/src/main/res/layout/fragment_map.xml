@@ -1,8 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:radius="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:radius="http://schemas.android.com/apk/res-auto"
     tools:context=".MapFragment">
 
     <!-- 검색창 및 필터 버튼 영역 -->
@@ -23,7 +25,6 @@
         android:padding="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
-
 
         <EditText
             android:id="@+id/editFindSearch"
@@ -51,7 +52,7 @@
         android:paddingRight="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -64,8 +65,9 @@
                 android:background="@drawable/map_filter_selecter"
                 android:padding="8dp"
                 android:text="전체"
-                android:textColor="#ffffff"
-                android:textSize="14sp" />
+                android:textColor="#f5f5f5"
+                android:textSize="14sp"
+            android:drawablePadding="8dp" />
 
             <!-- "놀이기구" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
@@ -75,11 +77,11 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="놀이기구"
-                android:textColor="#ffffff"
+                android:textColor="#f5f5f5"
                 android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"
-                />
+            android:drawablePadding="8dp" />
 
             <!-- "음식점" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
@@ -89,10 +91,11 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="음식점"
-                android:textColor="#ffffff"
+                android:textColor="#f5f5f5"
                 android:textSize="14sp"
                 android:padding="8dp"
-                android:layout_marginLeft="8dp"/>
+                android:layout_marginLeft="8dp"
+            android:drawablePadding="8dp" />
 
             <!-- "카페" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
@@ -102,10 +105,11 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="카페"
-                android:textColor="#ffffff"
+                android:textColor="#f5f5f5"
                 android:textSize="14sp"
                 android:padding="8dp"
-                android:layout_marginLeft="8dp"/>
+                android:layout_marginLeft="8dp"
+            android:drawablePadding="8dp" />
 
             <!-- "편의점" 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
@@ -115,13 +119,90 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="편의점"
-                android:textColor="#ffffff"
+                android:textColor="#f5f5f5"
                 android:textSize="14sp"
                 android:padding="8dp"
-                android:layout_marginLeft="8dp"/>
+                android:layout_marginLeft="8dp"
+            android:drawablePadding="8dp" />
         </LinearLayout>
     </HorizontalScrollView>
 
+    <!-- 혼잡도 표시 영역 (오른쪽 아래) -->
+    <LinearLayout
+        android:id="@+id/congestion_indicators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/congestion_info"
+    android:padding="8dp"
+    android:elevation="4dp">
+
+    <!-- 매우 혼잡 (빨강) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_red_congestion" /> <!-- 빨강색 아이콘 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="매우 혼잡"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <!-- 조금 혼잡 (노랑) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_yellow_congestion" /> <!-- 노랑색 아이콘 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="혼잡"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <!-- 여유 (초록) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_green_congestion" /> <!-- 초록색 아이콘 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여유"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+</LinearLayout>
 
 </RelativeLayout>
-
