@@ -51,4 +51,8 @@ dependencies {
     //implementation ("com.github.pedroSG94:AutoPermission:1.0.3")
 
     implementation ("com.google.android.gms:play-services-auth:20.5.0") //구글 로그인
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 }

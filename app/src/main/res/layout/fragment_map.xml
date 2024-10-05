@@ -37,7 +37,7 @@
             android:fontFamily="@font/cookieregular"
             android:hint="검색어를 입력해주세요."
             android:padding="13dp"
-            android:textColor="#FFFFFF"
+            android:textColor="#F5F5F5"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -156,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="매우 혼잡"
-            android:textColor="#FFFFFF"
+            android:textColor="#F5F5F5"
             android:textSize="12sp"
             android:layout_marginStart="4dp" />
     </LinearLayout>
@@ -177,7 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="혼잡"
-            android:textColor="#FFFFFF"
+            android:textColor="#F5F5F5"
             android:textSize="12sp"
             android:layout_marginStart="4dp" />
     </LinearLayout>
@@ -198,7 +198,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="여유"
-            android:textColor="#FFFFFF"
+            android:textColor="#F5F5F5"
             android:textSize="12sp"
             android:layout_marginStart="4dp" />
     </LinearLayout>
