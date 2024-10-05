@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="예약"
+            android:text="마커 클릭->예약"
             android:textStyle="bold"
             android:textSize="25dp"
             android:gravity="center" />
