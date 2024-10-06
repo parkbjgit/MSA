@@ -68,16 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private void switchFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (activeFragment != null) {
-            transaction.hide(activeFragment);
-        }
-
-        if (!fragment.isAdded()) {
-            transaction.add(R.id.fragment_container, fragment);
-        } else {
-            transaction.show(fragment);
-        }
-
+        // Replace fragment instead of adding and hiding previous fragments
+        transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
         activeFragment = fragment;
     }
