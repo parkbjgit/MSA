@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="top"
-            app:srcCompat="@drawable/ic_mypage" />
+            app:srcCompat="@drawable/profile_icon" />
 
         <TextView
             android:id="@+id/my_name"
@@ -29,7 +30,7 @@
             android:layout_toEndOf="@id/my_profile_img"
             android:gravity="center_vertical"
             android:text="name"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="24dp" />
 
     </LinearLayout>
@@ -48,28 +49,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/recyclerview_round"
+            android:textColor="#121212"
+            android:backgroundTint="#FFEB3B"
             android:gravity="center"
             android:text="시설 등록하기"
-            android:textSize="20sp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btntemp1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/recyclerview_round"
-            android:gravity="center"
-            android:text="기능1"
-            android:textSize="20sp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btntemp2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/recyclerview_round"
-            android:gravity="center"
-            android:text="기능2"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -78,6 +61,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/recyclerview_round"
+            android:textColor="#121212"
+            android:backgroundTint="#FF3D00"
             android:gravity="center"
             android:text="로그아웃"
             android:textSize="20sp" />

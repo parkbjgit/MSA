@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".InfoFragment">
 
     <TextView
@@ -10,19 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="30dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="입장권 구매"
         android:textStyle="bold"
-        android:textSize="25dp"
+        android:textSize="32sp"
         android:gravity="center" />
 
     <TextView
         android:id="@+id/sub_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="입장권 정보"
-        android:textSize="20dp"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"
         android:gravity="center|left"
@@ -32,10 +33,10 @@
     <TextView
         android:id="@+id/name_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:textColor="@color/black"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
         android:text="시설명 : "
-        android:textSize="18dp"
+        android:textSize="24sp"
         android:layout_marginTop="20dp"
         android:gravity="center|left"
         android:paddingLeft="40dp"
@@ -44,14 +45,51 @@
     <TextView
         android:id="@+id/date_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:textColor="@color/black"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
         android:text="입장 날짜 : "
-        android:textSize="18dp"
+        android:textSize="24sp"
         android:layout_marginTop="20dp"
         android:gravity="center|left"
         android:paddingLeft="40dp"
         android:layout_below="@+id/name_title" />
+
+    <TextView
+        android:id="@+id/ticket_quantity_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
+        android:text="입장권 수 : "
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:gravity="center|left"
+        android:paddingLeft="40dp"
+        android:layout_below="@id/date_title" />
+
+    <!--
+    <Spinner
+        android:id="@+id/ticket_quantity_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/ticket_quantity_title"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:background="@drawable/spinner_background" />
+
+
+    <TextView
+        android:id="@+id/price_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="가격 : 0 원"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center|left"
+        android:paddingLeft="40dp"
+        android:layout_below="@id/ticket_quantity_spinner" />
+    -->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -71,8 +109,9 @@
             android:background="@drawable/recyclerview_round"
             android:gravity="center"
             android:text="취소"
-            android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textColor="#121212"
+            android:backgroundTint="#FF3D00"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
         <android.widget.Button
@@ -82,8 +121,9 @@
             android:background="@drawable/recyclerview_round"
             android:gravity="center"
             android:text="결제"
-            android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textColor="#121212"
+            android:backgroundTint="#FFEB3B"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
     </LinearLayout>

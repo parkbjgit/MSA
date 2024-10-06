@@ -3,18 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#121212">
 
-    <ImageView
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:background="@drawable/qr" />
+        android:text="구매한 입장권이 없습니다!"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imageViewQRCode"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:visibility="gone" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_ticket_reservation"
         android:background="@drawable/recyclerview_round"
+        android:textColor="#121212"
+        android:backgroundTint="#FFEB3B"
         android:orientation="horizontal"
         android:layout_width="300dp"
         android:layout_height="70dp"
