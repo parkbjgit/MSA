@@ -8,12 +8,22 @@
     android:padding="20dp"
     android:background="#121212">
 
+    <!-- 시설 이미지 -->
+    <ImageView
+        android:id="@+id/facility_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/atlantis"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="시설 이미지" />
+
     <!-- 시설 이름 -->
     <TextView
         android:id="@+id/facility_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="놀이기구 이름"
+        android:text="시설 이름"
         android:textSize="24sp"
         android:textColor="#F5F5F5"
         android:layout_gravity="center"
@@ -24,11 +34,40 @@
         android:id="@+id/facility_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이곳은 놀이기구에 대한 상세한 설명이 들어갑니다. 방문객들이 이해하기 쉽도록 명확하고 간결하게 작성해주세요."
+        android:text="최고 스릴 어트랙션! 시속 72km로 출발하는 보트를 타고 \n미스터리 신전 속으로 여행을 떠나보세요!"
         android:textSize="16sp"
         android:textColor="#F5F5F5"
-
         android:layout_marginBottom="15dp"/>
+
+    <!-- 별점 섹션 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="별점: "
+            android:textSize="16sp"
+            android:textColor="#F5F5F5"
+            android:layout_gravity="center_vertical"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            android:rating="4.5"
+            android:layout_gravity="center_vertical"
+            android:progressTint="#FFD700" /> <!-- 별 색상: 금색 -->
+    </LinearLayout>
 
     <!-- 리뷰 섹션 제목 -->
     <TextView
@@ -52,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- 예시 리뷰 MaterialCardView -->
+            <!-- 예시 리뷰 1 MaterialCardView -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +100,7 @@
                 app:cardCornerRadius="10dp"
                 app:strokeColor="#FFFFFF"
                 app:strokeWidth="1dp"
-                app:cardBackgroundColor="#1A1A1A"> <!-- 다크 그레이 배경 -->
+                app:cardBackgroundColor="#1A1A1A">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -69,28 +108,92 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <!-- 리뷰 작성자 이름 -->
                     <TextView
                         android:id="@+id/review_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="작성자 이름"
+                        android:text="user1"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:textColor="#F5F5F5"/>
 
+                    <!-- 리뷰 별점 -->
+                    <RatingBar
+                        android:id="@+id/review_ratingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="0.5"
+                        android:isIndicator="true"
+                        android:rating="4.5"
+                        android:progressTint="#FFD700"
+                        android:layout_marginTop="4dp"/>
+
+                    <!-- 리뷰 내용 -->
                     <TextView
                         android:id="@+id/review_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="여기에 리뷰 내용이 들어갑니다. 사용자들이 작성한 실제 리뷰를 표시합니다."
+                        android:text="정말 재미있었어요! 다시 오고 싶습니다."
                         android:textSize="14sp"
                         android:textColor="#F5F5F5"
                         android:layout_marginTop="5dp"/>
-
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 추가적인 리뷰 MaterialCardView는 동적으로 추가 -->
+            <!-- 예시 리뷰 2 MaterialCardView -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="#FFFFFF"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="#1A1A1A">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- 리뷰 작성자 이름 -->
+                    <TextView
+                        android:id="@+id/review_author2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user2"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#F5F5F5"/>
+
+                    <!-- 리뷰 별점 -->
+                    <RatingBar
+                        android:id="@+id/review_ratingBar2"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="0.5"
+                        android:isIndicator="true"
+                        android:rating="4.5"
+                        android:progressTint="#FFD700"
+                        android:layout_marginTop="4dp"/>
+
+                    <!-- 리뷰 내용 -->
+                    <TextView
+                        android:id="@+id/review_content2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="너무 재밌어요!"
+                        android:textSize="14sp"
+                        android:textColor="#F5F5F5"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
@@ -102,8 +205,7 @@
         android:layout_height="wrap_content"
         android:text="닫기"
         android:textColor="#FFFFFF"
-        android:padding="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"/>
-
+    android:padding="12dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"/>
 </LinearLayout>

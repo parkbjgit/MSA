@@ -256,7 +256,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (color != null) {
             circle = new CircleOverlay();
             circle.setCenter(position);
-            circle.setRadius(20); // 반경 설정 (미터 단위)
+            circle.setRadius(30); // 반경 설정 (미터 단위)
             circle.setColor(Color.argb(80, Color.red(color), Color.green(color), Color.blue(color))); // 80% 투명도 적용
             circle.setMap(naverMap);
         }
