@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MSA" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="windowNoTitle">true</item>
+
+    <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
@@ -13,6 +14,8 @@
         <item name="android:editTextStyle">@font/cookieregular</item>
         <item name="android:radioButtonStyle">@font/cookieregular</item>
         <item name="android:checkboxStyle">@font/cookieregular</item>
+
+        <item name="colorControlHighlight">@color/onclick_btn</item>
     </style>
 
     <style name="Theme.MSA" parent="Base.Theme.MSA" />
