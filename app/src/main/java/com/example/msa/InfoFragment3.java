@@ -12,6 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +23,10 @@ import retrofit2.Response;
 public class InfoFragment3 extends Fragment {
     private TextView markerNameTextView;
     private View choiceCompleteButton;
+
+    // 리스트로 버튼들을 관리
+    private List<AppCompatButton> morningButtons = new ArrayList<>();
+    private List<AppCompatButton> afternoonButtons = new ArrayList<>();
 
     @Nullable
     @Override
@@ -33,14 +41,14 @@ public class InfoFragment3 extends Fragment {
         GridLayout gridLayoutAfternoon = view.findViewById(R.id.gridLayoutAfternoon);
 
         // 오전, 오후 시간 배열 정의
-        String[] timesMorning = {"10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
+        String[] timesMorning = {"9:00", "9:15", "9:30", "9:45"," 10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
         String[] timesAfternoon = {"12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45", "2:00", "2:15", "2:30", "2:45", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45"};
 
         // 오전 버튼 생성
-        createButtonsForTime(gridLayoutMorning, timesMorning);
+        createButtonsForTime(gridLayoutMorning, timesMorning, morningButtons);
 
         // 오후 버튼 생성
-        createButtonsForTime(gridLayoutAfternoon, timesAfternoon);
+        createButtonsForTime(gridLayoutAfternoon, timesAfternoon, afternoonButtons);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -51,7 +59,7 @@ public class InfoFragment3 extends Fragment {
             choiceCompleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    enqueueUser(markerName, "1");  // 사용자 ID는 적절히 수정하세요
+                    enqueueUser(markerName, "1");  // 임의 사용자 ID:1
                 }
             });
         }
@@ -81,7 +89,7 @@ public class InfoFragment3 extends Fragment {
         });
     }
 
-    private void createButtonsForTime(GridLayout gridLayout, String[] times) {
+    private void createButtonsForTime(GridLayout gridLayout, String[] times, List<AppCompatButton> buttonList) {
         for (String time : times) {
             AppCompatButton button = new AppCompatButton(getContext());
             button.setText(time);
@@ -100,12 +108,17 @@ public class InfoFragment3 extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    for (AppCompatButton btn : buttonList) {
+                        btn.setSelected(false);
+                        btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4A4A4A")));
+                    }
                     button.setSelected(!button.isSelected());
                     button.setBackgroundTintList(button.isSelected() ?
                             ColorStateList.valueOf(Color.GREEN) : ColorStateList.valueOf(Color.parseColor("#4A4A4A")));
                 }
             });
 
+            buttonList.add(button);
             gridLayout.addView(button);
         }
     }

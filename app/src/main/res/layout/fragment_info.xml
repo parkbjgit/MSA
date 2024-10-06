@@ -356,9 +356,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="예약 취소"
-                        android:textColor="#121212"
+                        android:textSize="15sp"
+                        android:textColor="#f5f5f5"
                         android:layout_gravity="center_horizontal"
-                        android:backgroundTint="#FF3D00" />
+                        android:backgroundTint="#F44336"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -378,10 +379,12 @@
             android:id="@+id/btn_go_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="예약하러 가기"
-            android:textSize="15dp"
-            android:textColor="#121212"
-            android:backgroundTint="#FFEB3B" />
+            android:textSize="14sp"
+            android:textColor="#f5f5f5"
+            android:backgroundTint="#4CAF50" />
     </LinearLayout>
 
 </LinearLayout>
