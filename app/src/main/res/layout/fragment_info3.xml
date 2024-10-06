@@ -63,12 +63,12 @@
             android:textColor="@color/white"
             android:layout_marginTop="20dp"/>
 
-        <android.widget.Button
-            android:id="@+id/queue_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="대기열 등록"
-            android:textSize="17sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="20dp"/>
+<!--        <android.widget.Button-->
+<!--            android:id="@+id/queue_register"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="대기열 등록"-->
+<!--            android:textSize="17sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_marginTop="20dp"/>-->
 </LinearLayout>

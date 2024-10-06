@@ -11,32 +11,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="마커 클릭->예약"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:gravity="center" />
-
 
         <!-- 지도 뷰를 감싸는 카드뷰 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="#1f1f1f"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            android:backgroundTint="#1f1f1f">
 
             <!-- 지도 뷰 -->
             <com.naver.maps.map.MapView
                 android:id="@+id/map_facility_choice"
                 android:name="com.naver.maps.map.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_margin="8dp"
+                android:layout_height="450dp"
                 android:scaleType="centerCrop"/> <!-- 대체 이미지 설정 가능 -->
 
         </androidx.cardview.widget.CardView>
@@ -49,7 +37,7 @@
             android:text="과거 예약된 놀이기구"
             android:textSize="20sp"
             android:textColor="#ffffff"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp" />
 
