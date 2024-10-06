@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,10 +26,19 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private Fragment activeFragment;
 
+    private SharedViewModel sharedViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new ReservationFragment());
+        transaction.commit();
+
 
         init(); // 객체 정의
         SettingListener(); // 리스너 등록
@@ -111,4 +121,16 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // 인텐트로부터 전달된 값 확인
+        if (getIntent() != null) {
+            boolean showImage = getIntent().getBooleanExtra("show_image", false);
+            sharedViewModel.setImageVisibility(showImage);
+        }
+    }
+
 }

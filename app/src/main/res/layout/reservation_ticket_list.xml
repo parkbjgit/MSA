@@ -14,6 +14,8 @@
         android:textSize="24dp"
         android:padding = "10dp"
         android:text="등록된 시설 입장권"
+        android:textColor="@color/black"
+        android:backgroundTint="#FFEB3B"
         android:textStyle = "bold"/>
 
 </LinearLayout>
