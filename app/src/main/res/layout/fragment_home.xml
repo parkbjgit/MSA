@@ -1,43 +1,164 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#121212">
+    android:padding="16dp"
+    android:background="@android:color/black">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:text="구매한 입장권이 없습니다!"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:visibility="visible" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_border"
+        android:paddingBottom="30dp"
+        android:paddingTop="80dp"
+        android:orientation="vertical">
+    <!-- QR Code Image -->
     <ImageView
-        android:id="@+id/imageViewQRCode"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:visibility="gone" />
+        android:id="@+id/ImageViewQRCode"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="QR Code"
+        android:src="@drawable/qr" /> <!-- Replace with actual QR code drawable -->
 
+    <!-- Unique ID -->
+    <TextView
+        android:id="@+id/ticket_unique_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="400–2000–2020"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Dashed Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/dashed_line"
+        android:layout_marginVertical="16dp" />
+
+    <!-- Ticket Info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Ticket Name -->
+        <TextView
+            android:id="@+id/ticket_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="롯데월드"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
+
+        <!-- Categories -->
+    </LinearLayout>
+
+    <!-- Additional Info Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:weightSum="3"
+        android:gravity="center">
+
+        <!-- Date Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이용날짜"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/ticket_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024-10-06"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Time Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="구매날짜"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/ticket_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024-10-01"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Seat Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이용권"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/ticket_seat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자유이용권"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_ticket_reservation"
         android:background="@drawable/recyclerview_round"
-        android:textColor="#121212"
-        android:backgroundTint="#FFEB3B"
+        android:textColor="#f5f5f5"
+        android:backgroundTint="#4CAF50"
         android:orientation="horizontal"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:textAlignment="center"
         android:gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="28dp"
         android:text="입장권 구매"
         android:textSize="30sp"
         android:textStyle="bold" />
