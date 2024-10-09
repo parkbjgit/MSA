@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // 인텐트로부터 전달된 값 확인
-        if (getIntent() != null) {
-            boolean showImage = getIntent().getBooleanExtra("show_image", false);
-            sharedViewModel.setImageVisibility(showImage);
-        }
+//        // 인텐트로부터 전달된 값 확인
+//        if (getIntent() != null) {
+//            boolean showImage = getIntent().getBooleanExtra("show_image", false);
+//            sharedViewModel.setImageVisibility(showImage);
+//        }
     }
 
 }

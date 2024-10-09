@@ -20,14 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="34">
         <activity
-            android:name=".TicketSelectActivity"
+            android:name=".TicketSelectFragment"
             android:exported="false" />
-        <activity
-            android:name=".FacilityTimeSelectActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FacilitySelectActivity"
-            android:exported="false" />
+
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />

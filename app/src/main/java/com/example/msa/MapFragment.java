@@ -246,8 +246,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Marker marker = new Marker();
         marker.setPosition(position);
         marker.setCaptionText(caption);
-        marker.setWidth(80);
-        marker.setHeight(80);
+        marker.setWidth(70);
+        marker.setHeight(70);
         marker.setIcon(OverlayImage.fromResource(R.drawable.ic_marker)); // 아이콘 설정
         marker.setMap(naverMap);
 
