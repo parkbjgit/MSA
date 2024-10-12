@@ -42,12 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_google_login = findViewById(R.id.btn_google_login);
         btn_kakao_login = findViewById(R.id.btn_kakao_login);
 
-        // 애니메이션 로드
-        Animation scaleFadeAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_fade_animation);
-
-        // TextView에 애니메이션 적용
-        logoText.startAnimation(scaleFadeAnimation);
-        logoText2.startAnimation(scaleFadeAnimation);
 
         // Google Sign-In 옵션 설정
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

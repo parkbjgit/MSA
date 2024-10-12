@@ -56,4 +56,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation ("com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24")
+
+    implementation ("com.github.prolificinteractive:material-calendarview:2.0.1")
 }

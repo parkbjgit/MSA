@@ -8,15 +8,37 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
         <!--custom font-family 적용-->
-        <item name="android:fontFamily">@font/cookieregular</item>
-        <item name="android:textViewStyle">@font/cookieregular</item>
-        <item name="android:buttonStyle">@font/cookieregular</item>
-        <item name="android:editTextStyle">@font/cookieregular</item>
-        <item name="android:radioButtonStyle">@font/cookieregular</item>
-        <item name="android:checkboxStyle">@font/cookieregular</item>
+        <item name="android:fontFamily">@font/wantedsans_medium</item>
+        <item name="android:textViewStyle">@font/wantedsans_medium</item>
+        <item name="android:buttonStyle">@font/wantedsans_bold</item>
+        <item name="android:editTextStyle">@font/wantedsans_medium</item>
+        <item name="android:radioButtonStyle">@font/wantedsans_bold</item>
+        <item name="android:checkboxStyle">@font/wantedsans_medium</item>
 
         <item name="colorControlHighlight">@color/onclick_btn</item>
     </style>
+
+
+    <!-- CalendarView의 커스텀 스타일 -->
+    <style name="CalendarCustomStyle">
+        <item name="android:dateTextAppearance">@style/CalendarDateTextAppearance</item>
+        <item name="android:weekDayTextAppearance">@style/CalendarWeekDayTextAppearance</item>
+        <item name="android:headerDayOfMonthTextAppearance">@style/CalendarHeaderTextAppearance</item>
+    </style>
+
+    <style name="CalendarDateTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CalendarWeekDayTextAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CalendarHeaderTextAppearance" parent="TextAppearance.MaterialCalendarWidget.WeekDay">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
 
     <style name="Theme.MSA" parent="Base.Theme.MSA" />
 </resources>

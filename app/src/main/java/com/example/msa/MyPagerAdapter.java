@@ -36,25 +36,25 @@ public class MyPagerAdapter extends PagerAdapter {
         container.addView(view); // ViewPager에 추가
 
         // TextView에 클릭 리스너 추가
-        TextView parkNameTextView = view.findViewById(R.id.park_name);
-        if (parkNameTextView != null) {
-            parkNameTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 클릭한 텍스트를 ViewModel에 전달
-                    String parkName = parkNameTextView.getText().toString();
-                    sharedViewModel.setSelectedParkName(parkName);
-
-                    // PaymentFragment로 전환
-                    PaymentFragment paymentFragment = new PaymentFragment();
-                    ((FragmentActivity) container.getContext()).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, paymentFragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
-        }
+//        TextView parkNameTextView = view.findViewById(R.id.park_name);
+//        if (parkNameTextView != null) {
+//            parkNameTextView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // 클릭한 텍스트를 ViewModel에 전달
+//                    String parkName = parkNameTextView.getText().toString();
+//                    sharedViewModel.setSelectedParkName(parkName);
+//
+//                    // PaymentFragment로 전환
+//                    PaymentFragment paymentFragment = new PaymentFragment();
+//                    ((FragmentActivity) container.getContext()).getSupportFragmentManager()
+//                            .beginTransaction()
+//                            .replace(R.id.fragment_container, paymentFragment)
+//                            .addToBackStack(null)
+//                            .commit();
+//                }
+//            });
+//        }
 
         return view;
     }
