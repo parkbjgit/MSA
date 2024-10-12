@@ -7,7 +7,7 @@
     android:background="#00ff00">
 
     <TextView
-        android:id="@+id/park_name"
+        android:id="@+id/park_image"
         android:layout_width="400dp"
         android:layout_height="500dp"
         android:text="코엑스 아쿠아리움"

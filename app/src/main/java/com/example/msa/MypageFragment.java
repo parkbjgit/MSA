@@ -12,11 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MypageFragment extends Fragment implements View.OnClickListener {
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mypage, container, false);
-
 
         return view;
     }
