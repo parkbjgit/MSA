@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class SharedViewModel extends ViewModel {
+    private MutableLiveData<String> selectedTicketName = new MutableLiveData<>();
 
-    private final MutableLiveData<String> selectedParkName = new MutableLiveData<>();
-
-    public void setSelectedParkName(String parkName) {
-        selectedParkName.setValue(parkName);
+    public void setSelectedTicketName(String name) {
+        selectedTicketName.setValue(name);
     }
 
-    public LiveData<String> getSelectedParkName() {
-        return selectedParkName;
+    public LiveData<String> getSelectedTicketName() {
+        return selectedTicketName;
     }
 }

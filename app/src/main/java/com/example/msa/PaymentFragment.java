@@ -45,16 +45,12 @@ public class PaymentFragment extends Fragment {
         teenCountTextView2 = view.findViewById(R.id.teen_count2);
         childCountTextView2 = view.findViewById(R.id.child_count2);
 
-        // ViewModel 초기화
-        SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-
-        // 선택한 공원 이름을 TextView에 설정
-        sharedViewModel.getSelectedParkName().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String parkName) {
-                parkNameTextView.setText(parkName);
-            }
-        });
+        // Get the selected ticket name from arguments (if available)
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String selectedTicket = arguments.getString("selectedTicket");
+            parkNameTextView.setText(selectedTicket);
+        }
 
         // CalendarView에서 날짜가 선택될 때 TextView에 표시
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

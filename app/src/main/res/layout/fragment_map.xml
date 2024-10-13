@@ -34,7 +34,6 @@
             android:background="@drawable/map_filter_black"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
-            android:fontFamily="@font/wantedsans_medium"
             android:hint="검색어를 입력해주세요."
             android:padding="13dp"
             android:textColor="#F5F5F5"

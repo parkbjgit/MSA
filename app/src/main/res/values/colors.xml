@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#121212</color>
-    <color name="white">#f5f5f5</color>
+    <color name="deep_black">#0F0F0F</color>
+    <color name="white">#ffffff</color>
 
-    <color name="dark_gray">#1A1A1A</color>
+    <color name="black">#1C1E1F</color>
 
+    <color name="blue">#5274E6</color>
+
+    <color name="gray">#F0F0F0</color>
     <color name = "onclick_btn">#ff0000</color>
+
+
 </resources>

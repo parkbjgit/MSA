@@ -15,17 +15,26 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:text="구매할 입장권을 선택하세요"
+        android:text="MSA 티켓 예매"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="32sp"/>
+        android:textColor="@color/blue"
+        android:textSize="25sp"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:id="@+id/park_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="롯데월드"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
         />
 
 </LinearLayout>

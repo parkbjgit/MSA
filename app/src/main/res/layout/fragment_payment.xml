@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="종합이용권"
-                android:textColor="#00ff00"
+                android:textColor="@color/blue"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"/>
 
@@ -257,7 +257,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="파크이용권"
-                android:textColor="#00ff00"
+                android:textColor="@color/blue"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"/>
 
@@ -413,9 +413,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="결제하기"
-                android:background="@drawable/white_border"
+                android:background="@drawable/blue_btn"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:gravity="center"
                 android:layout_marginTop="24dp"/>
