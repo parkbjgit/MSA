@@ -101,13 +101,13 @@
                             app:layout_constraintTop_toBottomOf="@id/pastRideStatus1" />
 
                         <!-- 리뷰 작성 버튼 -->
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnReview1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="리뷰 작성"
                             android:textColor="#ffffff"
-                            android:backgroundTint="#FF9800"
+                            android:background="@drawable/blue_btn"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/pastRideName1"
                             app:layout_constraintBottom_toBottomOf="@id/pastRideDate1"
@@ -164,13 +164,13 @@
                             app:layout_constraintTop_toBottomOf="@id/pastRideStatus2" />
 
                         <!-- 리뷰 작성 버튼 -->
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnReview2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="리뷰 작성"
                             android:textColor="#ffffff"
-                            android:backgroundTint="#FF9800"
+                            android:background="@drawable/blue_btn"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/pastRideName2"
                             app:layout_constraintBottom_toBottomOf="@id/pastRideDate2"
@@ -226,13 +226,13 @@
                             app:layout_constraintTop_toBottomOf="@id/pastRideStatus3" />
 
                         <!-- 리뷰 작성 버튼 -->
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnReview3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="리뷰 작성"
                             android:textColor="#ffffff"
-                            android:backgroundTint="#FF9800"
+                            android:background="@drawable/blue_btn"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/pastRideName3"
                             app:layout_constraintBottom_toBottomOf="@id/pastRideDate3"
@@ -289,13 +289,13 @@
                             app:layout_constraintTop_toBottomOf="@id/pastRideStatus4" />
 
                         <!-- 리뷰 작성 버튼 -->
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnReview4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="리뷰 작성"
                             android:textColor="#ffffff"
-                            android:backgroundTint="#FF9800"
+                            android:background="@drawable/blue_btn"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/pastRideName4"
                             app:layout_constraintBottom_toBottomOf="@id/pastRideDate4"

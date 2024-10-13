@@ -13,9 +13,11 @@ public class MyPagerAdapter extends PagerAdapter {
 
     private int[] layouts = {R.layout.test_activity, R.layout.test_activity2, R.layout.test_activity3}; // 각 페이지의 레이아웃
     private SharedViewModel sharedViewModel;
+    private OnPageClickListener onPageClickListener;
 
-    public MyPagerAdapter(SharedViewModel sharedViewModel) {
+    public MyPagerAdapter(SharedViewModel sharedViewModel, OnPageClickListener onPageClickListener) {
         this.sharedViewModel = sharedViewModel;
+        this.onPageClickListener = onPageClickListener;
     }
 
     @Override
@@ -35,26 +37,15 @@ public class MyPagerAdapter extends PagerAdapter {
         View view = inflater.inflate(layouts[position], container, false); // 각 레이아웃을 인플레이트
         container.addView(view); // ViewPager에 추가
 
-        // TextView에 클릭 리스너 추가
-//        TextView parkNameTextView = view.findViewById(R.id.park_name);
-//        if (parkNameTextView != null) {
-//            parkNameTextView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // 클릭한 텍스트를 ViewModel에 전달
-//                    String parkName = parkNameTextView.getText().toString();
-//                    sharedViewModel.setSelectedParkName(parkName);
-//
-//                    // PaymentFragment로 전환
-//                    PaymentFragment paymentFragment = new PaymentFragment();
-//                    ((FragmentActivity) container.getContext()).getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .replace(R.id.fragment_container, paymentFragment)
-//                            .addToBackStack(null)
-//                            .commit();
-//                }
-//            });
-//        }
+        // Set OnClickListener for each page
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onPageClickListener != null) {
+                    onPageClickListener.onPageClick(position);
+                }
+            }
+        });
 
         return view;
     }
@@ -67,5 +58,10 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public int getItemPosition(@NonNull Object object) {
         return POSITION_NONE;
+    }
+
+    // Interface for handling page clicks
+    public interface OnPageClickListener {
+        void onPageClick(int position);
     }
 }
