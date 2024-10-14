@@ -57,7 +57,7 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 String selectedDate = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";
-                selectedDateTextView.setText("선택된 날짜: " + selectedDate);
+                selectedDateTextView.setText(selectedDate);
             }
         });
 

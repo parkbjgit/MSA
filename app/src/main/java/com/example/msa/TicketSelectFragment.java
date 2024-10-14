@@ -1,5 +1,6 @@
 package com.example.msa;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,12 @@ public class TicketSelectFragment extends Fragment implements MyPagerAdapter.OnP
         sharedViewModel.getSelectedTicketName().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
+                // 애니메이션 효과 추가
+                ObjectAnimator blink = ObjectAnimator.ofFloat(ticketNameTextView, "alpha", 1f, 0f, 1f);
+                blink.setDuration(500);
+                blink.setRepeatCount(1);
+                blink.start();
+
                 ticketNameTextView.setText(s);
             }
         });
