@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
     private Button btn_google_login, btn_kakao_login;
-    private TextView logoText, logoText2;  // MSA 및 통합 예약 앱 TextView
+    private TextView logoText,logoText2;  // MSA 및 통합 예약 앱 TextView
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // TextView 요소 찾기
         logoText = findViewById(R.id.logoText);
-        logoText2 = findViewById(R.id.logoText2);
         btn_google_login = findViewById(R.id.btn_google_login);
         btn_kakao_login = findViewById(R.id.btn_kakao_login);
 

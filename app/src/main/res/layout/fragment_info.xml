@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/white_border"
-        android:padding="16dp">
+        android:layout_marginBottom="10dp"
+        android:padding="8dp">
 
         <!-- 인기순 랭킹 -->
         <LinearLayout
@@ -27,9 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="인기순"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierun_bold"
+                android:textColor="@color/blue"
                 android:layout_gravity="center"
                 android:paddingBottom="8dp" />
 
@@ -140,11 +141,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="검색순"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierun_bold"
                 android:layout_gravity="center"
                 android:paddingBottom="8dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/blue" />
 
             <!-- 랭킹 1 -->
             <LinearLayout
@@ -246,38 +247,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="현재 예약된 놀이기구"
-        android:textSize="20sp"
-        android:textColor="#f5f5f5"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"/>
+        android:text="현재 예약"
+        android:textSize="22sp"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/cookierun_bold"
+        android:layout_margin="4dp"/>
 
-    <!-- 예약된 놀이기구 목록 -->
-    <ScrollView
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#1f1f1f"
-                app:cardCornerRadius="8dp"
-                android:layout_margin="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@drawable/white_border"
-                    android:padding="16dp">
-
+                    android:padding="8dp"
+                    android:background="@drawable/white_border">
 
                     <!-- 놀이기구 이름 및 상태 -->
                     <LinearLayout
@@ -291,9 +281,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="아틀란티스"
-                            android:textSize="18sp"
-                            android:textColor="#f5f5f5"
-                            android:textStyle="bold" />
+                            android:textSize="25sp"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/rideStatus"
@@ -302,53 +291,83 @@
                             android:text="예약 중"
                             android:textSize="14sp"
                             android:textColor="#FFEB3B"
-                            android:paddingLeft="5dp"
+                            android:paddingLeft="10dp"
                             android:textStyle="italic" />
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/white"/>
+
+
+
+
 
                     <!-- 탑승 시간 및 남은 시간 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="탑승 시간"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/rideTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="탑승 시간: 14:30"
+                            android:text="14:30"
                             android:textColor="#f5f5f5"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/timeRemaining"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="남은 시간: 30분"
-                            android:textColor="#f5f5f5"
-                            android:paddingLeft="10dp"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
-                    <!-- 예약 인원 -->
-                    <TextView
-                        android:id="@+id/ridePeople"
-                        android:layout_width="wrap_content"
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="예약 인원: 4명"
-                        android:textColor="#f5f5f5"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="8dp">
+
+                        <!-- 예약 인원 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="예약 인원"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                        <!-- 예약 인원 -->
+                        <TextView
+                            android:id="@+id/ridePeople"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4명"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
 
 
-                    <!--시설이미지-->
+                    <!-- 시설 이미지 -->
                     <ImageView
                         android:id="@+id/atlantis"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:src="@drawable/atlantis"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"/>
 
                     <!-- 예약 취소 버튼 -->
                     <androidx.appcompat.widget.AppCompatButton
@@ -356,36 +375,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="예약 취소"
-                        android:textSize="14sp"
-                        android:textColor="#ffffff"
+                        android:textSize="16sp"
+                        android:textColor="#5274E6"
                         android:background="@drawable/cancel_btn"
-                        android:layout_gravity="center_horizontal"
-                        />
-
+                        android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 
-    <!-- 하단 버튼 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_go_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="예약하러 가기"
-            android:textSize="14sp"
+            android:text="예약하기"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/blue_btn"
             />
-    </LinearLayout>
 
 </LinearLayout>

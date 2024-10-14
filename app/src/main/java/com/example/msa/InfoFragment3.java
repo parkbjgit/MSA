@@ -41,14 +41,14 @@ public class InfoFragment3 extends Fragment {
         GridLayout gridLayoutAfternoon = view.findViewById(R.id.gridLayoutAfternoon);
 
         // 오전, 오후 시간 배열 정의
-        String[] timesMorning = {"9:00", "9:15", "9:30", "9:45"," 10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
+        String[] timesMorning = {"9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
         String[] timesAfternoon = {"12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45", "2:00", "2:15", "2:30", "2:45", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45"};
 
         // 오전 버튼 생성
-        createButtonsForTime(gridLayoutMorning, timesMorning, morningButtons);
+        createButtonsForTime(gridLayoutMorning, timesMorning, morningButtons, afternoonButtons);
 
         // 오후 버튼 생성
-        createButtonsForTime(gridLayoutAfternoon, timesAfternoon, afternoonButtons);
+        createButtonsForTime(gridLayoutAfternoon, timesAfternoon, afternoonButtons, morningButtons);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -89,11 +89,12 @@ public class InfoFragment3 extends Fragment {
         });
     }
 
-    private void createButtonsForTime(GridLayout gridLayout, String[] times, List<AppCompatButton> buttonList) {
+    // 버튼 생성 및 클릭 시 다른 그룹 버튼 초기화 로직 추가
+    private void createButtonsForTime(GridLayout gridLayout, String[] times, List<AppCompatButton> buttonList, List<AppCompatButton> otherGroupButtons) {
         for (String time : times) {
             AppCompatButton button = new AppCompatButton(getContext());
             button.setText(time);
-            button.setTextSize(12);
+            button.setTextSize(14);
             button.setTextColor(Color.WHITE);
             button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4A4A4A")));
 
@@ -108,13 +109,21 @@ public class InfoFragment3 extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // 다른 그룹의 모든 버튼을 초기 상태로 변경
+                    for (AppCompatButton btn : otherGroupButtons) {
+                        btn.setSelected(false);
+                        btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4A4A4A")));
+                    }
+
+                    // 현재 그룹의 모든 버튼을 초기 상태로 변경
                     for (AppCompatButton btn : buttonList) {
                         btn.setSelected(false);
                         btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4A4A4A")));
                     }
-                    button.setSelected(!button.isSelected());
-                    button.setBackgroundTintList(button.isSelected() ?
-                            ColorStateList.valueOf(Color.GREEN) : ColorStateList.valueOf(Color.parseColor("#4A4A4A")));
+
+                    // 클릭된 버튼 상태 변경
+                    button.setSelected(true);
+                    button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5274E6")));
                 }
             });
 

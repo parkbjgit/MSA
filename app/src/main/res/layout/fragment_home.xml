@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="구매날짜"
+                android:text="이용권"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray" />
 
@@ -114,7 +114,7 @@
                 android:id="@+id/ticket_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2024-10-01"
+                android:text="파크이용권"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
@@ -131,7 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이용권"
+                android:text="인원수"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray" />
 
@@ -139,7 +139,7 @@
                 android:id="@+id/ticket_seat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="자유이용권"
+                android:text="4"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />

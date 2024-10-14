@@ -7,13 +7,13 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
-<!--        &lt;!&ndash;custom font-family 적용&ndash;&gt;-->
-<!--        <item name="android:fontFamily">@font/spoqa_medium</item>-->
-<!--        <item name="android:textViewStyle">@font/spoqa_medium</item>-->
-<!--        <item name="android:buttonStyle">@font/spoqa_bold</item>-->
-<!--        <item name="android:editTextStyle">@font/spoqa_medium</item>-->
-<!--        <item name="android:radioButtonStyle">@font/spoqa_bold</item>-->
-<!--        <item name="android:checkboxStyle">@font/spoqa_medium</item>-->
+        <!--custom font-family 적용-->
+        <item name="android:fontFamily">@font/cookierun_regular</item>
+        <item name="android:textViewStyle">@font/cookierun_regular</item>
+        <item name="android:buttonStyle">@font/cookierun_regular</item>
+        <item name="android:editTextStyle">@font/cookierun_regular</item>
+        <item name="android:radioButtonStyle">@font/cookierun_regular</item>
+        <item name="android:checkboxStyle">@font/cookierun_regular</item>
 
     </style>
 

@@ -2,21 +2,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="@color/black">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="26sp"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:text="티켓 예매"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:fillViewport="true">
 
         <LinearLayout
@@ -24,18 +23,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- 선택한 시설 텍스트 -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="선택한 시설:"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/white"/>
 
                 <!-- 공원 이름 텍스트 -->
                 <TextView
@@ -43,17 +30,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="선택한 공원의 이름"
-                    android:textSize="16sp"
-                    android:paddingLeft="30dp"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/blue"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_border"
-                android:layout_marginTop="5dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="방문 날짜"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:layout_margin="8dp"
+                        ></TextView>
+
+                    <!-- 선택된 날짜를 표시하는 TextView -->
+                    <TextView
+                        android:id="@+id/selected_date_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
+                        android:layout_margin="8dp"/>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white"/>
 
                 <!-- 추가된 CalendarView -->
                 <CalendarView
@@ -64,38 +85,10 @@
                     android:layout_margin="4dp"
                     android:background="@color/black"/>
 
-                <!-- 선택된 날짜를 표시하는 TextView -->
-                <TextView
-                    android:id="@+id/selected_date_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="선택된 날짜: "
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_margin="8dp"/>
             </LinearLayout>
 
 
 
-
-
-            <!-- 인원수 선택 섹션 -->
-            <TextView
-                android:id="@+id/num_people_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="인원수 선택"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp"
-                android:background="@drawable/white_border">
 
             <!-- 종합이용권 섹션 -->
             <TextView
@@ -104,7 +97,18 @@
                 android:text="종합이용권"
                 android:textColor="@color/blue"
                 android:textSize="20sp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border">
+
+
 
             <!-- 성인 인원수 -->
             <LinearLayout
@@ -244,22 +248,24 @@
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/white_border">
-
-        <!--파크이용권 섹션-->
+            <!--파크이용권 섹션-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="파크이용권"
                 android:textColor="@color/blue"
                 android:textSize="20sp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/white_border">
+
+
 
             <!-- 성인 인원수 -->
             <LinearLayout
@@ -394,31 +400,20 @@
             </LinearLayout>
         </LinearLayout>
 
-
-
-            <!-- 결제 방법 선택 -->
-            <TextView
-                android:id="@+id/payment_method_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="결제 금액:"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"/>
-
             <!-- 결제하기 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_purchase_ticket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="결제하기"
-                android:background="@drawable/blue_btn"
+                android:text="0원 결제하기"
                 android:textColor="@color/white"
+                android:background="@color/blue"
                 android:textSize="18sp"
                 android:padding="12dp"
                 android:gravity="center"
                 android:layout_marginTop="24dp"/>
+
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
