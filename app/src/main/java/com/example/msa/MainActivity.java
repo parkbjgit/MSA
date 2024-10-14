@@ -1,5 +1,6 @@
 package com.example.msa;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -20,6 +21,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+
 public class MainActivity extends AppCompatActivity {
 
     FrameLayout fragment_container;
@@ -28,10 +33,21 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedViewModel sharedViewModel;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //앱 실행시 로그인 되지 않은 경우
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {    //로그인 된 경우
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        }
 
 
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);

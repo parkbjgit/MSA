@@ -130,6 +130,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_signout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="로그아웃"
@@ -143,6 +144,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_deleteID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="서비스 탈퇴"
