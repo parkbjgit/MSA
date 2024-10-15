@@ -133,7 +133,6 @@
         </LinearLayout>
 
 
-    <!-- 버전정보 -->
         <LinearLayout
             android:id="@+id/version_layout"
             android:layout_width="match_parent"
@@ -143,28 +142,12 @@
             android:layout_margin="16dp"
             app:layout_constraintTop_toBottomOf="@+id/membership_layout">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="버전정보"
-                android:textColor="@color/deep_white"
-                android:fontFamily="@font/cookierun_bold"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/version_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.01"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
 
 
         <TextView
+            android:id="@+id/btn_signout"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="로그아웃"
@@ -180,18 +163,18 @@
 
 
 
-<!--            <androidx.appcompat.widget.AppCompatButton-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="서비스 탈퇴"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:background="@drawable/blue_btn"-->
-<!--                android:layout_margin="20dp"-->
-<!--                android:padding="10dp"-->
-<!--                android:textSize="16sp" />-->
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_deleteID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서비스 탈퇴"
+            android:textColor="@color/white"
+            android:background="@drawable/blue_btn"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:textSize="16sp" />
 
     </LinearLayout>
     <!-- Nickname -->
 
-    </LinearLayout>
+</LinearLayout>
