@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#121212"
-    android:padding="10dp">
+    android:background="@color/black"
+    android:padding="16dp">
 
         <TextView
             android:id="@+id/choiced_facility"

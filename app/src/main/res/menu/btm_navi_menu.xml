@@ -10,7 +10,7 @@
         android:id="@+id/tab_reservation"
         android:enabled="true"
         android:icon="@drawable/ic_reservation"
-        android:title="기구예약"/>
+        android:title="예약"/>
 
     <item
         android:id="@+id/tab_congestion"
@@ -22,5 +22,5 @@
         android:id="@+id/tab_mypage"
         android:enabled="true"
         android:icon="@drawable/ic_mypage"
-        android:title="마이페이지"/>
+        android:title="내 정보"/>
 </menu>
