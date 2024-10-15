@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,6 +40,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -58,4 +62,7 @@ dependencies {
     implementation ("com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24")
 
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.1")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }

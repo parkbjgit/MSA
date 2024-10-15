@@ -24,7 +24,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".PaymentActivity"
+            android:name=".GoogleLogin"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
