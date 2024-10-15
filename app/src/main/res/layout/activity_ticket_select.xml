@@ -13,8 +13,8 @@
     <TextView
         android:id="@+id/ticket_title"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="놀이공원 선택"
         android:gravity="center"
         android:fontFamily="@font/cookierun_bold"

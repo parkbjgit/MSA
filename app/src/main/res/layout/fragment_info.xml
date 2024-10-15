@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:padding="8dp"
+    android:padding="16dp"
     android:orientation="vertical">
 
     <!-- 상단 랭킹 -->
@@ -14,6 +14,7 @@
         android:orientation="horizontal"
         android:background="@drawable/white_border"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:padding="8dp">
 
         <!-- 인기순 랭킹 -->
@@ -282,23 +283,43 @@
                             android:layout_height="wrap_content"
                             android:text="아틀란티스"
                             android:textSize="25sp"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_vertical"
+                            />
 
                         <TextView
                             android:id="@+id/rideStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="예약 중"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             android:textColor="#FFEB3B"
                             android:paddingLeft="10dp"
-                            android:textStyle="italic" />
+                            android:paddingTop="30dp"
+                            android:layout_weight="1"
+                            android:textStyle="italic"
+                            />
+
+                        <!-- 예약 취소 버튼 -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/reservation_cancel"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:text="예약\n취소"
+                            android:textSize="16sp"
+                            android:textColor="#5274E6"
+                            android:background="@drawable/cancel_btn"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_gravity="center_vertical"/>
+
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/white"/>
+                        android:background="@color/white"
+                        />
 
 
 
@@ -336,15 +357,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginTop="4dp">
 
-                        <!-- 예약 인원 -->
+                        <!-- 예약 번호 -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="예약 인원"
+                            android:text="예약 번호"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
 
@@ -353,7 +373,7 @@
                             android:id="@+id/ridePeople"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4명"
+                            android:text="40020002020"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
 
@@ -365,20 +385,8 @@
                         android:id="@+id/atlantis"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:src="@drawable/atlantis"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"/>
+                        android:src="@drawable/atlantis"/>
 
-                    <!-- 예약 취소 버튼 -->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/reservation_cancel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="예약 취소"
-                        android:textSize="16sp"
-                        android:textColor="#5274E6"
-                        android:background="@drawable/cancel_btn"
-                        android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
 
     </LinearLayout>
@@ -395,7 +403,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
             android:background="@drawable/blue_btn"
             />
 

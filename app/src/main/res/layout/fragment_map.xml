@@ -5,6 +5,7 @@
     xmlns:radius="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".MapFragment">
 
     <!-- 검색창 및 필터 버튼 영역 -->
@@ -23,8 +24,8 @@
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp">
 
         <EditText
             android:id="@+id/editFindSearch"
@@ -36,7 +37,7 @@
             android:drawablePadding="8dp"
             android:hint="검색어를 입력해주세요."
             android:padding="13dp"
-            android:textColor="#F5F5F5"
+            android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -47,12 +48,13 @@
         android:layout_below="@id/search_bar"
         android:scrollbars="none"
         android:layout_marginLeft="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="4dp"
             android:orientation="horizontal">
 
             <!-- "전체" 버튼 -->
@@ -64,7 +66,7 @@
                 android:background="@drawable/map_filter_selecter"
                 android:padding="8dp"
                 android:text="전체"
-                android:textColor="#f5f5f5"
+                android:textColor="@color/white"
                 android:textSize="14sp"
             android:drawablePadding="8dp" />
 
@@ -76,7 +78,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="놀이기구"
-                android:textColor="#f5f5f5"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"
@@ -90,7 +92,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="음식점"
-                android:textColor="#f5f5f5"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"
@@ -104,7 +106,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="카페"
-                android:textColor="#f5f5f5"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"
@@ -118,7 +120,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/map_filter_selecter"
                 android:text="편의점"
-                android:textColor="#f5f5f5"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"
@@ -155,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="매우 혼잡"
-            android:textColor="#F5F5F5"
+            android:textColor="@color/white"
             android:textSize="12sp"
             android:layout_marginStart="4dp" />
     </LinearLayout>
@@ -176,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="혼잡"
-            android:textColor="#F5F5F5"
+            android:textColor="@color/white"
             android:textSize="12sp"
             android:layout_marginStart="4dp" />
     </LinearLayout>
@@ -197,7 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="여유"
-            android:textColor="#F5F5F5"
+            android:textColor="@color/white"
             android:textSize="12sp"
             android:layout_marginStart="4dp" />
     </LinearLayout>

@@ -37,9 +37,8 @@
             android:text="과거 예약된 놀이기구"
             android:textSize="20sp"
             android:textColor="#ffffff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp" />
 
         <!-- 과거 예약된 놀이기구 목록 -->
         <ScrollView
@@ -50,6 +49,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
                 android:orientation="vertical">
 
                 <!-- 첫 번째 과거 놀이기구 카드 -->
@@ -64,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_border"
-                        android:padding="16dp">
+                        android:padding="8dp">
 
                         <!-- 놀이기구 이름 및 상태 -->
                         <TextView
@@ -127,7 +127,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_border"
-                        android:padding="16dp">
+                        android:padding="8dp">
 
                         <!-- 놀이기구 이름 및 상태 -->
                         <TextView
@@ -189,7 +189,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_border"
-                        android:padding="16dp">
+                        android:padding="8dp">
 
                         <!-- 놀이기구 이름 및 상태 -->
                         <TextView
@@ -252,7 +252,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_border"
-                        android:padding="16dp">
+                        android:padding="8dp">
 
                         <!-- 놀이기구 이름 및 상태 -->
                         <TextView
