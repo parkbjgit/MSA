@@ -1,11 +1,14 @@
 package com.example.msa;
 
+import static com.google.android.gms.common.api.internal.LifecycleCallback.getFragment;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +25,18 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //화면캡처 금지 코드
+        if (view.findViewById(R.id.ImageViewQRCode)!=null) {
+            getActivity().getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE
+            );
+        }
 
         // 뷰 초기화
         //imageViewQRCode = view.findViewById(R.id.ImageViewQRCode); // QR 코드 이미지뷰 초기화
