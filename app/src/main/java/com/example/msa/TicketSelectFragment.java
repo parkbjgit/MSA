@@ -20,7 +20,7 @@ public class TicketSelectFragment extends Fragment implements MyPagerAdapter.OnP
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment에서 사용할 레이아웃 inflate
-        View view = inflater.inflate(R.layout.activity_ticket_select, container, false);
+        View view = inflater.inflate(R.layout.fragment_ticket_select, container, false);
 
         // ViewModel 초기화
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
