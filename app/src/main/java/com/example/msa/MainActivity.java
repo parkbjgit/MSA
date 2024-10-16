@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private Fragment activeFragment;
 
-    private SharedViewModel sharedViewModel;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -40,17 +38,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Log.d("엑티비티 메인 레이아웃", "onCreate() 호출됨");
         //앱 실행시 로그인 되지 않은 경우
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            //Log.d("메인엑티비티 oncreate 호출", "로그인 되지 않음");
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         } else {    //로그인 된 경우
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            //Log.d("메인엑티비티 로그인 된경우","로그인이  됨");
         }
 
 
-        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ReservationFragment());
         transaction.commit();
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             switchFragment(new ReservationFragment());
         }
 
-        getHashKey();
+        //getHashKey();
     }
 
     private void getHashKey() {
