@@ -400,7 +400,7 @@
             android:layout_height="wrap_content"
             android:text="예약하기"
             android:textSize="16sp"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="20dp"
