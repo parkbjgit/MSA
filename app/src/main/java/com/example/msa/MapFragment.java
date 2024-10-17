@@ -1,37 +1,48 @@
 package com.example.msa;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.CameraPosition;
-import com.naver.maps.map.CameraUpdate;
-import com.naver.maps.map.MapView;
-import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.NaverMapSdk;
-import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.UiSettings;
-import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.CircleOverlay;
-import com.naver.maps.map.overlay.OverlayImage;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+
+    private GoogleMap gMap;
     public enum Category {
         ALL,
         RIDING,
@@ -39,15 +50,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         CAFE,
         CONVENIENCE
     }
-
     // 마커와 서클 오버레이를 포함한 커스텀 클래스 정의
     public class MapMarker {
         Marker marker; // 지도 위의 마커
-        CircleOverlay circle; // 마커 주위의 서클 오버레이
+        Circle circle; // 마커 주위의 서클 오버레이
         Category category; // 마커의 카테고리
 
         // 생성자
-        public MapMarker(Marker marker, CircleOverlay circle, Category category) {
+        public MapMarker(Marker marker, Circle circle, Category category) {
             this.marker = marker;
             this.circle = circle;
             this.category = category;
@@ -60,9 +70,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private List<MapMarker> cafeMarkers = new ArrayList<>();
     private List<MapMarker> convenienceMarkers = new ArrayList<>();
 
-    // NaverMap 객체 및 뷰 요소 초기화
-    private NaverMap naverMap;
-    private MapView map_fragment;
     private Button selectedButton;
     private TextView markerInformation;
     private EditText searchEditText;
@@ -70,14 +77,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // NaverMap SDK 초기화
-        NaverMapSdk.getInstance(requireContext()).setClient(new NaverMapSdk.NaverCloudPlatformClient("lubhho3zva"));
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        // 지도 뷰 초기화 및 콜백 설정
-        map_fragment = view.findViewById(R.id.map_fragment);
-        map_fragment.onCreate(savedInstanceState);
-        map_fragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_container);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         // 필터 버튼 및 리스너 초기화
         Button allFilter = view.findViewById(R.id.all_filter);
@@ -115,6 +120,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     /**
      * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메소드
      */
+    /**
+     * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메서드
+     */
     private void searchMarker(String searchText) {
         if (searchText.isEmpty()) {
             Toast.makeText(getContext(), "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -146,29 +154,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 break;
         }
 
+        // 검색어와 일치하는 마커 찾기
         for (MapMarker mapMarker : searchMarkers) {
-            if (mapMarker.marker.getCaptionText().equalsIgnoreCase(searchText)) {
-                // 카메라 이동
+            if (mapMarker.marker.getTitle() != null &&
+                    mapMarker.marker.getTitle().equalsIgnoreCase(searchText)) {
+                // 검색된 마커로 카메라 이동
                 moveCameraToMarker(mapMarker.marker);
                 found = true;
                 break;
             }
         }
 
+        // 검색 결과가 없을 경우 메시지 표시
         if (!found) {
             Toast.makeText(getContext(), "해당하는 장소가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * 마커 위치로 카메라를 이동시키는 메소드
+
+    /*
+     * 마커 위치로 카메라를 이동시키는 메서드
      */
     private void moveCameraToMarker(Marker marker) {
         LatLng position = marker.getPosition();
-        CameraPosition cameraPosition = new CameraPosition(position, 17); // 더 높은 줌 레벨
-        naverMap.moveCamera(CameraUpdate.toCameraPosition(cameraPosition));
 
-        // 마커 클릭 시 동작
+        // 카메라를 해당 위치로 이동하고 줌 레벨을 17로 설정
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 17);
+        gMap.moveCamera(cameraUpdate);
+
+        // 마커 클릭 시 동작 수행
         onMarkerClicked(marker);
     }
 
@@ -210,58 +224,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         showCategory(selectedCategory);
     }
 
-
-    public void setMapOptions(NaverMap naverMap) {
-        naverMap.setIndoorEnabled(true); // 실내 지도 활성화
-        naverMap.setNightModeEnabled(true); // 야간 모드 활성화
-        naverMap.setMapType(NaverMap.MapType.Navi); // 지도 타입을 네비게이션 모드로 설정
-        //건물정보들 끄기
-        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, false);
-        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING,false);
-
-
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setCompassEnabled(false); // 나침반 비활성화
-        uiSettings.setScaleBarEnabled(false); // 축척 바 비활성화
-        uiSettings.setLocationButtonEnabled(false); // 위치 버튼 비활성화
-        uiSettings.setZoomControlEnabled(false); // 줌 컨트롤 비활성화
-        uiSettings.setLogoMargin(1000, 200, 300, 400);
-        uiSettings.setLogoClickEnabled(false);
-
-    }
-
     /**
-     * 지정된 위치로 카메라를 이동시키는 메소드
+     * 지정된 위치로 카메라를 이동시키는 메서드
      */
-    public void setMoveLocation(double x, double y) {
-        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(x, y));
-        naverMap.moveCamera(cameraUpdate);
+    public void setMoveLocation(double latitude, double longitude) {
+        LatLng targetLocation = new LatLng(latitude, longitude);
+
+        // 카메라 업데이트 생성 (줌 레벨 포함)
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(targetLocation, 16);
+
+        // 카메라 이동
+        gMap.moveCamera(cameraUpdate);
     }
 
     /**
-     * 지도에 마커와 원 오버레이를 추가하는 메소드
+     * 주어진 위치에 마커와 서클을 추가하는 메서드
      */
     private void addMapMarker(LatLng position, String caption, Integer color, Category category) {
-        // 마커 생성 및 설정
-        Marker marker = new Marker();
-        marker.setPosition(position);
-        marker.setCaptionText(caption);
-        marker.setWidth(70);
-        marker.setHeight(70);
-        marker.setIcon(OverlayImage.fromResource(R.drawable.ic_marker)); // 아이콘 설정
-        marker.setMap(naverMap);
+        // 마커 아이콘 크기를 70x70으로 조정
+        Bitmap customMarker = createCustomMarker(caption);
+
+        // 마커 옵션 생성 및 설정
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(position)
+                .title(caption) // 마커의 제목에 캡션 설정
+                .icon(BitmapDescriptorFactory.fromBitmap(customMarker)); // 아이콘 설정
+
+        // 마커를 지도에 추가
+        Marker marker = gMap.addMarker(markerOptions);
+
 
         // 색상이 지정된 경우 서클 오버레이 생성 및 설정
-        CircleOverlay circle = null;
+        Circle circle = null;
         if (color != null) {
-            circle = new CircleOverlay();
-            circle.setCenter(position);
-            circle.setRadius(30); // 반경 설정 (미터 단위)
-            circle.setColor(Color.argb(80, Color.red(color), Color.green(color), Color.blue(color))); // 80% 투명도 적용
-            circle.setMap(naverMap);
+            circle = gMap.addCircle(new CircleOptions()
+                    .center(position) // 서클 중심 설정
+                    .radius(30) // 반경 (미터 단위)
+                    .fillColor(Color.argb(80, Color.red(color), Color.green(color), Color.blue(color))) // 투명도 적용
+                    .strokeColor(color) // 경계 색상 설정
+                    .strokeWidth(2)); // 경계 두께 설정
         }
 
-        // 마커를 MapMarker 객체로 감싸서 해당 카테고리의 리스트에 추가
+        // MapMarker 객체로 마커와 서클을 감싸서 카테고리별 리스트에 추가
         MapMarker mapMarker = new MapMarker(marker, circle, category);
         switch (category) {
             case RIDING:
@@ -278,106 +282,74 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 break;
         }
 
-        // 마커 클릭 시 동작할 리스너 설정
-        marker.setOnClickListener(overlay -> {
-            onMarkerClicked(marker); // 마커 클릭 시 호출할 메소드
-            return true;
+        // 마커에 MapMarker 객체를 태그로 설정
+        if (marker != null) {
+            marker.setTag(mapMarker);
+        }
+
+        // 마커 클릭 리스너 설정 (GoogleMap의 리스너 사용)
+        gMap.setOnMarkerClickListener(clickedMarker -> {
+            MapMarker taggedMarker = (MapMarker) clickedMarker.getTag(); // 태그에서 MapMarker 가져오기
+            if (taggedMarker != null) {
+                onMarkerClicked(clickedMarker); // 클릭된 마커 처리
+            }
+            return true; // 이벤트 소비
         });
     }
 
+
     /**
-     * 마커를 클릭했을 때 해당 마커의 정보를 보여주는 bottom sheet 호출
+     * 마커 아이콘의 크기를 조정하는 메서드
      */
-    public void onMarkerClicked(Marker clickedMarker) {
-        String caption = null;
-        Category clickedCategory = null;
-        markerInformation = getView().findViewById(R.id.facility_name);
-
-        // 클릭된 마커가 속한 카테고리와 캡션을 찾기
-        for (MapMarker mapMarker : ridingMarkers) {
-            if (mapMarker.marker.equals(clickedMarker)) {
-                caption = mapMarker.marker.getCaptionText();
-                clickedCategory = mapMarker.category;
-                break;
-            }
-        }
-
-        if (caption == null) { // 다른 카테고리에서도 마커 찾기
-            for (MapMarker mapMarker : restaurantMarkers) {
-                if (mapMarker.marker.equals(clickedMarker)) {
-                    caption = mapMarker.marker.getCaptionText();
-                    clickedCategory = mapMarker.category;
-                    break;
-                }
-            }
-        }
-
-        if (caption == null) {
-            for (MapMarker mapMarker : cafeMarkers) {
-                if (mapMarker.marker.equals(clickedMarker)) {
-                    caption = mapMarker.marker.getCaptionText();
-                    clickedCategory = mapMarker.category;
-                    break;
-                }
-            }
-        }
-
-        if (caption == null) {
-            for (MapMarker mapMarker : convenienceMarkers) {
-                if (mapMarker.marker.equals(clickedMarker)) {
-                    caption = mapMarker.marker.getCaptionText();
-                    clickedCategory = mapMarker.category;
-                    break;
-                }
-            }
-        }
-
-        // BottomSheet 인스턴스 생성
-        BottomSheet bottomSheet = new BottomSheet();
-        Bundle args = new Bundle();
-        args.putString("markerName", caption); // BottomSheet에 전달할 정보 설정
-        bottomSheet.setArguments(args);
-
-        // BottomSheet를 화면에 표시
-        bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
+    private Bitmap resizeMarkerIcon(int resId, int width, int height) {
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), resId);
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
     }
 
 
+
+    /**
+     * 마커를 클릭했을 때 해당 마커의 정보를 보여주는 BottomSheet 호출
+     */
+    public boolean onMarkerClicked(Marker clickedMarker) {
+        MapMarker mapMarker = (MapMarker) clickedMarker.getTag(); // 태그에서 MapMarker 객체 가져오기
+
+        if (mapMarker != null) {
+            String caption = clickedMarker.getTitle(); // 마커의 제목 가져오기
+            Category clickedCategory = mapMarker.category;
+
+            // BottomSheet 인스턴스 생성
+            BottomSheetDialog bottomSheet = new BottomSheetDialog(requireContext());
+            bottomSheet.setContentView(R.layout.fragment_bottom_sheet);
+
+            // BottomSheet에 표시할 정보 설정
+            TextView markerInfo = bottomSheet.findViewById(R.id.facility_name);
+            markerInfo.setText(caption);
+
+            // BottomSheet를 화면에 표시
+            bottomSheet.show();
+            return true; // 클릭 이벤트 소비
+        }
+        return false; // 클릭 이벤트가 처리되지 않음
+    }
+
+    /**
+     * 선택된 카테고리의 마커만 표시하는 메서드
+     */
     private void showCategory(Category category) {
         hideAllMarkers(); // 모든 마커를 숨김
 
+        List<MapMarker> markersToShow;
+
+        // 모든 카테고리의 마커를 표시
         if (category == Category.ALL) {
-            // 모든 카테고리의 마커를 표시
-            for (MapMarker mapMarker : ridingMarkers) {
-                mapMarker.marker.setMap(naverMap);
-                if (mapMarker.circle != null) {
-                    mapMarker.circle.setMap(naverMap);
-                }
-            }
-
-            for (MapMarker mapMarker : restaurantMarkers) {
-                mapMarker.marker.setMap(naverMap);
-                if (mapMarker.circle != null) {
-                    mapMarker.circle.setMap(naverMap);
-                }
-            }
-
-            for (MapMarker mapMarker : cafeMarkers) {
-                mapMarker.marker.setMap(naverMap);
-                if (mapMarker.circle != null) {
-                    mapMarker.circle.setMap(naverMap);
-                }
-            }
-
-            for (MapMarker mapMarker : convenienceMarkers) {
-                mapMarker.marker.setMap(naverMap);
-                if (mapMarker.circle != null) {
-                    mapMarker.circle.setMap(naverMap);
-                }
-            }
+            markersToShow = new ArrayList<>();
+            markersToShow.addAll(ridingMarkers);
+            markersToShow.addAll(restaurantMarkers);
+            markersToShow.addAll(cafeMarkers);
+            markersToShow.addAll(convenienceMarkers);
         } else {
             // 선택된 카테고리의 마커만 표시
-            List<MapMarker> markersToShow;
             switch (category) {
                 case RIDING:
                     markersToShow = ridingMarkers;
@@ -394,62 +366,61 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 default:
                     markersToShow = new ArrayList<>();
             }
+        }
 
-            for (MapMarker mapMarker : markersToShow) {
-                mapMarker.marker.setMap(naverMap);
-                if (mapMarker.circle != null) {
-                    mapMarker.circle.setMap(naverMap);
-                }
+        // 선택된 카테고리의 마커와 서클을 표시
+        for (MapMarker mapMarker : markersToShow) {
+            mapMarker.marker.setVisible(true);
+            if (mapMarker.circle != null) {
+                mapMarker.circle.setVisible(true);
             }
         }
     }
-
 
     /**
-     * 모든 마커를 지도에서 숨기는 메소드
+     * 모든 마커와 서클을 숨기는 메서드
      */
     private void hideAllMarkers() {
-        for (MapMarker mapMarker : ridingMarkers) {
-            mapMarker.marker.setMap(null);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setMap(null);
-            }
-        }
+        // 모든 카테고리의 마커와 서클을 숨김
+        List<MapMarker> allMarkers = new ArrayList<>();
+        allMarkers.addAll(ridingMarkers);
+        allMarkers.addAll(restaurantMarkers);
+        allMarkers.addAll(cafeMarkers);
+        allMarkers.addAll(convenienceMarkers);
 
-        for (MapMarker mapMarker : restaurantMarkers) {
-            mapMarker.marker.setMap(null);
+        for (MapMarker mapMarker : allMarkers) {
+            mapMarker.marker.setVisible(false);
             if (mapMarker.circle != null) {
-                mapMarker.circle.setMap(null);
-            }
-        }
-
-        for (MapMarker mapMarker : cafeMarkers) {
-            mapMarker.marker.setMap(null);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setMap(null);
-            }
-        }
-
-        for (MapMarker mapMarker : convenienceMarkers) {
-            mapMarker.marker.setMap(null);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setMap(null);
+                mapMarker.circle.setVisible(false);
             }
         }
     }
 
-
     @Override
-    public void onMapReady(@NonNull NaverMap naverMap) {
-        this.naverMap = naverMap;
-        setMapOptions(naverMap);
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        gMap = googleMap;
 
-        CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(37.51103128734522, 127.09836284873701),
-                16  // 지도 줌 레벨
-        );
+        // 모든 기본 아이콘 제거
+        gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        gMap.getUiSettings().setMapToolbarEnabled(false);  // 지도 도구 제거
+        gMap.setBuildingsEnabled(false);  // 3D 건물 표시 제거
+        gMap.setTrafficEnabled(false);  // 교통 정보 제거
+        gMap.setIndoorEnabled(false);  // 실내 맵 제거
+        gMap.getUiSettings().setCompassEnabled(false);  // 나침반 제거
+        gMap.getUiSettings().setZoomControlsEnabled(false);  // 줌 컨트롤 제거
 
-        naverMap.setCameraPosition(cameraPosition);
+        // 다크 테마 스타일 적용
+        boolean success = gMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style));
+
+
+        // 서울에 마커 추가
+        LatLng LotteWorld = new LatLng(37.51103128734522, 127.09836284873701);
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(LotteWorld)
+                .title("롯데월드");
+
+
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LotteWorld, 16));
 
         addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Color.RED, Category.RIDING);
         addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Color.GREEN, Category.RIDING);
@@ -472,7 +443,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Color.RED, Category.RESTAURANT);
         addMapMarker(new LatLng(37.508925590377515,127.1006056053824 ), "샬레카페", Color.RED, Category.RESTAURANT);
 
-
         addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Color.RED, Category.CAFE);
         addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Color.RED, Category.CAFE);
         addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Color.RED, Category.CAFE);
@@ -484,55 +454,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Color.RED, Category.CAFE);
         addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Color.RED, Category.CAFE);
 
-
         addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Color.RED, Category.CONVENIENCE);
         addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Color.RED, Category.CONVENIENCE);
-
-        setMoveLocation(37.51103128734522, 127.09836284873701);
-
-        showCategory(Category.ALL);
     }
 
+    private Bitmap createCustomMarker(String caption) {
+        View markerView = LayoutInflater.from(getContext()).inflate(R.layout.custom_marker, null);
+        TextView markerCaption = markerView.findViewById(R.id.marker_caption);
+        markerCaption.setText(caption);
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        map_fragment.onStart();
+        // 측정 후 비트맵으로 변환
+        markerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
+
+        Bitmap bitmap = Bitmap.createBitmap(markerView.getMeasuredWidth(), markerView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        markerView.draw(canvas);
+        return bitmap;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        map_fragment.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        map_fragment.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        map_fragment.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        map_fragment.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        map_fragment.onLowMemory();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        map_fragment.onSaveInstanceState(outState);
-    }
 }
