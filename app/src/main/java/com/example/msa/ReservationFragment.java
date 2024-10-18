@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -53,12 +54,13 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ticket_reservation) {
-            // TicketSelectFragment로 전환
-            TicketSelectFragment childFragment = new TicketSelectFragment(); // Fragment로 변경
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, childFragment) // R.id.fragment_container가 적절한지 확인
-                    .addToBackStack(null) // 뒤로 가기 시 이전 프래그먼트로 돌아가기 가능
-                    .commit();
+
+//            // TicketSelectFragment로 전환
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new TicketSelectFragment());
+            transaction.addToBackStack(null); // 백 스택에 추가
+            transaction.commit();
+
         }
     }
 }
