@@ -93,12 +93,13 @@ public class TicketSelectFragment extends Fragment implements MyPagerAdapter.OnP
         }
     }
 
-    // Handle page click event
+    //놀이공원 클릭 시 이벤트 처리
     @Override
     public void onPageClick(int position) {
 
         PaymentFragment paymentFragment = new PaymentFragment();
 
+        //번들에 담아서 sharedViewModel에 저장->PaymentFragment로 전달
         Bundle bundle = new Bundle();
         bundle.putString("selectedTicket", sharedViewModel.getSelectedTicketName().getValue());
         paymentFragment.setArguments(bundle);
