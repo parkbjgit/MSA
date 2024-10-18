@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +26,15 @@ public class PaymentFragment extends Fragment {
     private TextView parkNameTextView;
     private TextView selectedDateTextView;
     private CalendarView calendarView;
+    private AppCompatButton btnPurchaseTicket;
+
+    private final int ADULT_PRICE = 59000;
+    private final int TEEN_PRICE = 52000;
+    private final int CHILD_PRICE = 46000;
+
+    private final int ADULT_PRICE2 = 47000;
+    private final int TEEN_PRICE2 = 41000;
+    private final int CHILD_PRICE2 = 35000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +56,10 @@ public class PaymentFragment extends Fragment {
         teenCountTextView2 = view.findViewById(R.id.teen_count2);
         childCountTextView2 = view.findViewById(R.id.child_count2);
 
-        // Get the selected ticket name from arguments (if available)
+        btnPurchaseTicket = view.findViewById(R.id.btn_purchase_ticket);
+        updateTotalPrice();
+
+        // 선택된 티켓 이름을 TextView에 표시
         Bundle arguments = getArguments();
         if (arguments != null) {
             String selectedTicket = arguments.getString("selectedTicket");
@@ -56,7 +70,7 @@ public class PaymentFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String selectedDate = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";
+                String selectedDate = year + " - " + (month + 1) + " - " + dayOfMonth ;
                 selectedDateTextView.setText(selectedDate);
             }
         });
@@ -68,6 +82,7 @@ public class PaymentFragment extends Fragment {
                 if (adultCount > 0) {
                     adultCount--;
                     adultCountTextView.setText(String.valueOf(adultCount));
+                    updateTotalPrice();
                 }
             }
         });
@@ -77,6 +92,7 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 adultCount++;
                 adultCountTextView.setText(String.valueOf(adultCount));
+                updateTotalPrice();
             }
         });
 
@@ -87,6 +103,7 @@ public class PaymentFragment extends Fragment {
                 if (teenCount > 0) {
                     teenCount--;
                     teenCountTextView.setText(String.valueOf(teenCount));
+                    updateTotalPrice();
                 }
             }
         });
@@ -96,6 +113,7 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 teenCount++;
                 teenCountTextView.setText(String.valueOf(teenCount));
+                updateTotalPrice();
             }
         });
 
@@ -106,6 +124,7 @@ public class PaymentFragment extends Fragment {
                 if (childCount > 0) {
                     childCount--;
                     childCountTextView.setText(String.valueOf(childCount));
+                    updateTotalPrice();
                 }
             }
         });
@@ -115,6 +134,7 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 childCount++;
                 childCountTextView.setText(String.valueOf(childCount));
+                updateTotalPrice();
             }
         });
 
@@ -125,6 +145,7 @@ public class PaymentFragment extends Fragment {
                 if (adultCount2 > 0) {
                     adultCount2--;
                     adultCountTextView2.setText(String.valueOf(adultCount2));
+                    updateTotalPrice();
                 }
             }
         });
@@ -134,6 +155,7 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 adultCount2++;
                 adultCountTextView2.setText(String.valueOf(adultCount2));
+                updateTotalPrice();
             }
         });
 
@@ -144,6 +166,7 @@ public class PaymentFragment extends Fragment {
                 if (teenCount2 > 0) {
                     teenCount2--;
                     teenCountTextView2.setText(String.valueOf(teenCount2));
+                    updateTotalPrice();
                 }
             }
         });
@@ -153,6 +176,7 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 teenCount2++;
                 teenCountTextView2.setText(String.valueOf(teenCount2));
+                updateTotalPrice();
             }
         });
 
@@ -163,6 +187,7 @@ public class PaymentFragment extends Fragment {
                 if (childCount2 > 0) {
                     childCount2--;
                     childCountTextView2.setText(String.valueOf(childCount2));
+                    updateTotalPrice();
                 }
             }
         });
@@ -172,9 +197,23 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 childCount2++;
                 childCountTextView2.setText(String.valueOf(childCount2));
+                updateTotalPrice();
             }
         });
 
         return view;
+    }
+
+
+    // 총 가격을 계산하고 결제하기 버튼의 텍스트를 업데이트하는 메서드
+    private void updateTotalPrice() {
+        int totalPrice = (adultCount * ADULT_PRICE)
+                + (teenCount * TEEN_PRICE)
+                + (childCount * CHILD_PRICE)
+                + (adultCount2 * ADULT_PRICE2)
+                + (teenCount2 * TEEN_PRICE2)
+                + (childCount2 * CHILD_PRICE2);
+
+        btnPurchaseTicket.setText(totalPrice + "원 결제하기");
     }
 }

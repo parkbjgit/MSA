@@ -3,11 +3,8 @@ package com.example.msa;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
-import android.widget.TextView;
 
 public class MyPagerAdapter extends PagerAdapter {
 
@@ -37,7 +34,6 @@ public class MyPagerAdapter extends PagerAdapter {
         View view = inflater.inflate(layouts[position], container, false); // 각 레이아웃을 인플레이트
         container.addView(view); // ViewPager에 추가
 
-        // Set OnClickListener for each page
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

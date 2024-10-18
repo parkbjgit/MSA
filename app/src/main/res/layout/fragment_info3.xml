@@ -12,65 +12,74 @@
             android:layout_height="wrap_content"
             android:text="시설명"
             android:textSize="25sp"
-            android:textColor="@color/white"
+            android:textColor="@color/blue"
             android:gravity="center"/>
 
-        <!-- 오전 텍스트 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오전"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="8dp"/>
-
-        <!-- 오전 버튼들 -->
-        <GridLayout
-            android:id="@+id/gridLayoutMorning"
+        <!-- 스크롤 가능한 영역 -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:rowCount="2"
-            android:alignmentMode="alignBounds"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <!-- 오후 텍스트 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오후"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="8dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <!-- 오후 버튼들 -->
-        <GridLayout
-            android:id="@+id/gridLayoutAfternoon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:rowCount="5"
-            android:alignmentMode="alignBounds"/>
+                        <!-- 오전 텍스트 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="오전"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginBottom="8dp" />
 
-        <android.widget.Button
+                        <!-- 오전 버튼들 -->
+                        <GridLayout
+                            android:id="@+id/gridLayoutMorning"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="4"
+                            android:rowCount="2"
+                            android:alignmentMode="alignBounds"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- 오후 텍스트 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="오후"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- 오후 버튼들 -->
+                        <GridLayout
+                            android:id="@+id/gridLayoutAfternoon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="4"
+                            android:rowCount="5"
+                            android:alignmentMode="alignBounds" />
+
+
+
+                </LinearLayout>
+        </ScrollView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/choice_complete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="선택완료"
             android:textSize="16sp"
             android:textColor="@color/white"
-            android:fontFamily="@font/cookierun_regular"
             android:background="@drawable/blue_btn"
             android:layout_marginTop="20dp"/>
 
-<!--        <android.widget.Button-->
-<!--            android:id="@+id/queue_register"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="대기열 등록"-->
-<!--            android:textSize="17sp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:layout_marginTop="20dp"/>-->
+
 </LinearLayout>
