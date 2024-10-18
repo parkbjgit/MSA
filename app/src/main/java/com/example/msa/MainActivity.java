@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,7 +24,6 @@ import java.security.NoSuchAlgorithmException;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
             //Log.d("메인엑티비티 로그인 된경우","로그인이  됨");
         }
 
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, new ReservationFragment());
-        transaction.commit();
-
-
         init(); // 객체 정의
         SettingListener(); // 리스너 등록
 
@@ -64,21 +58,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             bottomNavigationView.setSelectedItemId(R.id.tab_home);
             switchFragment(new ReservationFragment());
-        }
-
-        //getHashKey();
-    }
-
-    private void getHashKey() {
-        try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : packageInfo.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
-            Log.e("KeyHash", "Unable to get MessageDigest.", e);
         }
     }
 
@@ -94,11 +73,25 @@ public class MainActivity extends AppCompatActivity {
     private void switchFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        // Replace fragment instead of adding and hiding previous fragments
+        // Replace fragment
         transaction.replace(R.id.fragment_container, fragment);
+
+        // Do not add root fragments to the back stack
         transaction.commit();
         activeFragment = fragment;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            // 백 스택이 비어 있으면 앱 종료
+            finish();
+        } else {
+            // 백 스택에 프래그먼트가 있으면 기본 동작 수행
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -112,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             int itemId = menuItem.getItemId();
+
+            // Clear the back stack when switching tabs
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
             if (itemId == R.id.tab_home) {
                 switchFragment(new ReservationFragment());
@@ -129,16 +125,4 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        // 인텐트로부터 전달된 값 확인
-//        if (getIntent() != null) {
-//            boolean showImage = getIntent().getBooleanExtra("show_image", false);
-//            sharedViewModel.setImageVisibility(showImage);
-//        }
-    }
-
 }

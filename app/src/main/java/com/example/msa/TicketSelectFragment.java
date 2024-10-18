@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
@@ -95,19 +96,17 @@ public class TicketSelectFragment extends Fragment implements MyPagerAdapter.OnP
     // Handle page click event
     @Override
     public void onPageClick(int position) {
-        // Navigate to PaymentFragment
+
         PaymentFragment paymentFragment = new PaymentFragment();
 
-        // Pass data to the PaymentFragment (optional)
         Bundle bundle = new Bundle();
         bundle.putString("selectedTicket", sharedViewModel.getSelectedTicketName().getValue());
         paymentFragment.setArguments(bundle);
 
-        // Perform the fragment transaction
-        requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, paymentFragment)
-                .addToBackStack(null) // Add to back stack so the user can navigate back
-                .commit();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, paymentFragment);
+        transaction.addToBackStack(null); // 백 스택에 추가
+        transaction.commit();
     }
 }
 
