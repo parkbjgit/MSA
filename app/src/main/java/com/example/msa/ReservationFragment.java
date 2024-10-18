@@ -20,24 +20,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class ReservationFragment extends Fragment implements View.OnClickListener {
 
-    private ImageView imageViewQRCode;
-    private TextView textView;
-    private SharedViewModel sharedViewModel;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //화면캡처 금지 코드
-        if (view.findViewById(R.id.ImageViewQRCode)!=null) {
-            getActivity().getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE
-            );
-        }
 
         // 뷰 초기화
         //imageViewQRCode = view.findViewById(R.id.ImageViewQRCode); // QR 코드 이미지뷰 초기화
@@ -55,12 +42,24 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ticket_reservation) {
 
-//            // TicketSelectFragment로 전환
+            // TicketSelectFragment로 전환
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new TicketSelectFragment());
             transaction.addToBackStack(null); // 백 스택에 추가
             transaction.commit();
 
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        // 화면이 보여질 때 FLAG_SECURE 플래그 제거
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+    }
+
+    public void onPause() {
+        super.onPause();
+        // 화면이 사라질 때 FLAG_SECURE 플래그 추가
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
     }
 }
