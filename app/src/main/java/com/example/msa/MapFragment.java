@@ -30,13 +30,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.maps.android.heatmaps.Gradient;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.google.maps.android.heatmaps.WeightedLatLng;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +60,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     // 마커와 서클 오버레이를 포함한 커스텀 클래스 정의
     public class MapMarker {
         Marker marker; // 지도 위의 마커
-        Circle circle; // 마커 주위의 서클 오버레이
         Category category; // 마커의 카테고리
 
         // 생성자
-        public MapMarker(Marker marker, Circle circle, Category category) {
+        public MapMarker(Marker marker, Category category) {
             this.marker = marker;
-            this.circle = circle;
             this.category = category;
         }
     }
@@ -118,9 +123,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메소드
-     */
-    /**
      * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메서드
      */
     private void searchMarker(String searchText) {
@@ -172,9 +174,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    /*
-     * 마커 위치로 카메라를 이동시키는 메서드
-     */
+
+    //마커 위치로 카메라를 이동시키는 메서드
     private void moveCameraToMarker(Marker marker) {
         LatLng position = marker.getPosition();
 
@@ -186,9 +187,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         onMarkerClicked(marker);
     }
 
-    /**
-     * 필터 버튼 클릭 시 동작하는 메소드
-     */
+
+     //필터 버튼 클릭 시 동작하는 메소드
     private void onFilterClicked(View view) {
         Button clickedButton = (Button) view;
 
@@ -224,23 +224,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         showCategory(selectedCategory);
     }
 
-    /**
-     * 지정된 위치로 카메라를 이동시키는 메서드
-     */
+
+     //지정된 위치로 카메라를 이동시키는 메서드
     public void setMoveLocation(double latitude, double longitude) {
         LatLng targetLocation = new LatLng(latitude, longitude);
-
         // 카메라 업데이트 생성 (줌 레벨 포함)
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(targetLocation, 16);
-
         // 카메라 이동
         gMap.moveCamera(cameraUpdate);
     }
 
-    /**
-     * 주어진 위치에 마커와 서클을 추가하는 메서드
-     */
-    private void addMapMarker(LatLng position, String caption, Integer color, Category category) {
+
+
+    //주어진 위치에 마커와 서클을 추가하는 메서드
+    private void addMapMarker(LatLng position, String caption, Category category) {
         // 마커 아이콘 크기를 70x70으로 조정
         Bitmap customMarker = createCustomMarker(caption);
 
@@ -254,19 +251,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Marker marker = gMap.addMarker(markerOptions);
 
 
-        // 색상이 지정된 경우 서클 오버레이 생성 및 설정
-        Circle circle = null;
-        if (color != null) {
-            circle = gMap.addCircle(new CircleOptions()
-                    .center(position) // 서클 중심 설정
-                    .radius(30) // 반경 (미터 단위)
-                    .fillColor(Color.argb(80, Color.red(color), Color.green(color), Color.blue(color))) // 투명도 적용
-                    .strokeColor(color) // 경계 색상 설정
-                    .strokeWidth(2)); // 경계 두께 설정
-        }
 
         // MapMarker 객체로 마커와 서클을 감싸서 카테고리별 리스트에 추가
-        MapMarker mapMarker = new MapMarker(marker, circle, category);
+        MapMarker mapMarker = new MapMarker(marker, category);
         switch (category) {
             case RIDING:
                 ridingMarkers.add(mapMarker);
@@ -371,9 +358,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // 선택된 카테고리의 마커와 서클을 표시
         for (MapMarker mapMarker : markersToShow) {
             mapMarker.marker.setVisible(true);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setVisible(true);
-            }
         }
     }
 
@@ -390,9 +374,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         for (MapMarker mapMarker : allMarkers) {
             mapMarker.marker.setVisible(false);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setVisible(false);
-            }
         }
     }
 
@@ -420,43 +401,106 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .title("롯데월드");
 
 
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LotteWorld, 16));
 
-        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Color.RED, Category.RIDING);
-        addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Color.GREEN, Category.RIDING);
-        addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Color.YELLOW, Category.RIDING);
-        addMapMarker(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Color.GREEN, Category.RIDING);
-        addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Color.RED, Category.RIDING);
-        addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Color.RED, Category.RIDING);
-        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Color.RED, Category.RIDING);
-        addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Color.YELLOW, Category.RIDING);
+        // 히트맵 생성 및 지도에 추가
+        try {
+            List<WeightedLatLng> locations = loadLocationsFromRaw();
 
-        addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.510776900704585, 127.09908127784729), "구복만두", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.510452000958864, 127.0965120788493), "명동할머니국수", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.51050881855063, 127.09903836250305), "라라코스트", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.51202643912463, 127.09936594924115), "여섯시오븐", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "롯데호텔월드 도림", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.5112875307151, 127.09793865680695), "아우어베이커리", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Color.RED, Category.RESTAURANT);
-        addMapMarker(new LatLng(37.508925590377515,127.1006056053824 ), "샬레카페", Color.RED, Category.RESTAURANT);
+            // 색상 배열 정의 (초록색 -> 노란색 -> 빨간색)
+            int[] colors = {
+                    Color.rgb(0, 255, 0),   // 초록색 (여유)
+                    Color.rgb(255, 255, 0), // 노란색 (보통)
+                    Color.rgb(255, 0, 0)    // 빨간색 (혼잡)
+            };
 
-        addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.51089029383816, 127.09797656497143), "투썸플레이스 롯데월드점", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.51158815291703, 127.09855592211865), "공차 롯데월드점", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.51209664978282, 127.09877586325787), "풀바셋", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.511098801197626, 127.09975755175732), "엔제리너스", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.50898091016943, 127.09947907759614), "투썸플레이스 롯데월드매직아일랜드점", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Color.RED, Category.CAFE);
-        addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Color.RED, Category.CAFE);
+            // 히트맵의 강도에 따른 색상 경계 정의
+            float[] startPoints = {
+                    0.2f, 0.5f, 1.0f
+            };
 
-        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Color.RED, Category.CONVENIENCE);
-        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Color.RED, Category.CONVENIENCE);
+            // Gradient 객체 생성
+            Gradient gradient = new Gradient(colors, startPoints);
+
+            HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder()
+                    .weightedData(locations) // 가중치를 사용할 경우
+                    .radius(40) // 히트맵 반경 설정
+                    .build();
+            gMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatmapTileProvider));
+        } catch (Exception e) {
+            Log.e("MapFragment", "JSON 파일 로드 실패: " + e.getMessage());
+        }
+
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LotteWorld, 17));
+
+//        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Category.RIDING);
+//        addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Category.RIDING);
+//        addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Category.RIDING);
+//        addMapMarker(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Category.RIDING);
+//        addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Category.RIDING);
+//        addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Category.RIDING);
+//        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Category.RIDING);
+//        addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Category.RIDING);
+//
+//        addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.510776900704585, 127.09908127784729), "구복만두", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.510452000958864, 127.0965120788493), "명동할머니국수", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.51050881855063, 127.09903836250305), "라라코스트", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.51202643912463, 127.09936594924115), "여섯시오븐", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "롯데호텔월드 도림", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.5112875307151, 127.09793865680695), "아우어베이커리", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Category.RESTAURANT);
+//        addMapMarker(new LatLng(37.508925590377515,127.1006056053824 ), "샬레카페", Category.RESTAURANT);
+//
+//        addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Category.CAFE);
+//        addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Category.CAFE);
+//        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Category.CAFE);
+//        addMapMarker(new LatLng(37.51089029383816, 127.09797656497143), "투썸플레이스 롯데월드점", Category.CAFE);
+//        addMapMarker(new LatLng(37.51158815291703, 127.09855592211865), "공차 롯데월드점", Category.CAFE);
+//        addMapMarker(new LatLng(37.51209664978282, 127.09877586325787), "풀바셋", Category.CAFE);
+//        addMapMarker(new LatLng(37.511098801197626, 127.09975755175732), "엔제리너스", Category.CAFE);
+//        addMapMarker(new LatLng(37.50898091016943, 127.09947907759614), "투썸플레이스 롯데월드매직아일랜드점", Category.CAFE);
+//        addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Category.CAFE);
+//        addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Category.CAFE);
+//
+//        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Category.CONVENIENCE);
+//        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Category.CONVENIENCE);
     }
+
+    // raw 폴더에 있는 JSON 파일에서 위도와 경도를 로드하여 LatLng 리스트를 반환하는 메서드
+    private List<WeightedLatLng> loadLocationsFromRaw() {
+        List<WeightedLatLng> locations = new ArrayList<>();
+
+        try {
+            // raw 폴더에 저장된 JSON 파일 읽기
+            InputStream inputStream = getResources().openRawResource(R.raw.user_locations);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            StringBuilder jsonString = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonString.append(line);
+            }
+
+            JSONArray jsonArray = new JSONArray(jsonString.toString());
+
+            // JSON 배열에서 LatLng 객체 생성
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                double lat = obj.getDouble("latitude");
+                double lng = obj.getDouble("longitude");
+                locations.add(new WeightedLatLng(new LatLng(lat, lng), 1.0)); // 가중치 1.0
+            }
+
+            reader.close(); // 스트림 닫기
+        } catch (Exception e) {
+            e.printStackTrace(); // 오류 로그 출력
+        }
+
+        return locations;
+    }
+
 
     private Bitmap createCustomMarker(String caption) {
         View markerView = LayoutInflater.from(getContext()).inflate(R.layout.custom_marker, null);
