@@ -48,7 +48,7 @@ public class TicketSelectFragment extends Fragment implements MyPagerAdapter.OnP
             public void onChanged(String s) {
                 // 애니메이션 효과 추가
                 ObjectAnimator blink = ObjectAnimator.ofFloat(ticketNameTextView, "alpha", 1f, 0f, 1f);
-                blink.setDuration(500);
+                blink.setDuration(800);
                 blink.setRepeatCount(1);
                 blink.start();
 
