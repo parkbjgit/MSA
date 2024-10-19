@@ -71,6 +71,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
             marker.setTag(mapMarker);
         }
     }
+
     private Bitmap resizeMarkerIcon(int resId, int width, int height) {
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), resId);
         return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
@@ -117,7 +118,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 .title("롯데월드");
 
 
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LotteWorld, 18));
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LotteWorld, 17));
 
         addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션");
         addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드");
