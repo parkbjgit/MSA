@@ -1,5 +1,6 @@
 package com.example.msa;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -8,10 +9,12 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -84,14 +87,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            // 백 스택이 비어 있으면 앱 종료
-            finish();
+            showCustomExitDialog();
         } else {
             // 백 스택에 프래그먼트가 있으면 기본 동작 수행
             super.onBackPressed();
         }
     }
 
+    public void showCustomExitDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_exit, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+
+        AppCompatButton cancelButton = dialogView.findViewById(R.id.cancel_btn);
+        AppCompatButton exitButton = dialogView.findViewById(R.id.exit_btn);
+
+        cancelButton.setOnClickListener( v-> dialog.dismiss());
+        exitButton.setOnClickListener( v-> {
+                    dialog.dismiss();
+                    finishAffinity();   //그냥 finish는 activity만 종료
+                });
+
+        // 다이얼로그 스타일 설정 및 표시
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);  // radius 때문에 겉에 투명색으로 설정
+        }
+
+        dialog.show();
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

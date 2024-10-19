@@ -100,7 +100,7 @@ public class InfoFragment3 extends Fragment {
         Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY); // 24시간 형식의 현재 시간
         int currentMinute = calendar.get(Calendar.MINUTE); // 현재 분
-        Log.d(currentHour + currentMinute + "", "현재 시간");       //오전은 2, 1 이렇게 출력
+        //Log.d(currentHour + currentMinute + "", "현재 시간");       //오전은 2, 1 이렇게 출력
 
         for (String time : times) {
             // 시간 문자열을 "HH:mm" 형식으로 파싱
