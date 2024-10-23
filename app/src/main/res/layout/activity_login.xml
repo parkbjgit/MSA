@@ -18,33 +18,38 @@
         android:src="@drawable/logo" />
 
     <!-- KakaoTalk Login Button -->
-    <Button
-        android:id="@+id/btn_kakao_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:backgroundTint="#FFEB00"
-        android:text="카카오로 시작하기"
-        android:textSize="15sp"
-        android:textColor="#000000"
-        android:drawableLeft="@drawable/kakao"
-        android:gravity="center_vertical" />
 
     <!-- Google Login Button -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_kakao_login"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/login_btn"
+        android:backgroundTint="#FFEB00"
+        android:drawableLeft="@drawable/kakao"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text=" 카카오로 시작하기"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_google_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="42dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="15dp"
+        android:background="@drawable/login_btn"
         android:backgroundTint="#FFFFFF"
-        android:text="구글로 시작하기"
-        android:textSize="15sp"
-        android:textColor="#000000"
         android:drawableLeft="@drawable/google"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text=" 구글로 시작하기"
+        android:textColor="#000000"
+        android:textSize="15sp" />
 
 </LinearLayout>
