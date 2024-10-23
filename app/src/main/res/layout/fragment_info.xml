@@ -300,7 +300,7 @@
                             android:textStyle="italic"
                             />
 
-                        <!-- 예약 취소 버튼 -->
+
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/reservation_cancel"
                             android:layout_width="55dp"
@@ -311,7 +311,9 @@
                             android:background="@drawable/cancel_btn"
                             android:layout_marginTop="4dp"
                             android:layout_marginBottom="6dp"
-                            android:layout_gravity="center_vertical"/>
+                            android:layout_gravity="center_vertical" />
+
+
 
                     </LinearLayout>
 
