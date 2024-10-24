@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -428,23 +429,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // 다크 테마 스타일 적용
         boolean success = gMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style));
 
+        // 구글 로고를 하단으로 이동하기 위해 패딩 설정
+        gMap.setPadding(150, 0, 0, 1700);
 
-        // 서울에 마커 추가
-        LatLng LotteWorld = new LatLng(37.51103128734522, 127.09836284873701);
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(LotteWorld)
-                .title("롯데월드");
+        LatLng initialPosition = new LatLng(37.51517303070847, 127.09910634326137);
 
+        // 패딩이 완전히 적용된 후 카메라 이동 보장
+        View mapView = getChildFragmentManager().findFragmentById(R.id.map_container).getView();
+        if (mapView != null) {
+            mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    // 카메라를 정확한 위치로 이동
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
 
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LotteWorld, 16));
+                    // 리스너 제거 (한 번만 실행)
+                    mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
+        }
 
+        // 마커 추가 예시
         addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Category.RIDING);
         addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Category.RIDING);
         addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Category.RIDING);
         addMapMarker(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Category.RIDING);
         addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Category.RIDING);
-        addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭",  Category.RIDING);
-        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선",  Category.RIDING);
+        addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Category.RIDING);
+        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Category.RIDING);
         addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Category.RIDING);
 
         addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Category.RESTAURANT);
@@ -457,7 +469,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Category.RESTAURANT);
         addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Category.RESTAURANT);
         addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Category.RESTAURANT);
-        addMapMarker(new LatLng(37.508925590377515,127.1006056053824 ), "샬레카페", Category.RESTAURANT);
+        addMapMarker(new LatLng(37.508925590377515, 127.1006056053824), "샬레카페", Category.RESTAURANT);
 
         addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Category.CAFE);
         addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Category.CAFE);
