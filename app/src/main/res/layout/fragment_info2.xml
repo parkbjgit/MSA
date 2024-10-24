@@ -11,13 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <!-- 지도 뷰를 감싸는 카드뷰 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#1f1f1f">
-
             <!-- 지도 뷰 -->
             <fragment
                 android:id="@+id/map_facility_choice"
@@ -26,8 +19,11 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:scaleType="centerCrop"/> <!-- 대체 이미지 설정 가능 -->
 
-        </androidx.cardview.widget.CardView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFFFFF" />
 
         <!-- 과거 예약된 놀이기구 섹션 -->
         <TextView
@@ -49,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:paddingBottom="30dp"
                 android:orientation="vertical">
 
                 <!-- 첫 번째 과거 놀이기구 카드 -->
