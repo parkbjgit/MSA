@@ -47,6 +47,8 @@ import java.util.List;
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap gMap;
+    private List<Circle> activeCircles = new ArrayList<>();  // 현재 표시 중인 서클 목록
+
     public enum Category {
         ALL,
         RIDING,
@@ -190,9 +192,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         onMarkerClicked(marker);
     }
 
-    /**
-     * 필터 버튼 클릭 시 동작하는 메소드
-     */
     private void onFilterClicked(View view) {
         Button clickedButton = (Button) view;
 
@@ -205,27 +204,115 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         clickedButton.setSelected(true);
         selectedButton = clickedButton;
 
-        // 클릭된 버튼에 따라 카테고리 선택
-        Category selectedCategory;
-
+        // 클릭된 버튼에 따라 현재 카테고리 설정
         if (view.getId() == R.id.all_filter) {
-            selectedCategory = Category.ALL;
+            currentCategory = Category.ALL;
         } else if (view.getId() == R.id.riding_filter) {
-            selectedCategory = Category.RIDING;
+            currentCategory = Category.RIDING;
         } else if (view.getId() == R.id.restaurant_filter) {
-            selectedCategory = Category.RESTAURANT;
+            currentCategory = Category.RESTAURANT;
         } else if (view.getId() == R.id.cafe_filter) {
-            selectedCategory = Category.CAFE;
+            currentCategory = Category.CAFE;
         } else if (view.getId() == R.id.convenience_filter) {
-            selectedCategory = Category.CONVENIENCE;
-        } else {
-            selectedCategory = Category.RIDING; // 기본 카테고리
+            currentCategory = Category.CONVENIENCE;
         }
 
-        currentCategory = selectedCategory;
+        // 선택된 카테고리의 마커와 서클만 표시
+        showCategory(currentCategory);
+    }
 
-        // 선택된 카테고리의 마커들만 표시
-        showCategory(selectedCategory);
+    private void addMapMarker(LatLng position, String caption, Category category) {
+        Bitmap customMarker = createCustomMarker(caption);
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(position)
+                .title(caption)
+                .icon(BitmapDescriptorFactory.fromBitmap(customMarker));
+
+        Marker marker = gMap.addMarker(markerOptions);
+
+        // MapMarker 객체 생성 및 카테고리별 리스트에 추가
+        MapMarker mapMarker = new MapMarker(marker, null, category);
+
+        if (category == Category.RIDING) {
+            ridingMarkers.add(mapMarker);
+        } else if (category == Category.RESTAURANT) {
+            restaurantMarkers.add(mapMarker);
+        } else if (category == Category.CAFE) {
+            cafeMarkers.add(mapMarker);
+        } else if (category == Category.CONVENIENCE) {
+            convenienceMarkers.add(mapMarker);
+        }
+
+        // 마커 클릭 리스너 설정
+        if (marker != null) {
+            marker.setTag(mapMarker);
+            gMap.setOnMarkerClickListener(clickedMarker -> {
+                onMarkerClicked(clickedMarker);
+                return true;  // 이벤트 소비
+            });
+        }
+    }
+
+    /**
+     * 선택된 카테고리의 마커와 서클만 표시하는 메서드
+     */
+    private void showCategory(Category category) {
+        // 모든 마커와 서클 숨기기
+        hideAllMarkers();
+        hideAllCircles();
+
+        List<MapMarker> markersToShow = new ArrayList<>();
+
+        // 선택된 카테고리에 해당하는 마커만 준비
+        if (category == Category.ALL) {
+            markersToShow.addAll(ridingMarkers);
+            markersToShow.addAll(restaurantMarkers);
+            markersToShow.addAll(cafeMarkers);
+            markersToShow.addAll(convenienceMarkers);
+        } else if (category == Category.RIDING) {
+            markersToShow = ridingMarkers;
+        } else if (category == Category.RESTAURANT) {
+            markersToShow = restaurantMarkers;
+        } else if (category == Category.CAFE) {
+            markersToShow = cafeMarkers;
+        } else if (category == Category.CONVENIENCE) {
+            markersToShow = convenienceMarkers;
+        }
+
+        // 선택된 마커와 해당 위치에 서클만 표시
+        for (MapMarker mapMarker : markersToShow) {
+            mapMarker.marker.setVisible(true);  // 마커 표시
+
+            // 해당 마커 위치에 서클 추가
+            Circle circle = addAnimatedCircle(
+                    mapMarker.marker.getPosition(),
+                    getCircleColor(calculateNearbyLocations(mapMarker.marker.getPosition(), 40))
+            );
+            mapMarker.circle = circle;  // 마커와 서클 연결
+            activeCircles.add(circle);  // 생성된 서클을 리스트에 저장
+        }
+    }
+    private void hideAllMarkers() {
+        List<MapMarker> allMarkers = new ArrayList<>();
+        allMarkers.addAll(ridingMarkers);
+        allMarkers.addAll(restaurantMarkers);
+        allMarkers.addAll(cafeMarkers);
+        allMarkers.addAll(convenienceMarkers);
+
+        // 모든 마커 숨기기
+        for (MapMarker mapMarker : allMarkers) {
+            mapMarker.marker.setVisible(false);  // 마커 숨김
+        }
+    }
+
+    /**
+     * 모든 서클을 제거하는 메서드
+     */
+    private void hideAllCircles() {
+        for (Circle circle : activeCircles) {
+            circle.remove();  // 기존 서클 제거
+        }
+        activeCircles.clear();  // 리스트 초기화
     }
 
     /**
@@ -298,50 +385,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void addMapMarker(LatLng position, String caption, Category category) {
-        Bitmap customMarker = createCustomMarker(caption);
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(position)
-                .title(caption)
-                .icon(BitmapDescriptorFactory.fromBitmap(customMarker));
-
-        Marker marker = gMap.addMarker(markerOptions);
-
-        // 반경 내 위치 개수에 따라 색상 설정
-        int nearbyCount = calculateNearbyLocations(position, 40);  // 반경 40m
-        int circleColor = getCircleColor(nearbyCount);  // 색상 결정
-
-        // 애니메이션 서클 추가
-        addAnimatedCircle(position, circleColor);
-
-        // MapMarker 객체 생성 및 카테고리별 리스트에 추가
-        MapMarker mapMarker = new MapMarker(marker, null, category);
-        switch (category) {
-            case RIDING:
-                ridingMarkers.add(mapMarker);
-                break;
-            case RESTAURANT:
-                restaurantMarkers.add(mapMarker);
-                break;
-            case CAFE:
-                cafeMarkers.add(mapMarker);
-                break;
-            case CONVENIENCE:
-                convenienceMarkers.add(mapMarker);
-                break;
-        }
-
-        // 마커 클릭 리스너 설정
-        if (marker != null) {
-            marker.setTag(mapMarker);
-            gMap.setOnMarkerClickListener(clickedMarker -> {
-                onMarkerClicked(clickedMarker);
-                return true;  // 이벤트 소비
-            });
-        }
-    }
-
-
 
     /**
      * 마커를 클릭했을 때 해당 마커의 정보를 보여주는 BottomSheet 호출
@@ -368,68 +411,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return false; // 클릭 이벤트가 처리되지 않음
     }
 
-    /**
-     * 선택된 카테고리의 마커만 표시하는 메서드
-     */
-    private void showCategory(Category category) {
-        hideAllMarkers(); // 모든 마커를 숨김
-
-        List<MapMarker> markersToShow;
-
-        // 모든 카테고리의 마커를 표시
-        if (category == Category.ALL) {
-            markersToShow = new ArrayList<>();
-            markersToShow.addAll(ridingMarkers);
-            markersToShow.addAll(restaurantMarkers);
-            markersToShow.addAll(cafeMarkers);
-            markersToShow.addAll(convenienceMarkers);
-        } else {
-            // 선택된 카테고리의 마커만 표시
-            switch (category) {
-                case RIDING:
-                    markersToShow = ridingMarkers;
-                    break;
-                case RESTAURANT:
-                    markersToShow = restaurantMarkers;
-                    break;
-                case CAFE:
-                    markersToShow = cafeMarkers;
-                    break;
-                case CONVENIENCE:
-                    markersToShow = convenienceMarkers;
-                    break;
-                default:
-                    markersToShow = new ArrayList<>();
-            }
-        }
-
-        // 선택된 카테고리의 마커와 서클을 표시
-        for (MapMarker mapMarker : markersToShow) {
-            mapMarker.marker.setVisible(true);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setVisible(true);
-            }
-        }
-    }
-
-    /**
-     * 모든 마커와 서클을 숨기는 메서드
-     */
-    private void hideAllMarkers() {
-        // 모든 카테고리의 마커와 서클을 숨김
-        List<MapMarker> allMarkers = new ArrayList<>();
-        allMarkers.addAll(ridingMarkers);
-        allMarkers.addAll(restaurantMarkers);
-        allMarkers.addAll(cafeMarkers);
-        allMarkers.addAll(convenienceMarkers);
-
-        for (MapMarker mapMarker : allMarkers) {
-            mapMarker.marker.setVisible(false);
-            if (mapMarker.circle != null) {
-                mapMarker.circle.setVisible(false);
-            }
-        }
-    }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -491,6 +472,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Category.CONVENIENCE);
         addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Category.CONVENIENCE);
+
+        currentCategory = Category.ALL;
+        showCategory(currentCategory);
     }
 
     private Bitmap createCustomMarker(String caption) {
@@ -508,8 +492,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return bitmap;
     }
 
-    private void addAnimatedCircle(LatLng position, int circleColor) {
-        // 초기 서클 반경 및 색상 설정
+    private Circle addAnimatedCircle(LatLng position, int circleColor) {
         Circle circle = gMap.addCircle(new CircleOptions()
                 .center(position)
                 .radius(30)  // 초기 반경 30m
@@ -517,21 +500,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .strokeColor(circleColor)
                 .strokeWidth(2f));
 
-        // 서클 확장/축소 애니메이션 설정
+        // 애니메이션 설정
         ValueAnimator animator = ValueAnimator.ofFloat(30, 50);  // 30m에서 50m로 확장
-        animator.setDuration(1000);  // 애니메이션 지속 시간 1초
+        animator.setDuration(1000);  // 1초간 애니메이션
         animator.setRepeatCount(1);  // 확장 후 축소(1회 반복)
         animator.setRepeatMode(ValueAnimator.REVERSE);  // 확장 후 축소
 
-        // 애니메이션 중에 반경 업데이트
         animator.addUpdateListener(animation -> {
             float animatedRadius = (float) animation.getAnimatedValue();
             circle.setRadius(animatedRadius);  // 애니메이션된 반경 적용
         });
 
-        // 애니메이션 종료 후 서클 유지
-        animator.start();
+        animator.start();  // 애니메이션 시작
+
+        return circle;  // 생성된 서클 반환
     }
-
-
 }
