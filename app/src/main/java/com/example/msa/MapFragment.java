@@ -515,4 +515,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         return circle;  // 생성된 서클 반환
     }
+
 }
