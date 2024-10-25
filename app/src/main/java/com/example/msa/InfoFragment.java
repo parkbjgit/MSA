@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     RecyclerView recyclerView;
     String rideName = "";  // 놀이기구 이름 변수 (초기 값 비워둠)
     String rideTime = "";  // 예약 시간 변수 (초기 값 비워둠)
+    String ridePeople = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,16 +30,20 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         TextView rideNameTextView = view.findViewById(R.id.rideName);
         TextView rideTimeTextView = view.findViewById(R.id.rideTime);
         TextView rideStatusTextView = view.findViewById(R.id.rideStatus);
+        TextView ridePeopleTextView = view.findViewById(R.id.ridePeople);
         Button goReservation = view.findViewById(R.id.btn_go_reservation);
         Button reservationCancel = view.findViewById(R.id.reservation_cancel);
+        ImageView rideImageView = view.findViewById(R.id.attraction_image);
 
         // 예약 정보가 없는 경우 안내 문구와 버튼 반투명 처리
         if (rideName.isEmpty() || rideTime.isEmpty()) {
             // 텍스트 설정 및 반투명 효과 적용
             rideNameTextView.setText("예약 없음");
             rideTimeTextView.setText("예약 없음");
+            ridePeopleTextView.setText("예약 없음");
             rideNameTextView.setAlpha(0.5f);  // 50% 투명
             rideTimeTextView.setAlpha(0.5f);  // 50% 투명
+            ridePeopleTextView.setAlpha(0.5f);  // 50% 투명
 
             // 상태 텍스트 설정 및 반투명 처리
             rideStatusTextView.setText("예약되지 않음");
@@ -47,6 +53,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
             // 예약 취소 버튼도 비활성화하고 반투명 처리
             reservationCancel.setEnabled(false);  // 버튼 비활성화
             reservationCancel.setAlpha(0.5f);  // 50% 투명
+
+            rideImageView.setImageResource(R.drawable.placeholder);
         }
 
         // 예약 취소 버튼 클릭 이벤트 설정
