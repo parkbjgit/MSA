@@ -361,21 +361,21 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="4dp">
 
-                        <!-- 예약 번호 -->
+                        <!-- 예약 인원 -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="예약 번호"
+                            android:text="예약 인원"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
 
-                        <!-- 예약 인원 -->
+
                         <TextView
                             android:id="@+id/ridePeople"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="40020002020"
+                            android:text="3"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
 
@@ -384,7 +384,7 @@
 
                     <!-- 시설 이미지 -->
                     <ImageView
-                        android:id="@+id/atlantis"
+                        android:id="@+id/attraction_image"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:src="@drawable/atlantis"/>
