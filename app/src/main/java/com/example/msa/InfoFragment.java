@@ -31,30 +31,37 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         TextView rideTimeTextView = view.findViewById(R.id.rideTime);
         TextView rideStatusTextView = view.findViewById(R.id.rideStatus);
         TextView ridePeopleTextView = view.findViewById(R.id.ridePeople);
+        TextView noReservationMessage = view.findViewById(R.id.no_reservation_message); // 예약 없는 경우 메시지
         Button goReservation = view.findViewById(R.id.btn_go_reservation);
         Button reservationCancel = view.findViewById(R.id.reservation_cancel);
         ImageView rideImageView = view.findViewById(R.id.attraction_image);
 
-        // 예약 정보가 없는 경우 안내 문구와 버튼 반투명 처리
+        // 예약 정보가 없는 경우
         if (rideName.isEmpty() || rideTime.isEmpty()) {
             // 텍스트 설정 및 반투명 효과 적용
             rideNameTextView.setText("예약 없음");
             rideTimeTextView.setText("예약 없음");
             ridePeopleTextView.setText("예약 없음");
-            rideNameTextView.setAlpha(0.5f);  // 50% 투명
-            rideTimeTextView.setAlpha(0.5f);  // 50% 투명
-            ridePeopleTextView.setAlpha(0.5f);  // 50% 투명
+            rideNameTextView.setAlpha(0.5f);
+            rideTimeTextView.setAlpha(0.5f);
+            ridePeopleTextView.setAlpha(0.5f);
 
             // 상태 텍스트 설정 및 반투명 처리
             rideStatusTextView.setText("예약되지 않음");
             rideStatusTextView.setTextColor(Color.RED);
-            rideStatusTextView.setAlpha(0.5f);  // 50% 투명
+            rideStatusTextView.setAlpha(0.5f);
 
-            // 예약 취소 버튼도 비활성화하고 반투명 처리
-            reservationCancel.setEnabled(false);  // 버튼 비활성화
-            reservationCancel.setAlpha(0.5f);  // 50% 투명
+            // 예약 취소 버튼 비활성화 및 반투명 처리
+            reservationCancel.setEnabled(false);
+            reservationCancel.setAlpha(0.5f);
 
-            rideImageView.setImageResource(R.drawable.placeholder);
+            // 이미지 숨기고 "예약된 시설이 없습니다." 메시지 표시
+            rideImageView.setVisibility(View.GONE);
+            noReservationMessage.setVisibility(View.VISIBLE);
+        } else {
+            // 예약이 있는 경우 이미지 표시하고 메시지 숨기기
+            rideImageView.setVisibility(View.VISIBLE);
+            noReservationMessage.setVisibility(View.GONE);
         }
 
         // 예약 취소 버튼 클릭 이벤트 설정
@@ -63,6 +70,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         return view;
     }
+
+
 
 
     @Override
