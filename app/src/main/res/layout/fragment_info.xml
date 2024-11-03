@@ -15,7 +15,9 @@
         android:background="@drawable/white_border"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
-        android:padding="8dp">
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp">
 
         <!-- 인기순 랭킹 -->
         <LinearLayout
@@ -382,12 +384,33 @@
                     </LinearLayout>
 
 
-                    <!-- 시설 이미지 -->
-                    <ImageView
-                        android:id="@+id/attraction_image"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:src="@drawable/atlantis"/>
+                        android:layout_margin="4dp"
+                        >
+
+                        <!-- Facility Image -->
+                        <ImageView
+                            android:id="@+id/attraction_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone" /> <!-- 초기에는 보이지 않도록 설정 -->
+
+                        <!-- "No reservation" message -->
+                        <TextView
+                            android:id="@+id/no_reservation_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#80505050"
+                        android:text="예약된 시설이 없습니다."
+                        android:textColor="#80FFFFFF"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:visibility="gone" />
+                    </FrameLayout>
+
+
 
                 </LinearLayout>
 
