@@ -125,9 +125,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메소드
-     */
-    /**
      * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메서드
      */
     private void searchMarker(String searchText) {

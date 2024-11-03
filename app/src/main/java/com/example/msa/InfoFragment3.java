@@ -25,6 +25,8 @@ public class InfoFragment3 extends Fragment {
     private View choiceCompleteButton;
     private AppCompatButton selectedButton = null;  // 선택된 버튼을 저장할 변수
     private TextView choicedTimeTextView;  // 선택된 시간을 표시할 TextView
+    private TextView ridePeopleTextView;  // 탑승 인원수를 표시할 TextView
+    private AppCompatButton btnMinus, btnPlus;  // 플러스, 마이너스 버튼
 
 
     @Nullable
@@ -34,6 +36,15 @@ public class InfoFragment3 extends Fragment {
 
         markerNameTextView = view.findViewById(R.id.choiced_facility);
         choiceCompleteButton = view.findViewById(R.id.choice_complete);
+
+        // 탑승 인원수 TextView와 플러스/마이너스 버튼 초기화
+        ridePeopleTextView = view.findViewById(R.id.ridePeople);
+        btnMinus = view.findViewById(R.id.ridePeople_minus_btn);
+        btnPlus = view.findViewById(R.id.ridePeople_plus_btn);
+
+        // 플러스, 마이너스 버튼 클릭 리스너 추가
+        btnMinus.setOnClickListener(v -> updateRidePeopleCount(-1));
+        btnPlus.setOnClickListener(v -> updateRidePeopleCount(1));
 
         GridLayout gridLayoutMorning = view.findViewById(R.id.gridLayoutMorning);
         GridLayout gridLayoutAfternoon = view.findViewById(R.id.gridLayoutAfternoon);
@@ -55,6 +66,16 @@ public class InfoFragment3 extends Fragment {
         }
 
         return view;
+    }
+
+    private void updateRidePeopleCount(int change) {
+        int currentCount = Integer.parseInt(ridePeopleTextView.getText().toString());
+        int newCount = currentCount + change;
+
+        // 탑승 인원수를 1~10 사이로 제한
+        if (newCount >= 1 && newCount <= 5) {
+            ridePeopleTextView.setText(String.valueOf(newCount));
+        }
     }
 
     private void enqueueUser(String rideId, String userId) {

@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="과거 예약된 놀이기구"
+            android:text="예약내역"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_marginTop="16dp"
