@@ -8,15 +8,7 @@
     android:padding="20dp"
     android:background="#121212">
 
-    <!-- 시설 이미지 -->
-    <ImageView
-        android:id="@+id/facility_image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/atlantis"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="시설 이미지" />
+
 
     <!-- 시설 이름 -->
     <TextView
@@ -29,15 +21,39 @@
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"/>
 
-    <!-- 시설 설명 -->
+
+
+    <!-- 전화번호 -->
     <TextView
-        android:id="@+id/facility_description"
-        android:layout_width="match_parent"
+        android:id="@+id/phone_number"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="최고 스릴 어트랙션! 시속 72km로 출발하는 보트를 타고 \n미스터리 신전 속으로 여행을 떠나보세요!"
-        android:textSize="16sp"
-        android:textColor="#F5F5F5"
-        android:layout_marginBottom="15dp"/>
+        android:text="전화번호"
+        android:layout_marginTop="8dp" />
+
+    <!-- 영업시간 -->
+    <TextView
+        android:id="@+id/opening_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영업시간"
+        android:layout_marginTop="8dp" />
+
+    <!-- 평점 -->
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="평점"
+        android:layout_marginTop="8dp" />
+
+    <!-- 가격 수준 -->
+    <TextView
+        android:id="@+id/price_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가격 수준"
+        android:layout_marginTop="8dp" />
 
     <!-- 별점 섹션 -->
     <LinearLayout
