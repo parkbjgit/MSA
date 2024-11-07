@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.libraries.places.api.model.Place;
@@ -19,8 +20,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
     private TextView markerNameTextView;
     private TextView phoneNumberTextView;
     private TextView openingHoursTextView;
-    private TextView ratingTextView;
-    private TextView priceLevelTextView;
+    private RatingBar ratingBar; // RatingBar로 변경
 
     private Place place; // Place 객체
 
@@ -43,8 +43,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
         markerNameTextView = view.findViewById(R.id.facility_name);
         phoneNumberTextView = view.findViewById(R.id.phone_number);
         openingHoursTextView = view.findViewById(R.id.opening_hours);
-        ratingTextView = view.findViewById(R.id.rating);
-        priceLevelTextView = view.findViewById(R.id.price_level);
+        ratingBar = view.findViewById(R.id.rating_bar); // RatingBar 참조
 
         // Place 정보를 사용하여 텍스트 설정
         if (place != null) {
@@ -55,34 +54,22 @@ public class BottomSheet extends BottomSheetDialogFragment {
                 List<String> hours = place.getOpeningHours().getWeekdayText();
                 StringBuilder hoursBuilder = new StringBuilder();
                 for (String hour : hours) {
-                    hoursBuilder.append(hour).append("\n");
+                    hoursBuilder.append(hour).append(" ");
                 }
                 openingHoursTextView.setText(hoursBuilder.toString());
             } else {
                 openingHoursTextView.setText("영업시간 정보 없음");
             }
 
-            ratingTextView.setText(place.getRating() != null ? String.valueOf(place.getRating()) : "평점 정보 없음");
-            priceLevelTextView.setText(place.getPriceLevel() != null ? getPriceLevelString(place.getPriceLevel()) : "가격 수준 정보 없음");
+            // 평점 설정
+            if (place.getRating() != null) {
+                ratingBar.setRating(place.getRating().floatValue());
+            } else {
+                ratingBar.setRating(0f);
+            }
+
         }
 
         view.findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
-    }
-
-    private String getPriceLevelString(int priceLevel) {
-        switch (priceLevel) {
-            case 0:
-                return "무료";
-            case 1:
-                return "저렴";
-            case 2:
-                return "보통";
-            case 3:
-                return "비쌈";
-            case 4:
-                return "매우 비쌈";
-            default:
-                return "가격 수준 정보 없음";
-        }
     }
 }

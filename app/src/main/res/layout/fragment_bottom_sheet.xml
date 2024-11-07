@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp"
     android:background="#121212">
-
-
 
     <!-- 시설 이름 -->
     <TextView
@@ -19,200 +16,100 @@
         android:textSize="24sp"
         android:textColor="#F5F5F5"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="20dp"/>
 
-
-
-    <!-- 전화번호 -->
-    <TextView
-        android:id="@+id/phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="전화번호"
-        android:layout_marginTop="8dp" />
-
-    <!-- 영업시간 -->
-    <TextView
-        android:id="@+id/opening_hours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="영업시간"
-        android:layout_marginTop="8dp" />
-
-    <!-- 평점 -->
-    <TextView
-        android:id="@+id/rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="평점"
-        android:layout_marginTop="8dp" />
-
-    <!-- 가격 수준 -->
-    <TextView
-        android:id="@+id/price_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="가격 수준"
-        android:layout_marginTop="8dp" />
-
-    <!-- 별점 섹션 -->
+    <!-- 정보 표시 영역 -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_gravity="center"
-        android:layout_marginBottom="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="별점: "
-            android:textSize="16sp"
-            android:textColor="#F5F5F5"
-            android:layout_gravity="center_vertical"/>
-
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="0.5"
-            android:isIndicator="true"
-            android:rating="4.5"
-            android:layout_gravity="center_vertical"
-            android:progressTint="#FFD700" /> <!-- 별 색상: 금색 -->
-    </LinearLayout>
-
-    <!-- 리뷰 섹션 제목 -->
-    <TextView
-        android:id="@+id/reviews_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="리뷰"
-        android:textSize="20sp"
-        android:textColor="#F5F5F5"
-        android:layout_marginBottom="10dp"/>
-
-    <!-- 리뷰 목록을 담을 ScrollView -->
-    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="20dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/white_border"
+        android:padding="16dp"
+        android:layout_marginTop="10dp">
 
+        <!-- 전화번호 영역 -->
         <LinearLayout
-            android:id="@+id/reviews_container"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
-            <!-- 예시 리뷰 1 MaterialCardView -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
+            <!-- 전화번호 레이블 -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="10dp"
-                app:strokeColor="#FFFFFF"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="#1A1A1A">
+                android:text="전화번호: "
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <!-- 리뷰 작성자 이름 -->
-                    <TextView
-                        android:id="@+id/review_author"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="user1"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:textColor="#F5F5F5"/>
-
-                    <!-- 리뷰 별점 -->
-                    <RatingBar
-                        android:id="@+id/review_ratingBar"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:stepSize="0.5"
-                        android:isIndicator="true"
-                        android:rating="4.5"
-                        android:progressTint="#FFD700"
-                        android:layout_marginTop="4dp"/>
-
-                    <!-- 리뷰 내용 -->
-                    <TextView
-                        android:id="@+id/review_content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="정말 재미있었어요! 다시 오고 싶습니다."
-                        android:textSize="14sp"
-                        android:textColor="#F5F5F5"
-                        android:layout_marginTop="5dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 예시 리뷰 2 MaterialCardView -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
+            <!-- 전화번호 -->
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="10dp"
-                app:strokeColor="#FFFFFF"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="#1A1A1A">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <!-- 리뷰 작성자 이름 -->
-                    <TextView
-                        android:id="@+id/review_author2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="user2"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:textColor="#F5F5F5"/>
-
-                    <!-- 리뷰 별점 -->
-                    <RatingBar
-                        android:id="@+id/review_ratingBar2"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:stepSize="0.5"
-                        android:isIndicator="true"
-                        android:rating="4.5"
-                        android:progressTint="#FFD700"
-                        android:layout_marginTop="4dp"/>
-
-                    <!-- 리뷰 내용 -->
-                    <TextView
-                        android:id="@+id/review_content2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="너무 재밌어요!"
-                        android:textSize="14sp"
-                        android:textColor="#F5F5F5"
-                        android:layout_marginTop="5dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
+                android:text="전화번호 정보 없음"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
         </LinearLayout>
-    </ScrollView>
+
+        <!-- 영업시간 영역 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <!-- 영업시간 레이블 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영업시간: "
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
+
+            <!-- 영업시간 -->
+            <TextView
+                android:id="@+id/opening_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영업시간 정보 없음"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- 평점 영역 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <!-- 평점 레이블 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="평점: "
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
+
+            <!-- 평점 (별점) -->
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:isIndicator="true"
+                android:layout_marginLeft="8dp"
+                android:progressTint="#FFD700"
+                android:progressBackgroundTint="#555555"
+                android:backgroundTint="#555555"
+                style="@style/Widget.AppCompat.RatingBar.Small"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <!-- 닫기 버튼 -->
     <androidx.appcompat.widget.AppCompatButton
@@ -224,5 +121,6 @@
         android:padding="12dp"
         android:layout_gravity="center"
         android:background="@drawable/blue_btn"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
+
 </LinearLayout>
