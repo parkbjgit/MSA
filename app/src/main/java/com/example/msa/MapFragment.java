@@ -490,41 +490,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
         }
 
-        // 마커 추가 예시
-//        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Category.RIDING);
-//        addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Category.RIDING);
-//        addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Category.RIDING);
+        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Category.RIDING,"ChIJBS8Ip2elfDURbh75wFn7Ro4");
+        addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Category.RIDING,"ChIJL5tsMDmlfDURlCaxBwfOgKc");
+        addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Category.RIDING,"ChIJS_IQX5ulfDURYBmKeklaxos");
         addMapMarker(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Category.RIDING,"ChIJyZ9uVqGlfDURoQP1zm0c5J8");
-//        addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Category.RIDING);
-//        addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Category.RIDING);
-//        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Category.RIDING);
-//        addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Category.RIDING);
-//
-//        addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.510776900704585, 127.09908127784729), "구복만두", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.510452000958864, 127.0965120788493), "명동할머니국수", Category.RESTAURANT);
+        addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Category.RIDING,"ChIJYyTUDCylfDURC6jJI_NyK4M");
+        addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Category.RIDING,"ChIJ1-y3Bq6lfDURyXqBLOlZxQU");
+        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Category.RIDING,"ChIJc28Zp_6lfDURWTLkRJiW6Po");
+        addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Category.RIDING,"ChIJbwfLCOGlfDURrNkpIeNgj48");
+
+        addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Category.RESTAURANT,"ChIJh7eTIKelfDUReVGBjbNhHlE");
+        addMapMarker(new LatLng(37.510776900704585, 127.09908127784729), "구복만두", Category.RESTAURANT,"ChIJ--mFgkmlfDURrCae3ASyNCI");
+        addMapMarker(new LatLng(37.510452000958864, 127.0965120788493), "명동할머니국수", Category.RESTAURANT,"ChIJXxNFD3qlfDUROklg0Fx_aOY");
         addMapMarker(new LatLng(37.51050881855063, 127.09903836250305), "라라코스트", Category.RESTAURANT,"ChIJWX_oTS2lfDUR9UmA13NzAmY");
-//        addMapMarker(new LatLng(37.51202643912463, 127.09936594924115), "여섯시오븐", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "롯데호텔월드 도림", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.5112875307151, 127.09793865680695), "아우어베이커리", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Category.RESTAURANT);
-//        addMapMarker(new LatLng(37.508925590377515, 127.1006056053824), "샬레카페", Category.RESTAURANT);
-//
-//        addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Category.CAFE);
-//        addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Category.CAFE);
-//        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Category.CAFE);
-        //addMapMarker(new LatLng(37.51089029383816, 127.09797656497143), "투썸플레이스 롯데월드점", Category.CAFE);
+        addMapMarker(new LatLng(37.51202643912463, 127.09936594924115), "여섯시오븐", Category.RESTAURANT,"ChIJaarjTaelfDURdD4d5-m2xyc");
+        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "롯데호텔월드 도림", Category.RESTAURANT,"ChIJlYxEHPalfDURrVgyoKnTq9Y");
+        addMapMarker(new LatLng(37.5112875307151, 127.09793865680695), "아우어베이커리", Category.RESTAURANT,"ChIJe5dSu7-lfDURM5cx85n6C88");
+        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Category.RESTAURANT,"ChIJTfVbg02kfDURrkwtXXUXrtA");
+        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Category.RESTAURANT,"ChIJ2dYY_aKlfDURrbE2wpKvKsg");
+        addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Category.RESTAURANT,"ChIJGaEHDQClfDURiPo69lnIxAw");
+//        addMapMarker(new LatLng(37.508925590377515, 127.1006056053824), "샬레카페", Category.RESTAURANT,"");
+
+        addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Category.CAFE,"ChIJDehV_62lfDURazR0zt3izjk");
+        addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Category.CAFE,"ChIJiSAtAXulfDUR7jXs660SO5Y");
+        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Category.CAFE,"ChIJMwrMIKelfDURoyDehtgOJDM");
+        addMapMarker(new LatLng(37.51089029383816, 127.09797656497143), "투썸플레이스 롯데월드점", Category.CAFE,"ChIJcStszqOlfDUREOYdpa-7blE");
         addMapMarker(new LatLng(37.51158815291703, 127.09855592211865), "공차 롯데월드점", Category.CAFE,"ChIJD2L4OAClfDURQ2KqYfdpriM");
-//        addMapMarker(new LatLng(37.51209664978282, 127.09877586325787), "풀바셋", Category.CAFE);
-//        addMapMarker(new LatLng(37.511098801197626, 127.09975755175732), "엔제리너스", Category.CAFE);
-//        addMapMarker(new LatLng(37.50898091016943, 127.09947907759614), "투썸플레이스 롯데월드매직아일랜드점", Category.CAFE);
-//        addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Category.CAFE);
-//        addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Category.CAFE);
-//
-//        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Category.CONVENIENCE);
-//        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Category.CONVENIENCE);
+        addMapMarker(new LatLng(37.51209664978282, 127.09877586325787), "풀바셋", Category.CAFE,"ChIJC5mAN6elfDURYG-3Rs7BcxY");
+        addMapMarker(new LatLng(37.511098801197626, 127.09975755175732), "엔제리너스 잠실샤롯데점", Category.CAFE,"ChIJye3DxEmlfDUR_u33oxir35A");
+        addMapMarker(new LatLng(37.50898091016943, 127.09947907759614), "투썸플레이스 롯데월드매직아일랜드점", Category.CAFE,"ChIJDehV_62lfDURazR0zt3izjk");
+        addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Category.CAFE,"ChIJD2L4OAClfDURQ2KqYfdpriM");
+        addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Category.CAFE,"ChIJOTt7wbKlfDURrMaElqOJFVU");
+
+        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Category.CONVENIENCE,"ChIJl0PzxAqlfDURzzMJfoqcbsA");
+        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Category.CONVENIENCE,"ChIJl0PzxAqlfDURzzMJfoqcbsA");
 
         currentCategory = Category.ALL;
         showCategory(currentCategory);
