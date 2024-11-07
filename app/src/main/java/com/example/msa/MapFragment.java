@@ -7,12 +7,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -87,8 +91,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private List<MapMarker> convenienceMarkers = new ArrayList<>();
 
     private Button selectedButton;
-    private TextView markerInformation;
-    private EditText searchEditText;
+    private AutoCompleteTextView searchEditText;
     private Category currentCategory = Category.ALL;
 
     @Override
@@ -114,14 +117,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         // 검색 입력 필드 초기화 및 검색 리스너 설정
         searchEditText = view.findViewById(R.id.editFindSearch);
-        searchEditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                    (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                String searchText = searchEditText.getText().toString().trim();
-                searchMarker(searchText); // 검색어로 마커 찾기
-                return true; // 이벤트 소비
+        List<String> markerTitles = new ArrayList<>(); // 마커의 제목 리스트
+        for (MapMarker mapMarker : getAllMarkers(currentCategory)) {
+            if (mapMarker.marker.getTitle() != null) {
+                markerTitles.add(mapMarker.marker.getTitle());
             }
-            return false;
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, markerTitles);
+        searchEditText.setAdapter(adapter);
+
+// 사용자가 입력할 때 자동완성 업데이트
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);  // 자동완성 리스트 필터링
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
 
         // 초기 선택된 필터 버튼 설정
@@ -137,6 +155,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         return view;
     }
+
+    private List<MapMarker> getAllMarkers(Category category) {
+        List<MapMarker> markers = new ArrayList<>();
+
+        if (category == Category.RIDING) {
+            markers.addAll(ridingMarkers);
+        } else if (category == Category.RESTAURANT) {
+            markers.addAll(restaurantMarkers);
+        } else if (category == Category.CAFE) {
+            markers.addAll(cafeMarkers);
+        } else if (category == Category.CONVENIENCE) {
+            markers.addAll(convenienceMarkers);
+        } else if (category == Category.ALL) {
+            markers.addAll(ridingMarkers);
+            markers.addAll(restaurantMarkers);
+            markers.addAll(cafeMarkers);
+            markers.addAll(convenienceMarkers);
+        }
+
+        return markers;
+    }
+
 
     /**
      * 검색어를 입력받아 해당하는 마커를 찾아 지도 중심으로 이동시키는 메서드
@@ -177,7 +217,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if (mapMarker.marker.getTitle() != null &&
                     mapMarker.marker.getTitle().equalsIgnoreCase(searchText)) {
                 // 검색된 마커로 카메라 이동
-                moveCameraToMarker(mapMarker.marker);
+                //moveCameraToMarker(mapMarker.marker);
                 found = true;
                 break;
             }
@@ -189,10 +229,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
-    /*
-     * 마커 위치로 카메라를 이동시키는 메서드
-     */
     private void moveCameraToMarker(Marker marker) {
         LatLng position = marker.getPosition();
 
@@ -231,6 +267,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         // 선택된 카테고리의 마커와 서클만 표시
         showCategory(currentCategory);
+        setupAutoComplete();
     }
 
     private void addMapMarker(LatLng position, String caption, Category category, String placeId) {
@@ -304,6 +341,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             activeCircles.add(circle);  // 생성된 서클을 리스트에 저장
         }
     }
+
     private void hideAllMarkers() {
         List<MapMarker> allMarkers = new ArrayList<>();
         allMarkers.addAll(ridingMarkers);
@@ -317,9 +355,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    /**
-     * 모든 서클을 제거하는 메서드
-     */
     private void hideAllCircles() {
         for (Circle circle : activeCircles) {
             circle.remove();  // 기존 서클 제거
@@ -327,23 +362,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         activeCircles.clear();  // 리스트 초기화
     }
 
-    /**
-     * 지정된 위치로 카메라를 이동시키는 메서드
-     */
-    public void setMoveLocation(double latitude, double longitude) {
-        LatLng targetLocation = new LatLng(latitude, longitude);
 
-        // 카메라 업데이트 생성 (줌 레벨 포함)
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(targetLocation, 16);
-
-        // 카메라 이동
-        gMap.moveCamera(cameraUpdate);
-    }
-
-    /**
-     * 주어진 위치에 마커와 서클을 추가하는 메서드
-     */
-    // JSON 파일에서 위도와 경도를 불러오는 메서드
     private List<LatLng> loadLocationsFromRaw() {
         List<LatLng> locations = new ArrayList<>();
         try {
@@ -389,11 +408,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     // 반경 내 위치 수에 따라 색상을 결정하는 메서드
     private int getCircleColor(int nearbyCount) {
         if (nearbyCount >= 2) {
-            return Color.RED; // 2개 이상이면 빨간색
+            return Color.RED;
         } else if (nearbyCount == 1) {
-            return Color.YELLOW; // 1개면 노란색
+            return Color.YELLOW;
         } else {
-            return Color.GREEN; // 0개면 초록색
+            return Color.GREEN;
         }
     }
 
@@ -415,44 +434,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return false; // 클릭 이벤트가 처리되지 않음
     }
 
-
-    private void fetchPlaceDetails(String placeId) {
-        // PlacesClient 인스턴스 생성
-        PlacesClient placesClient = Places.createClient(requireContext());
-
-        // 요청할 필드 정의
-        List<Place.Field> placeFields = Arrays.asList(
-                Place.Field.ID,
-                Place.Field.NAME,
-                Place.Field.PHONE_NUMBER,
-                Place.Field.OPENING_HOURS,
-                Place.Field.RATING,
-                Place.Field.PRICE_LEVEL
-        );
-
-        // FetchPlaceRequest 생성
-        FetchPlaceRequest request = FetchPlaceRequest.newInstance(placeId, placeFields);
-
-        // 장소 정보 요청
-        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-            Place place = response.getPlace();
-
-            // 장소 정보를 BottomSheet에 전달하여 표시
-            showBottomSheet(place);
-
-        }).addOnFailureListener((exception) -> {
-            if (exception instanceof ApiException) {
-                ApiException apiException = (ApiException) exception;
-                int statusCode = apiException.getStatusCode();
-                // 에러 처리
-                Toast.makeText(requireContext(), "장소 정보를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void showBottomSheet(Place place) {
-        BottomSheet bottomSheet = new BottomSheet(place);
-        bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
-    }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -490,13 +471,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
         }
 
-        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Category.RIDING,"ChIJBS8Ip2elfDURbh75wFn7Ro4");
+        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치 레볼루션", Category.RIDING,"ChIJBS8Ip2elfDURbh75wFn7Ro4");
         addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Category.RIDING,"ChIJL5tsMDmlfDURlCaxBwfOgKc");
         addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Category.RIDING,"ChIJS_IQX5ulfDURYBmKeklaxos");
         addMapMarker(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Category.RIDING,"ChIJyZ9uVqGlfDURoQP1zm0c5J8");
         addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Category.RIDING,"ChIJYyTUDCylfDURC6jJI_NyK4M");
         addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Category.RIDING,"ChIJ1-y3Bq6lfDURyXqBLOlZxQU");
-        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Category.RIDING,"ChIJc28Zp_6lfDURWTLkRJiW6Po");
+        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인 해적선", Category.RIDING,"ChIJc28Zp_6lfDURWTLkRJiW6Po");
         addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Category.RIDING,"ChIJbwfLCOGlfDURrNkpIeNgj48");
 
         addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Category.RESTAURANT,"ChIJh7eTIKelfDUReVGBjbNhHlE");
@@ -504,16 +485,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.510452000958864, 127.0965120788493), "명동할머니국수", Category.RESTAURANT,"ChIJXxNFD3qlfDUROklg0Fx_aOY");
         addMapMarker(new LatLng(37.51050881855063, 127.09903836250305), "라라코스트", Category.RESTAURANT,"ChIJWX_oTS2lfDUR9UmA13NzAmY");
         addMapMarker(new LatLng(37.51202643912463, 127.09936594924115), "여섯시오븐", Category.RESTAURANT,"ChIJaarjTaelfDURdD4d5-m2xyc");
-        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "롯데호텔월드 도림", Category.RESTAURANT,"ChIJlYxEHPalfDURrVgyoKnTq9Y");
+        addMapMarker(new LatLng(37.51134986030663, 127.09950542410992), "도림", Category.RESTAURANT,"ChIJlYxEHPalfDURrVgyoKnTq9Y");
         addMapMarker(new LatLng(37.5112875307151, 127.09793865680695), "아우어베이커리", Category.RESTAURANT,"ChIJe5dSu7-lfDURM5cx85n6C88");
-        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨 롯데월드", Category.RESTAURANT,"ChIJTfVbg02kfDURrkwtXXUXrtA");
-        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨 롯데월드빅토리아점", Category.RESTAURANT,"ChIJ2dYY_aKlfDURrbE2wpKvKsg");
+        addMapMarker(new LatLng(37.50885112136215, 127.09971779419847), "걸작떡볶이치킨", Category.RESTAURANT,"ChIJTfVbg02kfDURrkwtXXUXrtA");
+        addMapMarker(new LatLng(37.50861282001368, 127.09986263348527), "BHC치킨", Category.RESTAURANT,"ChIJ2dYY_aKlfDURrbE2wpKvKsg");
         addMapMarker(new LatLng(37.50891069658038, 127.10090601279207), "스쿨스토어", Category.RESTAURANT,"ChIJGaEHDQClfDURiPo69lnIxAw");
-//        addMapMarker(new LatLng(37.508925590377515, 127.1006056053824), "샬레카페", Category.RESTAURANT,"");
 
         addMapMarker(new LatLng(37.51074774255304, 127.09643697699688), "투썸플레이스 잠실롯데점", Category.CAFE,"ChIJDehV_62lfDURazR0zt3izjk");
         addMapMarker(new LatLng(37.51035625702626, 127.0967105623164), "메가MGC커피 잠실롯데점", Category.CAFE,"ChIJiSAtAXulfDUR7jXs660SO5Y");
-        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩 롯데마트", Category.CAFE,"ChIJMwrMIKelfDURoyDehtgOJDM");
+        addMapMarker(new LatLng(37.51145411341729, 127.09652817210339), "부라타랩", Category.CAFE,"ChIJMwrMIKelfDURoyDehtgOJDM");
         addMapMarker(new LatLng(37.51089029383816, 127.09797656497143), "투썸플레이스 롯데월드점", Category.CAFE,"ChIJcStszqOlfDUREOYdpa-7blE");
         addMapMarker(new LatLng(37.51158815291703, 127.09855592211865), "공차 롯데월드점", Category.CAFE,"ChIJD2L4OAClfDURQ2KqYfdpriM");
         addMapMarker(new LatLng(37.51209664978282, 127.09877586325787), "풀바셋", Category.CAFE,"ChIJC5mAN6elfDURYG-3Rs7BcxY");
@@ -522,12 +502,39 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMapMarker(new LatLng(37.50853941453432, 127.10001551939912), "공차 롯데월드매직아일랜드점", Category.CAFE,"ChIJD2L4OAClfDURQ2KqYfdpriM");
         addMapMarker(new LatLng(37.508990484744636, 127.10042321516939), "캔디캐슬", Category.CAFE,"ChIJOTt7wbKlfDURrMaElqOJFVU");
 
-        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐", Category.CONVENIENCE,"ChIJl0PzxAqlfDURzzMJfoqcbsA");
-        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐", Category.CONVENIENCE,"ChIJl0PzxAqlfDURzzMJfoqcbsA");
+        addMapMarker(new LatLng(37.51153676167506, 127.09828475166064), "세븐일레븐 롯데월드테마광장점", Category.CONVENIENCE,"ChIJl0PzxAqlfDURzzMJfoqcbsA");
+        addMapMarker(new LatLng(37.511130386932436, 127.09632673907977), "세븐일레븐 롯데월드키자니아점", Category.CONVENIENCE,"ChIJl0PzxAqlfDURzzMJfoqcbsA");
 
         currentCategory = Category.ALL;
         showCategory(currentCategory);
+        setupAutoComplete();
     }
+
+    private void setupAutoComplete() {
+        List<String> markerTitles = new ArrayList<>();
+        for (MapMarker mapMarker : getAllMarkers(currentCategory)) {  // 현재 카테고리에 따라 마커를 필터링
+            if (mapMarker.marker.getTitle() != null) {
+                markerTitles.add(mapMarker.marker.getTitle());
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, markerTitles);
+        searchEditText.setAdapter(adapter);
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
 
     private Bitmap createCustomMarker(String caption) {
         View markerView = LayoutInflater.from(getContext()).inflate(R.layout.custom_marker, null);
@@ -566,6 +573,42 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         animator.start();  // 애니메이션 시작
 
         return circle;  // 생성된 서클 반환
+    }
+    private void showBottomSheet(Place place) {
+        BottomSheet bottomSheet = new BottomSheet(place);
+        bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
+    }
+    private void fetchPlaceDetails(String placeId) {
+        // PlacesClient 인스턴스 생성
+        PlacesClient placesClient = Places.createClient(requireContext());
+
+        // 요청할 필드 정의
+        List<Place.Field> placeFields = Arrays.asList(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.PHONE_NUMBER,
+                Place.Field.OPENING_HOURS,
+                Place.Field.RATING
+        );
+
+        // FetchPlaceRequest 생성
+        FetchPlaceRequest request = FetchPlaceRequest.newInstance(placeId, placeFields);
+
+        // 장소 정보 요청
+        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+            Place place = response.getPlace();
+
+            // 장소 정보를 BottomSheet에 전달하여 표시
+            showBottomSheet(place);
+
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                int statusCode = apiException.getStatusCode();
+                // 에러 처리
+                Toast.makeText(requireContext(), "장소 정보를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

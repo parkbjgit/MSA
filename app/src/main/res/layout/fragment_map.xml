@@ -27,17 +27,18 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp">
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/editFindSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/map_filter_black"
+                android:background="@drawable/map_filter_black"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
             android:hint="검색어를 입력해주세요."
             android:padding="13dp"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
 
