@@ -3,6 +3,7 @@ package com.example.msa;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.location.Location;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -56,8 +58,10 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+import android.os.Handler;
+import android.os.Looper;
 
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap gMap;
     private List<Circle> activeCircles = new ArrayList<>();  // 현재 표시 중인 서클 목록
 
@@ -142,6 +146,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void afterTextChanged(Editable s) {}
         });
 
+
+        // Enter 키를 눌렀을 때 검색 실행
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+
+                    // 입력된 검색어를 사용해 검색 실행
+                    searchMarker(searchEditText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+
         // 초기 선택된 필터 버튼 설정
         selectedButton = allFilter;
         allFilter.setSelected(true);
@@ -217,8 +237,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if (mapMarker.marker.getTitle() != null &&
                     mapMarker.marker.getTitle().equalsIgnoreCase(searchText)) {
                 // 검색된 마커로 카메라 이동
-                //moveCameraToMarker(mapMarker.marker);
+                moveCameraToMarker(mapMarker.marker);
                 found = true;
+                closeKeyboard();
                 break;
             }
         }
@@ -229,16 +250,47 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    // 키보드를 닫는 메서드
+    private void closeKeyboard() {
+        View view = requireActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     private void moveCameraToMarker(Marker marker) {
         LatLng position = marker.getPosition();
 
         // 카메라를 해당 위치로 이동하고 줌 레벨을 17로 설정
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 17);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 18);
         gMap.moveCamera(cameraUpdate);
 
-        // 마커 클릭 시 동작 수행
-        onMarkerClicked(marker);
+        highlightMarker(marker);
     }
+
+
+    private void highlightMarker(Marker marker) {
+        // 확대된 마커 아이콘 생성
+        Bitmap customMarkerBitmap = createCustomMarker(marker.getTitle()); // 마커 아이콘 생성 함수 호출
+        Bitmap highlightedIcon = Bitmap.createScaledBitmap(customMarkerBitmap,
+                (int) (customMarkerBitmap.getWidth() * 1.5),
+                (int) (customMarkerBitmap.getHeight() * 1.5), false);
+        marker.setIcon(BitmapDescriptorFactory.fromBitmap(highlightedIcon));
+
+        // 텍스트 색상 변경을 위해 캡션 텍스트에 접근
+        View markerView = LayoutInflater.from(getContext()).inflate(R.layout.custom_marker, null);
+        TextView markerCaption = markerView.findViewById(R.id.marker_caption);
+        int originalColor = markerCaption.getCurrentTextColor(); // 현재 색상 저장
+        markerCaption.setTextColor(Color.RED); // 하이라이팅 색상 변경
+
+        // 3초 후 원래 상태로 복원
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            marker.setIcon(BitmapDescriptorFactory.fromBitmap(customMarkerBitmap)); // 원래 크기 아이콘으로 복원
+            markerCaption.setTextColor(originalColor); // 텍스트 색상 복원
+        }, 3000);
+    }
+
 
     private void onFilterClicked(View view) {
         Button clickedButton = (Button) view;
@@ -451,10 +503,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // 다크 테마 스타일 적용
         boolean success = gMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style));
 
-        // 구글 로고를 하단으로 이동하기 위해 패딩 설정
-        gMap.setPadding(150, 0, 0, 1700);
+//        // 구글 로고를 하단으로 이동하기 위해 패딩 설정
+//        gMap.setPadding(150, 0, 0, 1700);
 
-        LatLng initialPosition = new LatLng(37.51517303070847, 127.09910634326137);
+        LatLng initialPosition = new LatLng(37.51027410019126, 127.09877468864728);
 
         // 패딩이 완전히 적용된 후 카메라 이동 보장
         View mapView = getChildFragmentManager().findFragmentById(R.id.map_container).getView();
@@ -463,7 +515,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 @Override
                 public void onGlobalLayout() {
                     // 카메라를 정확한 위치로 이동
-                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 16));
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, 17));
 
                     // 리스너 제거 (한 번만 실행)
                     mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
