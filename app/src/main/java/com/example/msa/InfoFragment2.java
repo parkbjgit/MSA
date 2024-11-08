@@ -189,28 +189,58 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 )
         ));
 
-        rides.add(new Ride(
-                new LatLng(37.50877477183853, 127.10051625967026),
-                "자이로드롭",
-                null  // 경로 없음
-        ));
-
+        // 아틀란티스 경로 추가
         rides.add(new Ride(
                 new LatLng(37.50883221943, 127.09914028644562),
                 "아틀란티스",
-                null  // 경로 없음
+                Arrays.asList(
+                        myLocation,
+                        new LatLng(37.509000, 127.098800),
+                        new LatLng(37.509100, 127.099000),
+                        new LatLng(37.509200, 127.099100),
+                        new LatLng(37.50883221943, 127.09914028644562) // 아틀란티스
+                )
         ));
 
-        rides.add(new Ride(
-                new LatLng(37.50827786219699, 127.09969707129508),
-                "자이로스윙",
-                null  // 경로 없음
-        ));
-
+        // 번지드롭 경로 추가
         rides.add(new Ride(
                 new LatLng(37.50927477717089, 127.10009783506393),
                 "번지드롭",
-                null  // 경로 없음
+                Arrays.asList(
+                        myLocation,
+                        new LatLng(37.510000, 127.099000),
+                        new LatLng(37.509500, 127.099500),
+                        new LatLng(37.509600, 127.099700),
+                        new LatLng(37.50940785278853, 127.10029762046987),
+                        new LatLng(37.50927477717089, 127.10009783506393) // 번지드롭
+                )
+        ));
+
+        // 자이로스윙 경로 추가
+        rides.add(new Ride(
+                new LatLng(37.50827786219699, 127.09969707129508),
+                "자이로스윙",
+                Arrays.asList(
+                        myLocation,
+                        new LatLng(37.509200, 127.099200),
+                        new LatLng(37.509000, 127.099300),
+                        new LatLng(37.508800, 127.099400),
+                        new LatLng(37.508500, 127.099500),
+                        new LatLng(37.50827786219699, 127.09969707129508) // 자이로스윙
+                )
+        ));
+
+        // 자이로드롭 경로 추가
+        rides.add(new Ride(
+                new LatLng(37.50877477183853, 127.10051625967026),
+                "자이로드롭",
+                Arrays.asList(
+                        myLocation,
+                        new LatLng(37.509000, 127.099800),
+                        new LatLng(37.508800, 127.100000),
+                        new LatLng(37.508700, 127.100200),
+                        new LatLng(37.50877477183853, 127.10051625967026) // 자이로드롭
+                )
         ));
     }
 
@@ -219,7 +249,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         PolylineOptions lineOptions = new PolylineOptions()
                 .addAll(routePoints)
                 .width(8)
-                .color(Color.RED);
+                .color(Color.parseColor("#5274E6"));
 
         gMap.addPolyline(lineOptions);
     }
