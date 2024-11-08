@@ -91,12 +91,12 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         gMap.getUiSettings().setCompassEnabled(false);
         gMap.getUiSettings().setZoomControlsEnabled(false);
 
-        // 지도 테마 설정
-        gMap.setPadding(0, 0, 0, 1500);  // 하단 패딩 설정
+//        // 지도 테마 설정
+//        gMap.setPadding(0, 0, 0, 1500);  // 하단 패딩 설정
         boolean success = gMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style));
 
         // 지도 중심
-        LatLng lotteWorld = new LatLng(37.512670758789156, 127.09878915785984);
+        LatLng lotteWorld = new LatLng(37.51073357397042, 127.09882053642566);
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lotteWorld, 17));
 
         // 내 위치
