@@ -280,16 +280,25 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View itemView = inflater.inflate(R.layout.ride_item, null);
 
+        // 레이아웃 파라미터로 뷰 간격 설정
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(0, 0, 0, 16); // 상단과 하단에 16dp 마진 추가
+        itemView.setLayoutParams(layoutParams);
+
+        // 이미지, 텍스트뷰 등 뷰 설정
         ImageView rideImageView = itemView.findViewById(R.id.ride_image);
         TextView nameTextView = itemView.findViewById(R.id.ride_name);
         TextView distanceTextView = itemView.findViewById(R.id.ride_distance);
         TextView congestionTextView = itemView.findViewById(R.id.congestion_text_view);
 
-        // Set ride name and distance
+        // 놀이기구 이름과 거리 설정
         nameTextView.setText(name);
         distanceTextView.setText(String.format("%.0f m", distance));
 
-        // Set congestion level text based on nearcount value
+        // 혼잡도 설정
         switch (nearcount) {
             case 2:
                 congestionTextView.setText("혼잡");
@@ -305,7 +314,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 break;
         }
 
-        // Set image based on ride name
+        // 이미지 설정
         switch (name) {
             case "후룸라이드":
                 rideImageView.setImageResource(R.drawable.froomride);

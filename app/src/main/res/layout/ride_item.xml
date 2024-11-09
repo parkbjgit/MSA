@@ -4,24 +4,27 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/white_border"
-    android:padding="8dp"
-    android:layout_marginBottom="32dp">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="16dp">
 
-    <!-- Ride Image -->
+    <!-- 놀이기구 이미지 -->
     <ImageView
         android:id="@+id/ride_image"
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp" />
 
-    <!-- Container for ride name, distance, and congestion level -->
+    <!-- 놀이기구 이름, 거리, 혼잡도 컨테이너, 오른쪽 정렬 -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="end">
 
-        <!-- Ride Name -->
+        <!-- 놀이기구 이름 -->
         <TextView
             android:id="@+id/ride_name"
             android:layout_width="wrap_content"
@@ -29,14 +32,15 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        <!-- Horizontal layout for distance and congestion level -->
+        <!-- 거리와 혼잡도, 오른쪽 정렬된 수평 레이아웃 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            android:gravity="end">
 
-            <!-- Ride Distance -->
+            <!-- 거리 -->
             <TextView
                 android:id="@+id/ride_distance"
                 android:layout_width="wrap_content"
@@ -45,7 +49,7 @@
                 android:textSize="12sp"
                 android:layout_marginEnd="16dp" />
 
-            <!-- Congestion Level -->
+            <!-- 혼잡도 -->
             <TextView
                 android:id="@+id/congestion_text_view"
                 android:layout_width="wrap_content"
