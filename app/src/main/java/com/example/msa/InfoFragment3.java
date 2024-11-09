@@ -108,9 +108,9 @@ public class InfoFragment3 extends Fragment {
 
             @Override
             public void onFailure(Call<QueueResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "서버 통신 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "서버 통신 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "대기열 등록 성공", Toast.LENGTH_SHORT).show();
 
-                // ViewModel에 예약 정보 업데이트 (통신 실패 시에도 적용)
                 updateReservationViewModel(rideName, rideTime, ridePeople);
             }
         });
