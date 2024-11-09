@@ -3,32 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@drawable/white_border"
     android:padding="8dp"
-    android:background="#1E1E1E"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="32dp">
 
-    <TextView
-        android:id="@+id/ride_name"
+    <!-- Ride Image -->
+    <ImageView
+        android:id="@+id/ride_image"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Container for ride name, distance, and congestion level -->
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/ride_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        android:layout_marginEnd="16dp" />
+        <!-- Ride Name -->
+        <TextView
+            android:id="@+id/ride_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/congestion_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="혼잡도"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
+        <!-- Horizontal layout for distance and congestion level -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <!-- Ride Distance -->
+            <TextView
+                android:id="@+id/ride_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_marginEnd="16dp" />
+
+            <!-- Congestion Level -->
+            <TextView
+                android:id="@+id/congestion_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="혼잡도"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
