@@ -523,13 +523,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });
         }
 
-        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치 레볼루션", Category.RIDING,"ChIJBS8Ip2elfDURbh75wFn7Ro4");
+        addMapMarker(new LatLng(37.511034520520695, 127.09717806527742), "후렌치레볼루션", Category.RIDING,"ChIJBS8Ip2elfDURbh75wFn7Ro4");
         addMapMarker(new LatLng(37.51120620917864, 127.09922739837569), "후룸라이드", Category.RIDING,"ChIJL5tsMDmlfDURlCaxBwfOgKc");
         addMapMarker(new LatLng(37.50877477183853, 127.10051625967026), "자이로드롭", Category.RIDING,"ChIJS_IQX5ulfDURYBmKeklaxos");
         addMapMarker(new LatLng(37.50883221943, 127.09914028644562), "아틀란티스", Category.RIDING,"ChIJyZ9uVqGlfDURoQP1zm0c5J8");
         addMapMarker(new LatLng(37.50827786219699, 127.09969707129508), "자이로스윙", Category.RIDING,"ChIJYyTUDCylfDURC6jJI_NyK4M");
         addMapMarker(new LatLng(37.50927477717089, 127.10009783506393), "번지드롭", Category.RIDING,"ChIJ1-y3Bq6lfDURyXqBLOlZxQU");
-        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인 해적선", Category.RIDING,"ChIJc28Zp_6lfDURWTLkRJiW6Po");
+        addMapMarker(new LatLng(37.511701300660036, 127.09928543185079), "스페인해적선", Category.RIDING,"ChIJc28Zp_6lfDURWTLkRJiW6Po");
         addMapMarker(new LatLng(37.51051008661316, 127.09790593088849), "회전목마", Category.RIDING,"ChIJbwfLCOGlfDURrNkpIeNgj48");
 
         addMapMarker(new LatLng(37.51095837793791, 127.0975742336192), "롯데리아", Category.RESTAURANT,"ChIJh7eTIKelfDUReVGBjbNhHlE");

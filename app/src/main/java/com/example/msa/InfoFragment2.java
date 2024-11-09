@@ -31,11 +31,13 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         LatLng position;
         String name;
         List<LatLng> routePoints;
+        int nearcount;
 
-        public Ride(LatLng position, String name, List<LatLng> routePoints) {
+        public Ride(LatLng position, String name, List<LatLng> routePoints, int nearcount) {
             this.position = position;
             this.name = name;
             this.routePoints = routePoints;
+            this.nearcount = nearcount;
         }
     }
 
@@ -153,7 +155,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.510950, 127.098300),
                         new LatLng(37.511000, 127.098100),
                         new LatLng(37.511034520520695, 127.09717806527742)
-                )
+                ),
+                2
         ));
 
         rides.add(new Ride(
@@ -164,7 +167,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.510800, 127.099000),
                         new LatLng(37.511000, 127.099100),
                         new LatLng(37.51120620917864, 127.09922739837569)
-                )
+                ),
+                2
         ));
 
         rides.add(new Ride(
@@ -177,7 +181,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.511300, 127.099200),
                         new LatLng(37.511500, 127.099250),
                         new LatLng(37.511701300660036, 127.09928543185079)
-                )
+                ),
+                2
         ));
 
         rides.add(new Ride(
@@ -189,7 +194,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.510550, 127.098300),
                         new LatLng(37.510530, 127.098100),
                         new LatLng(37.51051008661316, 127.09790593088849)
-                )
+                ),
+                0
         ));
 
         // 아틀란티스 경로 추가
@@ -202,7 +208,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.509100, 127.099000),
                         new LatLng(37.509200, 127.099100),
                         new LatLng(37.50883221943, 127.09914028644562) // 아틀란티스
-                )
+                ),
+                2
         ));
 
         // 번지드롭 경로 추가
@@ -216,7 +223,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.509600, 127.099700),
                         new LatLng(37.50940785278853, 127.10029762046987),
                         new LatLng(37.50927477717089, 127.10009783506393) // 번지드롭
-                )
+                ),
+                1
         ));
 
         // 자이로스윙 경로 추가
@@ -230,7 +238,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.508800, 127.099400),
                         new LatLng(37.508500, 127.099500),
                         new LatLng(37.50827786219699, 127.09969707129508) // 자이로스윙
-                )
+                ),
+                0
         ));
 
         // 자이로드롭 경로 추가
@@ -243,7 +252,8 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.508800, 127.100000),
                         new LatLng(37.508700, 127.100200),
                         new LatLng(37.50877477183853, 127.10051625967026) // 자이로드롭
-                )
+                ),
+                1
         ));
 
         for (Ride ride : rides) {
@@ -260,23 +270,41 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         for (Ride ride : rides) {
             double distance = calculateRouteDistance(ride.routePoints);
 
-            View rideItemView = createRideItemView(ride.name, distance);
+            View rideItemView = createRideItemView(ride.name, distance, ride.nearcount);
             rideListContainer.addView(rideItemView);
         }
     }
 
-    private View createRideItemView(String name, double distance) {
+    private View createRideItemView(String name, double distance, int nearcount) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View itemView = inflater.inflate(R.layout.ride_item, null);
 
         TextView nameTextView = itemView.findViewById(R.id.ride_name);
         TextView distanceTextView = itemView.findViewById(R.id.ride_distance);
+        TextView congestionTextView = itemView.findViewById(R.id.congestion_text_view);
 
         nameTextView.setText(name);
         distanceTextView.setText(String.format("%.0f m", distance));
 
+        // Set congestion level text based on nearcount value
+        switch (nearcount) {
+            case 2:
+                congestionTextView.setText("혼잡");
+                congestionTextView.setTextColor(Color.RED);
+                break;
+            case 1:
+                congestionTextView.setText("약간 혼잡");
+                congestionTextView.setTextColor(Color.YELLOW);
+                break;
+            case 0:
+                congestionTextView.setText("여유");
+                congestionTextView.setTextColor(Color.GREEN);
+                break;
+        }
+
         return itemView;
     }
+
 
     private double calculateRouteDistance(List<LatLng> routePoints) {
         double totalDistance = 0.0;
