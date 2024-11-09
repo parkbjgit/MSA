@@ -1,5 +1,6 @@
 package com.example.msa;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,15 +45,38 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         });
 
         // 예약 취소 버튼 클릭 이벤트 설정
-        reservationCancel.setOnClickListener(view1 -> {
-            reservationViewModel.clearReservation();
-            Toast.makeText(getActivity(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
-        });
+        reservationCancel.setOnClickListener(view1 -> showCancelDialog());
 
         // 예약 버튼 클릭 이벤트 설정
         goReservation.setOnClickListener(this);
 
         return view;
+    }
+
+    private void showCancelDialog() {
+        // 다이얼로그에 사용할 레이아웃을 생성
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cancel_reservation, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+
+        // 다이얼로그의 '예'와 '아니요' 버튼 설정
+        Button yesButton = dialogView.findViewById(R.id.yes_btn);
+        Button noButton = dialogView.findViewById(R.id.cancel_btn);
+
+        yesButton.setOnClickListener(v -> {
+            // 예약을 취소하고 다이얼로그 닫기
+            reservationViewModel.clearReservation();
+            Toast.makeText(getActivity(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        noButton.setOnClickListener(v -> {
+            // 다이얼로그 닫기
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void showNoReservation(TextView rideNameTextView, TextView rideTimeTextView, TextView ridePeopleTextView,
@@ -90,7 +114,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         // 놀이기구 이름에 따라 이미지 설정
         switch (rideName) {
-            case "후렌치레볼루션":
+            case "프렌치레볼루션":
                 rideImageView.setImageResource(R.drawable.frenchrevolution);
                 break;
             case "회전목마":

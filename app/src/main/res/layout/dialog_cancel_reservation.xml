@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/blue_btn"
+    android:backgroundTint="@color/gray"
+    android:paddingRight="50dp"
+    android:paddingLeft="50dp"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp"
+    android:layout_gravity="center"
+    android:elevation="8dp">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="예약을 취소하시겠습니까?"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="아니오"
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_btn"
+        android:gravity="center"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/yes_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="예"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/rounded_btn" />
+
+
+</LinearLayout>

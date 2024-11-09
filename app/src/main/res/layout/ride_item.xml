@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
+            android:layout_marginTop="12dp"
             android:textSize="20sp" />
 
         <!-- 거리와 혼잡도, 오른쪽 정렬된 수평 레이아웃 -->

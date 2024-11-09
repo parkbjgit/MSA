@@ -232,7 +232,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="후렌치레볼루션"
+                    android:text="프렌치레볼루션"
                     android:paddingStart="8dp"
                     android:textColor="@color/white"
                     android:textSize="16sp" />

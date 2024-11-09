@@ -27,12 +27,15 @@ public class InfoFragment3 extends Fragment {
     private TextView choicedTimeTextView;  // 선택된 시간을 표시할 TextView
     private TextView ridePeopleTextView;  // 탑승 인원수를 표시할 TextView
     private AppCompatButton btnMinus, btnPlus;  // 플러스, 마이너스 버튼
+    private ReservationViewModel reservationViewModel;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info3, container, false);
+
+        reservationViewModel = new ViewModelProvider(requireActivity()).get(ReservationViewModel.class);
 
         markerNameTextView = view.findViewById(R.id.choiced_facility);
         choiceCompleteButton = view.findViewById(R.id.choice_complete);
@@ -62,9 +65,16 @@ public class InfoFragment3 extends Fragment {
         if (args != null) {
             String markerName = args.getString("markerName");
             markerNameTextView.setText(markerName);
-            choiceCompleteButton.setOnClickListener(v -> enqueueUser(markerName, "1"));
-        }
 
+            // 버튼 클릭 리스너 설정: 예약 존재 확인 후 진행
+            choiceCompleteButton.setOnClickListener(v -> {
+                if (reservationViewModel.getRideName().getValue() != null && !reservationViewModel.getRideName().getValue().isEmpty()) {
+                    Toast.makeText(getContext(), "이미 예약이 있습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    enqueueUser(markerName, "1");
+                }
+            });
+        }
         return view;
     }
 
