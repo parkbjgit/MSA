@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.model.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.google.maps.android.SphericalUtil;
 
 public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
 
@@ -27,7 +30,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
     private class Ride {
         LatLng position;
         String name;
-        List<LatLng> routePoints; 
+        List<LatLng> routePoints;
 
         public Ride(LatLng position, String name, List<LatLng> routePoints) {
             this.position = position;
@@ -55,6 +58,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
+        //initializeRides(view);
 
         return view;
     }
@@ -91,8 +95,6 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         gMap.getUiSettings().setCompassEnabled(false);
         gMap.getUiSettings().setZoomControlsEnabled(false);
 
-//        // 지도 테마 설정
-//        gMap.setPadding(0, 0, 0, 1500);  // 하단 패딩 설정
         boolean success = gMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style));
 
         // 지도 중심
@@ -124,8 +126,9 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
             return true;  // 이벤트 소비
         });
 
+
         // 놀이기구 마커 및 경로 추가
-        initializeRides();
+        initializeRides(getView());
 
         for (Ride ride : rides) {
             addMapMarker(ride.position, ride.name);
@@ -138,7 +141,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
     }
 
     // 놀이기구 정보 및 경로 초기화
-    private void initializeRides() {
+    private void initializeRides(View view) {
 
         rides.add(new Ride(
                 new LatLng(37.511034520520695, 127.09717806527742),
@@ -242,8 +245,46 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                         new LatLng(37.50877477183853, 127.10051625967026) // 자이로드롭
                 )
         ));
+
+        for (Ride ride : rides) {
+            double distance = calculateRouteDistance(ride.routePoints);
+            Log.d("Route Distance", "Route for " + ride.name + " is " + distance + " meters.");
+        }
+
+        rides.sort((ride1, ride2) -> Double.compare(
+                calculateRouteDistance(ride1.routePoints),
+                calculateRouteDistance(ride2.routePoints)
+        ));
+
+        LinearLayout rideListContainer = view.findViewById(R.id.ride_list_container);
+        for (Ride ride : rides) {
+            double distance = calculateRouteDistance(ride.routePoints);
+
+            View rideItemView = createRideItemView(ride.name, distance);
+            rideListContainer.addView(rideItemView);
+        }
     }
 
+    private View createRideItemView(String name, double distance) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View itemView = inflater.inflate(R.layout.ride_item, null);
+
+        TextView nameTextView = itemView.findViewById(R.id.ride_name);
+        TextView distanceTextView = itemView.findViewById(R.id.ride_distance);
+
+        nameTextView.setText(name);
+        distanceTextView.setText(String.format("%.0f m", distance));
+
+        return itemView;
+    }
+
+    private double calculateRouteDistance(List<LatLng> routePoints) {
+        double totalDistance = 0.0;
+        for (int i = 0; i < routePoints.size() - 1; i++) {
+            totalDistance += SphericalUtil.computeDistanceBetween(routePoints.get(i), routePoints.get(i + 1));
+        }
+        return totalDistance;
+    }
     // 경로를 지도에 그리는 메서드
     private void drawRoute(List<LatLng> routePoints) {
         PolylineOptions lineOptions = new PolylineOptions()
@@ -267,30 +308,5 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         Canvas canvas = new Canvas(bitmap);
         markerView.draw(canvas);
         return bitmap;
-    }
-
-    // MapView 생명주기 메서드들 추가
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapFragment.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapFragment.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapFragment.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapFragment.onLowMemory();
     }
 }

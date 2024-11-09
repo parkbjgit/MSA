@@ -263,7 +263,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         LatLng position = marker.getPosition();
 
         // 카메라를 해당 위치로 이동하고 줌 레벨을 17로 설정
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 18);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 17);
         gMap.moveCamera(cameraUpdate);
 
         highlightMarker(marker);
