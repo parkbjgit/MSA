@@ -296,7 +296,7 @@
                             android:text="예약 중"
                             android:textSize="16sp"
                             android:textColor="#FFEB3B"
-                            android:paddingLeft="10dp"
+                            android:paddingLeft="5dp"
                             android:paddingTop="30dp"
                             android:layout_weight="1"
                             android:textStyle="italic"
@@ -391,18 +391,17 @@
                         android:layout_marginBottom="4dp"
                         >
 
-                        <!-- Facility Image -->
                         <ImageView
                             android:id="@+id/attraction_image"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:scaleType="fitXY"
                             android:visibility="gone" /> <!-- 초기에는 보이지 않도록 설정 -->
 
-                        <!-- "No reservation" message -->
                         <TextView
                             android:id="@+id/no_reservation_message"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="200dp"
                             android:background="#80505050"
                         android:text="예약된 시설이 없습니다."
                         android:textColor="#80FFFFFF"
