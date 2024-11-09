@@ -19,7 +19,6 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:scaleType="centerCrop"/> <!-- 대체 이미지 설정 가능 -->
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -29,282 +28,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="예약내역"
+            android:text="가까운 어트랙션순"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp" />
 
-        <!-- 과거 예약된 놀이기구 목록 -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <LinearLayout
+                android:id="@+id/ride_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingBottom="30dp"
-                android:orientation="vertical">
-
-                <!-- 첫 번째 과거 놀이기구 카드 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#1f1f1f"
-                    android:layout_margin="2dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_border"
-                        android:padding="8dp">
-
-                        <!-- 놀이기구 이름 및 상태 -->
-                        <TextView
-                            android:id="@+id/pastRideName1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="후룸라이드"
-                            android:textSize="18sp"
-                            android:textColor="#ffffff"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/pastRideStatus1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 완료"
-                            android:textSize="14sp"
-                            android:textColor="#4CAF50"
-                            android:textStyle="italic"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideName1" />
-
-                        <!-- 탑승 시간 -->
-                        <TextView
-                            android:id="@+id/pastRideDate1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 시간: 11:00"
-                            android:textColor="#ffffff"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideStatus1" />
-
-                        <!-- 리뷰 작성 버튼 -->
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnReview1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="리뷰 작성"
-                            android:textColor="#ffffff"
-                            android:background="@drawable/blue_btn"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/pastRideName1"
-                            app:layout_constraintBottom_toBottomOf="@id/pastRideDate1"
-                            android:layout_marginStart="8dp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- 두 번째 과거 놀이기구 카드 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#1f1f1f"
-                    android:layout_margin="2dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_border"
-                        android:padding="8dp">
-
-                        <!-- 놀이기구 이름 및 상태 -->
-                        <TextView
-                            android:id="@+id/pastRideName2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="자이로스윙"
-                            android:textSize="18sp"
-                            android:textColor="#ffffff"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/pastRideStatus2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 완료"
-                            android:textSize="14sp"
-                            android:textColor="#4CAF50"
-                            android:textStyle="italic"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideName2" />
-
-                        <!-- 탑승 시간 -->
-                        <TextView
-                            android:id="@+id/pastRideDate2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 시간: 10:30"
-                            android:textColor="#ffffff"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideStatus2" />
-
-                        <!-- 리뷰 작성 버튼 -->
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnReview2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="리뷰 작성"
-                            android:textColor="#ffffff"
-                            android:background="@drawable/blue_btn"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/pastRideName2"
-                            app:layout_constraintBottom_toBottomOf="@id/pastRideDate2"
-                            android:layout_marginStart="8dp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#1f1f1f"
-                    android:layout_margin="2dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_border"
-                        android:padding="8dp">
-
-                        <!-- 놀이기구 이름 및 상태 -->
-                        <TextView
-                            android:id="@+id/pastRideName3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="후렌치레볼루션"
-                            android:textSize="18sp"
-                            android:textColor="#ffffff"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/pastRideStatus3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="예약취소"
-                            android:textSize="14sp"
-                            android:textColor="#FF3D00"
-                            android:textStyle="italic"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideName3" />
-
-                        <!-- 탑승 시간 -->
-                        <TextView
-                            android:id="@+id/pastRideDate3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 시간: 08:30"
-                            android:textColor="#ffffff"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideStatus3" />
-
-                        <!-- 리뷰 작성 버튼 -->
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnReview3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="리뷰 작성"
-                            android:textColor="#ffffff"
-                            android:background="@drawable/blue_btn"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/pastRideName3"
-                            app:layout_constraintBottom_toBottomOf="@id/pastRideDate3"
-                            android:layout_marginStart="8dp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- 네 번째 과거 놀이기구 카드 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#1f1f1f"
-                    android:layout_margin="2dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_border"
-                        android:padding="8dp">
-
-                        <!-- 놀이기구 이름 및 상태 -->
-                        <TextView
-                            android:id="@+id/pastRideName4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="자이로드롭"
-                            android:textSize="18sp"
-                            android:textColor="#ffffff"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/pastRideStatus4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 완료"
-                            android:textSize="14sp"
-                            android:textColor="#4CAF50"
-                            android:textStyle="italic"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideName4" />
-
-                        <!-- 탑승 시간 -->
-                        <TextView
-                            android:id="@+id/pastRideDate4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 시간: 08:00"
-                            android:textColor="#ffffff"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/pastRideStatus4" />
-
-                        <!-- 리뷰 작성 버튼 -->
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnReview4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="리뷰 작성"
-                            android:textColor="#ffffff"
-                            android:background="@drawable/blue_btn"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/pastRideName4"
-                            app:layout_constraintBottom_toBottomOf="@id/pastRideDate4"
-                            android:layout_marginStart="8dp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-
+                android:orientation="vertical"
+                android:padding="16dp">
             </LinearLayout>
+
         </ScrollView>
 
 
-
     </LinearLayout>
-
 </LinearLayout>
