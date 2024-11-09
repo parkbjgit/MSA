@@ -61,8 +61,6 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-        //initializeRides(view);
-
         return view;
     }
 
