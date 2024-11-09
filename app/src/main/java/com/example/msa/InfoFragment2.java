@@ -145,10 +145,16 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
 
     // 놀이기구 정보 및 경로 초기화
     private void initializeRides(View view) {
+        LinearLayout rideListContainer = view.findViewById(R.id.ride_list_container);
+
+        if (rideListContainer.getChildCount() > 1) {
+            rideListContainer.removeViews(1, rideListContainer.getChildCount() - 1);
+        }
+        rides.clear();
 
         rides.add(new Ride(
                 new LatLng(37.511034520520695, 127.09717806527742),
-                "후렌치레볼루션",
+                "프렌치레볼루션",
                 Arrays.asList(
                         myLocation,
                         new LatLng(37.510800, 127.098700),
@@ -267,7 +273,6 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 calculateRouteDistance(ride2.routePoints)
         ));
 
-        LinearLayout rideListContainer = view.findViewById(R.id.ride_list_container);
         for (Ride ride : rides) {
             double distance = calculateRouteDistance(ride.routePoints);
 
@@ -301,11 +306,11 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         // 혼잡도 설정
         switch (nearcount) {
             case 2:
-                congestionTextView.setText("혼잡");
+                congestionTextView.setText("매우 혼잡");
                 congestionTextView.setTextColor(Color.RED);
                 break;
             case 1:
-                congestionTextView.setText("약간 혼잡");
+                congestionTextView.setText("혼잡");
                 congestionTextView.setTextColor(Color.YELLOW);
                 break;
             case 0:
@@ -325,7 +330,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
             case "스페인해적선":
                 rideImageView.setImageResource(R.drawable.spainpirates);
                 break;
-            case "후렌치레볼루션":
+            case "프렌치레볼루션":
                 rideImageView.setImageResource(R.drawable.frenchrevolution);
                 break;
             case "번지드롭":
