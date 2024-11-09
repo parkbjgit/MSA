@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -279,10 +280,12 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View itemView = inflater.inflate(R.layout.ride_item, null);
 
+        ImageView rideImageView = itemView.findViewById(R.id.ride_image);
         TextView nameTextView = itemView.findViewById(R.id.ride_name);
         TextView distanceTextView = itemView.findViewById(R.id.ride_distance);
         TextView congestionTextView = itemView.findViewById(R.id.congestion_text_view);
 
+        // Set ride name and distance
         nameTextView.setText(name);
         distanceTextView.setText(String.format("%.0f m", distance));
 
@@ -302,8 +305,39 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 break;
         }
 
+        // Set image based on ride name
+        switch (name) {
+            case "후룸라이드":
+                rideImageView.setImageResource(R.drawable.froomride);
+                break;
+            case "회전목마":
+                rideImageView.setImageResource(R.drawable.horse);
+                break;
+            case "스페인해적선":
+                rideImageView.setImageResource(R.drawable.spainpirates);
+                break;
+            case "후렌치레볼루션":
+                rideImageView.setImageResource(R.drawable.frenchrevolution);
+                break;
+            case "번지드롭":
+                rideImageView.setImageResource(R.drawable.bungedrop);
+                break;
+            case "아틀란티스":
+                rideImageView.setImageResource(R.drawable.atlantis);
+                break;
+            case "자이로스윙":
+                rideImageView.setImageResource(R.drawable.ziroswing);
+                break;
+            case "자이로드롭":
+                rideImageView.setImageResource(R.drawable.zirodrop);
+                break;
+            default:
+                break;
+        }
+
         return itemView;
     }
+
 
 
     private double calculateRouteDistance(List<LatLng> routePoints) {
