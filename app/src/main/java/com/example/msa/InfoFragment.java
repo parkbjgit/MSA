@@ -71,8 +71,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         reservationCancel.setEnabled(false);
         reservationCancel.setAlpha(0.5f);
-        rideImageView.setVisibility(View.GONE);
-        noReservationMessage.setVisibility(View.VISIBLE);
+        rideImageView.setVisibility(View.GONE); // 이미지 숨기기
+        noReservationMessage.setVisibility(View.VISIBLE); // 예약 메시지 표시
     }
 
 
@@ -86,9 +86,42 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         rideStatusTextView.setTextColor(Color.GREEN);
         reservationCancel.setEnabled(true);
         reservationCancel.setAlpha(1.0f);
-        rideImageView.setVisibility(View.VISIBLE);
         noReservationMessage.setVisibility(View.GONE);
+
+        // 놀이기구 이름에 따라 이미지 설정
+        switch (rideName) {
+            case "후렌치레볼루션":
+                rideImageView.setImageResource(R.drawable.frenchrevolution);
+                break;
+            case "회전목마":
+                rideImageView.setImageResource(R.drawable.horse);
+                break;
+            case "스페인해적선":
+                rideImageView.setImageResource(R.drawable.spainpirates);
+                break;
+            case "후룸라이드":
+                rideImageView.setImageResource(R.drawable.froomride);
+                break;
+            case "번지드롭":
+                rideImageView.setImageResource(R.drawable.bungedrop);
+                break;
+            case "아틀란티스":
+                rideImageView.setImageResource(R.drawable.atlantis);
+                break;
+            case "자이로스윙":
+                rideImageView.setImageResource(R.drawable.ziroswing);
+                break;
+            case "자이로드롭":
+                rideImageView.setImageResource(R.drawable.zirodrop);
+                break;
+            default:
+                rideImageView.setVisibility(View.GONE); // 이름이 일치하지 않을 때 이미지 숨기기
+                return;
+        }
+
+        rideImageView.setVisibility(View.VISIBLE); // 이미지가 설정된 경우 표시
     }
+
 
     @Override
     public void onClick(View view) {
