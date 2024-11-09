@@ -12,9 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Calendar;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +51,7 @@ public class InfoFragment3 extends Fragment {
 
         choicedTimeTextView = view.findViewById(R.id.choiced_time);  // 선택된 시간 TextView 초기화
 
-        String[] timesMorning = {"0:01","9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
+        String[] timesMorning = {"9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
         String[] timesAfternoon = {"12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30",
                 "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45"};
 
@@ -72,7 +72,7 @@ public class InfoFragment3 extends Fragment {
         int currentCount = Integer.parseInt(ridePeopleTextView.getText().toString());
         int newCount = currentCount + change;
 
-        // 탑승 인원수를 1~10 사이로 제한
+        // 탑승 인원수를 1~5 사이로 제한
         if (newCount >= 1 && newCount <= 5) {
             ridePeopleTextView.setText(String.valueOf(newCount));
         }
@@ -82,19 +82,35 @@ public class InfoFragment3 extends Fragment {
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         QueueRequest queueRequest = new QueueRequest(rideId, userId);
 
+        String rideName = markerNameTextView.getText().toString();
+        String rideTime = choicedTimeTextView.getText().toString();
+        String ridePeople = ridePeopleTextView.getText().toString();
+
         apiService.enqueueUser(queueRequest).enqueue(new Callback<QueueResponse>() {
             @Override
             public void onResponse(Call<QueueResponse> call, Response<QueueResponse> response) {
                 String message = response.isSuccessful() ? "대기열 등록 성공: " + response.body().getMessage() : "대기열 등록 실패";
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                // ViewModel에 예약 정보 업데이트
+                updateReservationViewModel(rideName, rideTime, ridePeople);
             }
 
             @Override
             public void onFailure(Call<QueueResponse> call, Throwable t) {
                 Toast.makeText(getContext(), "서버 통신 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                // ViewModel에 예약 정보 업데이트 (통신 실패 시에도 적용)
+                updateReservationViewModel(rideName, rideTime, ridePeople);
             }
         });
     }
+
+    private void updateReservationViewModel(String rideName, String rideTime, String ridePeople) {
+        ReservationViewModel reservationViewModel = new ViewModelProvider(requireActivity()).get(ReservationViewModel.class);
+        reservationViewModel.setReservation(rideName, rideTime, ridePeople);
+    }
+
 
     private void createButtonsForTime(GridLayout gridLayout, String[] times) {
         Calendar calendar = Calendar.getInstance();

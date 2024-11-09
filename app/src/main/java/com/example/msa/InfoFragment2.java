@@ -285,7 +285,7 @@ public class InfoFragment2 extends Fragment implements OnMapReadyCallback {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        layoutParams.setMargins(0, 0, 0, 16); // 상단과 하단에 16dp 마진 추가
+        layoutParams.setMargins(0, 0, 0, 32); // 상단과 하단에 16dp 마진 추가
         itemView.setLayoutParams(layoutParams);
 
         // 이미지, 텍스트뷰 등 뷰 설정
