@@ -14,13 +14,12 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical">
     <!-- QR Code Image -->
-    <ImageView
-        android:id="@+id/ImageViewQRCode"
+    <TextView
+        android:id="@+id/qrCodeImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="QR Code"
-        android:src="@drawable/qr" /> <!-- Replace with actual QR code drawable -->
+        android:contentDescription="Ticket QR Code" />
 
     <!-- Unique ID -->
     <TextView

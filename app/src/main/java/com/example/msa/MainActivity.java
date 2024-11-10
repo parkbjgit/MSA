@@ -36,10 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private TicketViewModel ticketViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ticketViewModel = new ViewModelProvider(this).get(TicketViewModel.class);
 
         //Log.d("엑티비티 메인 레이아웃", "onCreate() 호출됨");
         //앱 실행시 로그인 되지 않은 경우
