@@ -71,4 +71,10 @@ dependencies {
     implementation ("com.google.maps.android:android-maps-utils:2.3.0")
 
     implementation ("com.google.android.libraries.places:places:2.7.0")
+
+    implementation ("com.github.bumptech.glide:glide:4.15.0")  // Glide 라이브러리 추가
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")  // Glide 컴파일러 추가
+
+    implementation ("io.github.bootpay:android:+")
+
 }
