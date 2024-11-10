@@ -19,7 +19,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/qr"
+        android:background="@drawable/null_qr"
         android:contentDescription="Ticket QR Code" />
 
     <!-- Unique ID -->
