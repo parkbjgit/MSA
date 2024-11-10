@@ -37,10 +37,10 @@
         </activity>
         <activity android:name=".MainActivity" />
 
-<!--        <meta-data-->
-<!--            android:name="com.naver.maps.map.CLIENT_ID"-->
-<!--            android:value="lubhho3zva"-->
-<!--            />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.naver.maps.map.CLIENT_ID"-->
+        <!--            android:value="lubhho3zva"-->
+        <!--            />-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

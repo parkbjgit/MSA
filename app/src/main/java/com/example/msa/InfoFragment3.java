@@ -3,6 +3,7 @@ package com.example.msa;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
 
 import java.util.Calendar;
 
@@ -56,7 +58,7 @@ public class InfoFragment3 extends Fragment {
 
         String[] timesMorning = {"9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"};
         String[] timesAfternoon = {"12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30",
-                "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45"};
+                "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45", "19:00", "19:15", "19:30", "19:45", "20:00", "20:15", "20:30", "20:45"};
 
         createButtonsForTime(gridLayoutMorning, timesMorning);
         createButtonsForTime(gridLayoutAfternoon, timesAfternoon);
@@ -135,7 +137,8 @@ public class InfoFragment3 extends Fragment {
             AppCompatButton button = new AppCompatButton(getContext());
             button.setText(time);
             button.setTextSize(14);
-            button.setTextColor(Color.BLACK);  // 텍스트는 검정으로 설정
+            button.setTextColor(Color.BLACK);
+            button.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
             if (hour < currentHour || (hour == currentHour && minute < currentMinute)) {
                 button.setEnabled(false);
@@ -150,6 +153,7 @@ public class InfoFragment3 extends Fragment {
             params.height = (int) (38 * getResources().getDisplayMetrics().density + 0.5f);
             params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
             params.setMargins(20, 12, 20, 12);
+            //params.gravity = Gravity.CENTER;
             button.setLayoutParams(params);
 
             gridLayout.addView(button);

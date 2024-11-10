@@ -27,17 +27,17 @@
                 android:text="티켓 예매"/>
 
 
-                <!-- 공원 이름 텍스트 -->
-                <TextView
-                    android:id="@+id/park_name_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="선택한 공원의 이름"
-                    android:textSize="20sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/blue"/>
+            <!-- 공원 이름 텍스트 -->
+            <TextView
+                android:id="@+id/park_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="선택한 공원의 이름"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/blue"/>
 
 
             <LinearLayout
@@ -114,165 +114,165 @@
 
 
 
-            <!-- 성인 인원수 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- 성인 인원수 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="성인"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="2"
-                    android:textSize="16sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성인"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="2"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  59,000원"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/adult_minus_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/minus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center" />
+
+
+                    <TextView
+                        android:id="@+id/adult_count"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/adult_plus_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/plus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        />
+                </LinearLayout>
+
+                <!-- 청소년 인원수 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="  59,000원"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/adult_minus_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/minus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="청소년"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="2"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="52,000원"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
 
 
-                <TextView
-                    android:id="@+id/adult_count"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:textSize="16sp"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/teen_minus_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/minus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/adult_plus_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/plus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center"
-                    />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/teen_count"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
 
-            <!-- 청소년 인원수 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/teen_plus_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/plus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- 어린이 인원수 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="청소년"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="2"
-                    android:textSize="16sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="52,000원"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="어린이"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="2"
+                        android:textSize="16sp"/>
 
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/teen_minus_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/minus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:id="@+id/teen_count"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:textSize="16sp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/teen_plus_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/plus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-            <!-- 어린이 인원수 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="어린이"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="2"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="46,000원"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="46,000원"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
 
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/child_minus_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/minus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/child_minus_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/minus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center" />
 
-                <TextView
-                    android:id="@+id/child_count"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/child_count"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/child_plus_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/plus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/child_plus_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/plus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -287,173 +287,173 @@
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/white_border">
-
-
-
-            <!-- 성인 인원수 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_border">
 
-                <TextView
-                    android:layout_width="wrap_content"
+
+
+                <!-- 성인 인원수 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="성인"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="2"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성인"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  47,000원"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/adult_minus_button2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/minus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:id="@+id/adult_count2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/adult_plus_button2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/plus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <!-- 청소년 인원수 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="  47,000원"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/adult_minus_button2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/minus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="청소년"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="2"
+                        />
 
-                <TextView
-                    android:id="@+id/adult_count2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="41,000원"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/adult_plus_button2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/plus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/teen_minus_button2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/minus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:id="@+id/teen_count2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/teen_plus_button2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/plus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <!-- 어린이 인원수 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="어린이"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="35,000원"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/child_minus_button2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/minus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:id="@+id/child_count2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/child_plus_button2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:drawableTop="@drawable/plus"
+                        android:background="@drawable/white_border"
+                        android:padding="3dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
             </LinearLayout>
-
-            <!-- 청소년 인원수 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="청소년"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="2"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="41,000원"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/teen_minus_button2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/minus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:id="@+id/teen_count2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:textSize="16sp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/teen_plus_button2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/plus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-            <!-- 어린이 인원수 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="어린이"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="35,000원"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/child_minus_button2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/minus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:id="@+id/child_count2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="0"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
-                    android:textSize="16sp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/child_plus_button2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:drawableTop="@drawable/plus"
-                    android:background="@drawable/white_border"
-                    android:padding="3dp"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </LinearLayout>
 
             <!-- 결제하기 버튼 -->
             <androidx.appcompat.widget.AppCompatButton
@@ -462,13 +462,15 @@
                 android:layout_height="wrap_content"
                 android:text="0원 결제하기"
                 android:textColor="@color/white"
-                android:background="@color/blue"
+                android:background="@drawable/blue_btn"
                 android:textSize="18sp"
                 android:padding="12dp"
                 android:gravity="center"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="10dp"
-                />
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"/>
+            />
 
         </LinearLayout>
     </ScrollView>

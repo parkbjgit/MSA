@@ -1,16 +1,31 @@
 package com.example.msa;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import kr.co.bootpay.android.Bootpay;
+import kr.co.bootpay.android.events.BootpayEventListener;
+import kr.co.bootpay.android.models.BootItem;
+import kr.co.bootpay.android.models.Payload;
 
 
 public class PaymentFragment extends Fragment {
@@ -35,6 +50,11 @@ public class PaymentFragment extends Fragment {
     private final int ADULT_PRICE2 = 47000;
     private final int TEEN_PRICE2 = 41000;
     private final int CHILD_PRICE2 = 35000;
+
+    private TicketViewModel ticketViewModel;
+    private ApiService ticketApiService;
+
+    private SharedViewModel sharedViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -201,7 +221,137 @@ public class PaymentFragment extends Fragment {
             }
         });
 
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+        //결제하기 버튼 클릭 이벤트
+        Button buyTicketButton = view.findViewById(R.id.btn_purchase_ticket);
+
+
+        //ticketViewModel = new ViewModelProvider(requireActivity()).get(TicketViewModel.class);
+        //ticketApiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+
+        buyTicketButton.setOnClickListener(v -> {
+            double totalPrice = (adultCount * ADULT_PRICE)
+                    + (teenCount * TEEN_PRICE)
+                    + (childCount * CHILD_PRICE)
+                    + (adultCount2 * ADULT_PRICE2)
+                    + (teenCount2 * TEEN_PRICE2)
+                    + (childCount2 * CHILD_PRICE2);
+
+            paymentTest(view, totalPrice);
+
+            //TicketRequest request = new TicketRequest("user123", "park456", "standard", Arrays.asList("facility1", "facility2"));
+            //createTicket(request);
+
+        });
+
+
         return view;
+    }
+
+    private void paymentTest(View v, double totalPrice) {
+
+        String selectedTicket = parkNameTextView.getText().toString();
+        String selectedDate = selectedDateTextView.getText().toString();
+
+        List<BootItem> items = new ArrayList<>();
+        BootItem item1 = new BootItem().setName("롯데월드").setId("ITEM_CODE_LOTTEWORLD").setQty(1).setPrice(500d);
+        BootItem item2 = new BootItem().setName("에버랜드").setId("ITEM_CODE_EVERLAND").setQty(1).setPrice(500d);
+        BootItem item3 = new BootItem().setName("경주월드").setId("ITEM_CODE_GYEONGJUWORLD").setQty(1).setPrice(500d);
+        items.add(item1);
+        items.add(item2);
+        items.add(item3);
+
+        Payload payload = new Payload();
+        payload.setApplicationId("67300b68a3175898bd6e4f12")
+                .setOrderName(selectedTicket + " / " + selectedDate)
+                .setPg("네이버페이")
+                .setMethod("네이버페이")
+                .setOrderId("1111")
+                .setPrice(totalPrice);
+
+        // 프래그먼트에서 Bootpay 결제 요청
+        Bootpay.init(getChildFragmentManager())
+                .setPayload(payload)
+                .setEventListener(new BootpayEventListener() {
+                    @Override
+                    public void onCancel(String data) {
+                        Log.d("bootpay", "cancel: " + data);
+                    }
+
+                    @Override
+                    public void onError(String data) {
+                        Log.d("bootpay", "error: " + data);
+                    }
+
+                    @Override
+                    public void onClose() {
+                        Log.d("bootpay", "close: ");
+                        Bootpay.removePaymentWindow();
+                    }
+
+                    @Override
+                    public void onIssued(String data) {
+                        Log.d("bootpay", "issued: " + data);
+                    }
+
+                    @Override
+                    public boolean onConfirm(String data) {
+                        Log.d("bootpay", "confirm: " + data);
+                        return true;
+                    }
+
+                    @Override
+                    public void onDone(String data) {
+                        Log.d("done", data);
+
+                        SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+                        sharedViewModel.setSelectedTicket(selectedTicket);
+                        sharedViewModel.setSelectedDate(selectedDate);
+                        sharedViewModel.setPaymentCompleted(true);
+
+                        ReservationFragment imageFragment = new ReservationFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("selectedTicket", selectedTicket);
+                        bundle.putString("selectedDate", selectedDate);
+                        //bundle.putBoolean("paymentCompleted", true); // 결제 완료 정보 전달
+                        imageFragment.setArguments(bundle);
+
+                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, imageFragment); // fragment_container는 프래그먼트를 담는 레이아웃 ID
+                        transaction.addToBackStack(null); // 뒤로가기 시 이전 프래그먼트로 돌아가기 위해 백스택에 추가
+                        transaction.commit();
+
+                        Toast.makeText(getActivity(), "결제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        Bootpay.removePaymentWindow();
+                    }
+                }).requestPayment();
+
+    }
+
+    private void createTicket(TicketRequest request) {
+        Call<TicketResponse> call = ticketApiService.createTicket(request);
+
+        call.enqueue(new Callback<TicketResponse>() {
+            @Override
+            public void onResponse(Call<TicketResponse> call, Response<TicketResponse> response) {
+                Log.d("Retrofit", "Request sent");
+                if (response.isSuccessful() && response.body() != null) {
+                    ticketViewModel.setTicket(response.body());
+                    Toast.makeText(getContext(), "티켓이 성공적으로 발급되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("Retrofit", "Response unsuccessful: " + response.errorBody());
+                    Toast.makeText(getContext(), "티켓 발급에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TicketResponse> call, Throwable t) {
+                Log.e("Retrofit", "Request failed: " + t.getMessage());
+                Toast.makeText(getContext(), "서버 요청에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
