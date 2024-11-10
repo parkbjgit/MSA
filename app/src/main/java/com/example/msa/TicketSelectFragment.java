@@ -46,11 +46,11 @@ public class TicketSelectFragment extends Fragment implements MyPagerAdapter.OnP
         sharedViewModel.getSelectedTicketName().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                // 애니메이션 효과 추가
-                ObjectAnimator blink = ObjectAnimator.ofFloat(ticketNameTextView, "alpha", 1f, 0f, 1f);
-                blink.setDuration(800);
-                blink.setRepeatCount(1);
-                blink.start();
+//                // 애니메이션 효과 추가
+//                ObjectAnimator blink = ObjectAnimator.ofFloat(ticketNameTextView, "alpha", 1f, 0f, 1f);
+//                blink.setDuration(800);
+//                blink.setRepeatCount(1);
+//                blink.start();
 
                 ticketNameTextView.setText(s);
             }

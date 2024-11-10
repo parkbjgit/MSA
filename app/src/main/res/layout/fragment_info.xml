@@ -313,7 +313,8 @@
                             android:background="@drawable/cancel_btn"
                             android:layout_marginTop="4dp"
                             android:layout_marginBottom="6dp"
-                            android:layout_gravity="center_vertical" />
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center" />
 
 
 
@@ -422,15 +423,15 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_go_reservation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="예약하기"
             android:textSize="16sp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="20dp"
             android:textColor="@color/white"
             android:background="@drawable/blue_btn"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="40dp"
             />
 
 </LinearLayout>

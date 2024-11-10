@@ -462,12 +462,14 @@
                 android:layout_height="wrap_content"
                 android:text="0원 결제하기"
                 android:textColor="@color/white"
-                android:background="@color/blue"
+                android:background="@drawable/blue_btn"
                 android:textSize="18sp"
                 android:padding="12dp"
                 android:gravity="center"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"/>
                 />
 
         </LinearLayout>

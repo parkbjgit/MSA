@@ -27,7 +27,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancel_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="아니오"
         android:textColor="@android:color/white"
         android:background="@drawable/rounded_btn"
@@ -36,7 +36,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/yes_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="예"
         android:textColor="@color/black"
         android:gravity="center"

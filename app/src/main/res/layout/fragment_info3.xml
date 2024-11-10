@@ -6,9 +6,7 @@
     android:background="@color/black"
     android:paddingTop="16dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    >
-
+    android:paddingRight="16dp">
 
         <!-- 스크롤 가능한 영역 -->
         <ScrollView
@@ -34,9 +32,17 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginLeft="8dp"
+                                android:orientation="vertical"
+                                android:background="@drawable/white_border"
+                            android:layout_marginBottom="16dp"
 
+                            android:layout_marginTop="8dp"
+                            android:padding="8dp"
+                            >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:orientation="horizontal">
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -62,9 +68,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp">
+                            android:layout_marginTop="8dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -102,6 +106,7 @@
                                     android:padding="3dp"
                                     android:layout_gravity="center"
                                     />
+                        </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -163,15 +168,15 @@
                             android:alignmentMode="alignBounds" />
                 </LinearLayout>
 
-
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/choice_complete"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:text="선택완료"
                             android:textSize="16sp"
                             android:textColor="@color/white"
                             android:background="@drawable/blue_btn"
+                            android:gravity="center"
                             android:layout_marginBottom="16dp"
                             android:layout_marginTop="20dp"/>
 

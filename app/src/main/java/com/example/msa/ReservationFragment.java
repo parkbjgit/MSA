@@ -59,7 +59,7 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
             } else {    // 결제 완료되지 않았을 때 이미지 숨김
                 //imageView.setVisibility(View.INVISIBLE);
                 //ticketTextView.setVisibility(View.INVISIBLE);
-                ticketTextView.setText("입장권을 구매하세요!");
+                ticketTextView.setText("입장권을 구매하세요");
                 //dateTextView.setVisibility(View.INVISIBLE);
                 dateTextView.setText("없음");
                 //timeTextView.setVisibility(View.INVISIBLE);
@@ -90,15 +90,15 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public void onResume() {
-        super.onResume();
-        // 화면이 보여질 때 FLAG_SECURE 플래그 제거
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    }
-
-    public void onPause() {
-        super.onPause();
-        // 화면이 사라질 때 FLAG_SECURE 플래그 추가
-        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    }
+//    public void onResume() {
+//        super.onResume();
+//        // 화면이 보여질 때 FLAG_SECURE 플래그 제거
+//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+//    }
+//
+//    public void onPause() {
+//        super.onPause();
+//        // 화면이 사라질 때 FLAG_SECURE 플래그 추가
+//        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+//    }
 }
