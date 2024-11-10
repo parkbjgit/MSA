@@ -13,139 +13,139 @@
         android:paddingTop="80dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
-    <!-- QR Code Image -->
-    <ImageView
-        android:id="@+id/qrCodeImageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/null_qr"
-        android:contentDescription="Ticket QR Code" />
+        <!-- QR Code Image -->
+        <ImageView
+            android:id="@+id/qrCodeImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/null_qr"
+            android:contentDescription="Ticket QR Code" />
 
-    <!-- Unique ID -->
-    <TextView
-        android:id="@+id/ticket_unique_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="400–2000–2020"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="8dp" />
-
-    <!-- Dashed Divider Line -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/dashed_line"
-        android:layout_marginVertical="16dp" />
-
-    <!-- Ticket Info -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <!-- Ticket Name -->
+        <!-- Unique ID -->
         <TextView
-            android:id="@+id/ticket_name"
+            android:id="@+id/ticket_unique_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="롯데월드"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            android:text="400–2000–2020"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="8dp" />
 
+        <!-- Dashed Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/dashed_line"
+            android:layout_marginVertical="16dp" />
 
-        <!-- Categories -->
-    </LinearLayout>
-
-    <!-- Additional Info Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:weightSum="3"
-        android:gravity="center">
-
-        <!-- Date Info -->
+        <!-- Ticket Info -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_horizontal">
 
+            <!-- Ticket Name -->
             <TextView
+                android:id="@+id/ticket_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이용날짜"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
+                android:text="롯데월드"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/ticket_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2024-10-06"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+
+            <!-- Categories -->
         </LinearLayout>
 
-        <!-- Time Info -->
+        <!-- Additional Info Section -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:weightSum="3"
             android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Date Info -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="이용권"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
-            <TextView
-                android:id="@+id/ticket_time"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이용날짜"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/ticket_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024-10-06"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Time Info -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="1Day"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이용권"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/ticket_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1Day"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Seat Info -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="티켓상태"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/ticket_seat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사용불가"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-
-        <!-- Seat Info -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="티켓상태"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/ticket_seat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사용불가"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
 
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton

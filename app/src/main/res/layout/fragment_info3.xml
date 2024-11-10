@@ -32,81 +32,81 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:background="@drawable/white_border"
+                            android:orientation="vertical"
+                            android:background="@drawable/white_border"
                             android:layout_marginBottom="16dp"
 
                             android:layout_marginTop="8dp"
                             android:padding="8dp"
                             >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:orientation="horizontal">
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="탑승 시간 "
-                                    android:textSize="20sp"
-                                    android:textColor="@color/white"
-                                    android:layout_weight="1"
-                                    ></TextView>
+                                    android:layout_marginTop="4dp"
+                                    android:orientation="horizontal">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="탑승 시간 "
+                                            android:textSize="20sp"
+                                            android:textColor="@color/white"
+                                            android:layout_weight="1"
+                                            ></TextView>
 
-                                <TextView
-                                    android:id="@+id/choiced_time"
-                                    android:layout_width="wrap_content"
+                                        <TextView
+                                            android:id="@+id/choiced_time"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="00:00"
+                                            android:textSize="20sp"
+                                            android:textColor="@color/white"
+                                            ></TextView>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="00:00"
-                                    android:textSize="20sp"
-                                    android:textColor="@color/white"
-                                    ></TextView>
-                        </LinearLayout>
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginTop="8dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:textSize="20sp"
-                                    android:textColor="@color/white"
-                                    android:text="인원수"></TextView>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="2"
+                                            android:textSize="20sp"
+                                            android:textColor="@color/white"
+                                            android:text="인원수"></TextView>
 
 
-                                <androidx.appcompat.widget.AppCompatButton
-                                    android:id="@+id/ridePeople_minus_btn"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:drawableTop="@drawable/minus"
-                                    android:background="@drawable/white_border"
-                                    android:padding="3dp"
-                                    android:layout_gravity="center" />
+                                        <androidx.appcompat.widget.AppCompatButton
+                                            android:id="@+id/ridePeople_minus_btn"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:drawableTop="@drawable/minus"
+                                            android:background="@drawable/white_border"
+                                            android:padding="3dp"
+                                            android:layout_gravity="center" />
 
-                                <TextView
-                                    android:id="@+id/ridePeople"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:text="1"
-                                    android:textColor="@android:color/white"
-                                    android:gravity="center"
-                                    android:textSize="20sp"/>
+                                        <TextView
+                                            android:id="@+id/ridePeople"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:text="1"
+                                            android:textColor="@android:color/white"
+                                            android:gravity="center"
+                                            android:textSize="20sp"/>
 
-                                <androidx.appcompat.widget.AppCompatButton
-                                    android:id="@+id/ridePeople_plus_btn"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:drawableTop="@drawable/plus"
-                                    android:background="@drawable/white_border"
-                                    android:padding="3dp"
-                                    android:layout_gravity="center"
-                                    />
-                        </LinearLayout>
+                                        <androidx.appcompat.widget.AppCompatButton
+                                            android:id="@+id/ridePeople_plus_btn"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:drawableTop="@drawable/plus"
+                                            android:background="@drawable/white_border"
+                                            android:padding="3dp"
+                                            android:layout_gravity="center"
+                                            />
+                                </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -117,56 +117,56 @@
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             android:background="@drawable/white_border">
-                        <!-- 오전 텍스트 -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="오전"
-                            android:textSize="20sp"
-                            android:textColor="@color/white"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginBottom="8dp" />
+                                <!-- 오전 텍스트 -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="오전"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/white"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginBottom="8dp" />
 
-                        <!-- 오전 버튼들 -->
-                        <GridLayout
-                            android:id="@+id/gridLayoutMorning"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:columnCount="4"
-                            android:rowCount="2"
-                            android:alignmentMode="alignBounds"
-                            android:padding="0dp"
-                             />
+                                <!-- 오전 버튼들 -->
+                                <GridLayout
+                                    android:id="@+id/gridLayoutMorning"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:columnCount="4"
+                                    android:rowCount="2"
+                                    android:alignmentMode="alignBounds"
+                                    android:padding="0dp"
+                                    />
                         </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:background="@drawable/white_border">
-                        <!-- 오후 텍스트 -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="오후"
-                            android:textSize="20sp"
-                            android:textColor="@color/white"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginBottom="8dp" />
-
-                        <!-- 오후 버튼들 -->
-                        <GridLayout
-                            android:id="@+id/gridLayoutAfternoon"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:columnCount="4"
-                            android:rowCount="5"
-                            android:padding="0dp"
-                            android:alignmentMode="alignBounds" />
-                </LinearLayout>
+                            android:orientation="vertical"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:background="@drawable/white_border">
+                                <!-- 오후 텍스트 -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="오후"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/white"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginBottom="8dp" />
+
+                                <!-- 오후 버튼들 -->
+                                <GridLayout
+                                    android:id="@+id/gridLayoutAfternoon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:columnCount="4"
+                                    android:rowCount="5"
+                                    android:padding="0dp"
+                                    android:alignmentMode="alignBounds" />
+                        </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/choice_complete"

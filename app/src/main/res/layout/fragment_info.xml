@@ -265,173 +265,173 @@
         android:orientation="vertical">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="@drawable/white_border">
+
+            <!-- 놀이기구 이름 및 상태 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/rideName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="8dp"
-                    android:background="@drawable/white_border">
+                    android:text="아틀란티스"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"
+                    />
 
-                    <!-- 놀이기구 이름 및 상태 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/rideName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="아틀란티스"
-                            android:textSize="25sp"
-                            android:textColor="@color/white"
-                            android:layout_gravity="center_vertical"
-                            />
-
-                        <TextView
-                            android:id="@+id/rideStatus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="예약 중"
-                            android:textSize="16sp"
-                            android:textColor="#FFEB3B"
-                            android:paddingLeft="5dp"
-                            android:paddingTop="30dp"
-                            android:layout_weight="1"
-                            android:textStyle="italic"
-                            />
+                <TextView
+                    android:id="@+id/rideStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="예약 중"
+                    android:textSize="16sp"
+                    android:textColor="#FFEB3B"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="30dp"
+                    android:layout_weight="1"
+                    android:textStyle="italic"
+                    />
 
 
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/reservation_cancel"
-                            android:layout_width="55dp"
-                            android:layout_height="55dp"
-                            android:text="예약\n취소"
-                            android:textSize="16sp"
-                            android:textColor="#5274E6"
-                            android:background="@drawable/cancel_btn"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="6dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/reservation_cancel"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:text="예약\n취소"
+                    android:textSize="16sp"
+                    android:textColor="#5274E6"
+                    android:background="@drawable/cancel_btn"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center" />
 
 
 
-                    </LinearLayout>
+            </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/white"
-                        />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"
+                />
 
 
 
 
 
-                    <!-- 탑승 시간 및 남은 시간 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
+            <!-- 탑승 시간 및 남은 시간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="탑승 시간"
-                            android:layout_weight="1"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="탑승 시간"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/rideTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="14:30"
-                            android:textColor="#f5f5f5"
-                            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/rideTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14:30"
+                    android:textColor="#f5f5f5"
+                    android:textSize="16sp" />
 
-                    </LinearLayout>
-
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="4dp">
-
-                        <!-- 예약 인원 -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="예약 인원"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-
-                        <TextView
-                            android:id="@+id/ridePeople"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="4dp"
-                        >
-
-                        <ImageView
-                            android:id="@+id/attraction_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:visibility="gone" /> <!-- 초기에는 보이지 않도록 설정 -->
-
-                        <TextView
-                            android:id="@+id/no_reservation_message"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:background="#80505050"
-                        android:text="예약된 시설이 없습니다."
-                        android:textColor="#80FFFFFF"
-                        android:textSize="16sp"
-                        android:gravity="center"
-                        android:visibility="gone" />
-                    </FrameLayout>
+            </LinearLayout>
 
 
 
-                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <!-- 예약 인원 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="예약 인원"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:id="@+id/ridePeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                >
+
+                <ImageView
+                    android:id="@+id/attraction_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" /> <!-- 초기에는 보이지 않도록 설정 -->
+
+                <TextView
+                    android:id="@+id/no_reservation_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="#80505050"
+                    android:text="예약된 시설이 없습니다."
+                    android:textColor="#80FFFFFF"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
 
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_go_reservation"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="예약하기"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:background="@drawable/blue_btn"
-            android:gravity="center"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="40dp"
-            />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_go_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="예약하기"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/blue_btn"
+        android:gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="40dp"
+        />
 
 </LinearLayout>
