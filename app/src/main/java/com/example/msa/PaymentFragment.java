@@ -287,6 +287,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onClose() {
                         Log.d("bootpay", "close: ");
+                        Bootpay.removePaymentWindow();
                     }
 
                     @Override

@@ -49,18 +49,23 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
 
         sharedViewModel.getPaymentStatus().observe(getViewLifecycleOwner(), isCompleted -> {
             if (isCompleted) {  // 결제 완료 시 이미지 표시
-                imageView.setVisibility(View.VISIBLE);
+                //imageView.setVisibility(View.VISIBLE);
+                imageView.setImageResource(R.drawable.qr);
                 timeTextView.setVisibility(View.VISIBLE);
                 seatTextView.setText("사용가능");
                 ticketidTextView.setVisibility(View.VISIBLE);
                 ticketTextView.setVisibility(View.VISIBLE);
                 dateTextView.setVisibility(View.VISIBLE);
             } else {    // 결제 완료되지 않았을 때 이미지 숨김
-                imageView.setVisibility(View.GONE);
-                ticketTextView.setVisibility(View.GONE);
-                dateTextView.setVisibility(View.GONE);
-                timeTextView.setVisibility(View.GONE);
-                ticketidTextView.setVisibility(View.GONE);
+                //imageView.setVisibility(View.INVISIBLE);
+                //ticketTextView.setVisibility(View.INVISIBLE);
+                ticketTextView.setText("입장권을 구매하세요!");
+                //dateTextView.setVisibility(View.INVISIBLE);
+                dateTextView.setText("없음");
+                //timeTextView.setVisibility(View.INVISIBLE);
+                timeTextView.setText("없음");
+                //ticketidTextView.setVisibility(View.INVISIBLE);
+                ticketidTextView.setText("-");
             }
         });
 
