@@ -2,6 +2,7 @@ package com.example.msa;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,11 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
+
+        // 다이얼로그의 배경을 투명하게 설정
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
         // 다이얼로그의 '예'와 '아니요' 버튼 설정
         Button yesButton = dialogView.findViewById(R.id.yes_btn);
