@@ -138,7 +138,8 @@ public class InfoFragment3 extends Fragment {
             button.setText(time);
             button.setTextSize(14);
             button.setTextColor(Color.BLACK);
-            button.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            button.setGravity(Gravity.CENTER);
+
 
             if (hour < currentHour || (hour == currentHour && minute < currentMinute)) {
                 button.setEnabled(false);
@@ -152,8 +153,7 @@ public class InfoFragment3 extends Fragment {
             params.width = 0;
             params.height = (int) (38 * getResources().getDisplayMetrics().density + 0.5f);
             params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-            params.setMargins(20, 12, 20, 12);
-            //params.gravity = Gravity.CENTER;
+            params.setMargins(25, 12, 25, 12);
             button.setLayoutParams(params);
 
             gridLayout.addView(button);
