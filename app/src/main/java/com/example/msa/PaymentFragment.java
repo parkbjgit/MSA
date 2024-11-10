@@ -1,6 +1,5 @@
 package com.example.msa;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,20 +12,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kr.co.bootpay.android.Bootpay;
 import kr.co.bootpay.android.events.BootpayEventListener;
 import kr.co.bootpay.android.models.BootItem;
-import kr.co.bootpay.android.models.BootUser;
 import kr.co.bootpay.android.models.Payload;
 
 
@@ -55,6 +53,8 @@ public class PaymentFragment extends Fragment {
 
     private TicketViewModel ticketViewModel;
     private ApiService ticketApiService;
+
+    private SharedViewModel sharedViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -221,6 +221,8 @@ public class PaymentFragment extends Fragment {
             }
         });
 
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
         //결제하기 버튼 클릭 이벤트
         Button buyTicketButton = view.findViewById(R.id.btn_purchase_ticket);
 
@@ -249,6 +251,9 @@ public class PaymentFragment extends Fragment {
 
     private void paymentTest(View v, double totalPrice) {
 
+        String selectedTicket = parkNameTextView.getText().toString();
+        String selectedDate = selectedDateTextView.getText().toString();
+
         List<BootItem> items = new ArrayList<>();
         BootItem item1 = new BootItem().setName("롯데월드").setId("ITEM_CODE_LOTTEWORLD").setQty(1).setPrice(500d);
         BootItem item2 = new BootItem().setName("에버랜드").setId("ITEM_CODE_EVERLAND").setQty(1).setPrice(500d);
@@ -259,11 +264,11 @@ public class PaymentFragment extends Fragment {
 
         Payload payload = new Payload();
         payload.setApplicationId("67300b68a3175898bd6e4f12")
-                .setOrderName("부트페이 결제테스트")
+                .setOrderName(selectedTicket + " / " + selectedDate)
                 .setPg("네이버페이")
                 .setMethod("네이버페이")
                 .setOrderId("1111")
-                .setPrice(1000d);
+                .setPrice(totalPrice);
 
         // 프래그먼트에서 Bootpay 결제 요청
         Bootpay.init(getChildFragmentManager())
@@ -282,7 +287,6 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onClose() {
                         Log.d("bootpay", "close: ");
-                        Bootpay.removePaymentWindow();
                     }
 
                     @Override
@@ -300,15 +304,26 @@ public class PaymentFragment extends Fragment {
                     public void onDone(String data) {
                         Log.d("done", data);
 
-                        Toast.makeText(getContext(), "결제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+                        sharedViewModel.setSelectedTicket(selectedTicket);
+                        sharedViewModel.setSelectedDate(selectedDate);
+                        sharedViewModel.setPaymentCompleted(true);
 
-                        // 결제 완료 후 MainActivity로 이동
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        ReservationFragment imageFragment = new ReservationFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("selectedTicket", selectedTicket);
+                        bundle.putString("selectedDate", selectedDate);
+                        //bundle.putBoolean("paymentCompleted", true); // 결제 완료 정보 전달
+                        imageFragment.setArguments(bundle);
 
-                        // 현재 액티비티 종료
-                        getActivity().finish();
+                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, imageFragment); // fragment_container는 프래그먼트를 담는 레이아웃 ID
+                        transaction.addToBackStack(null); // 뒤로가기 시 이전 프래그먼트로 돌아가기 위해 백스택에 추가
+                        transaction.commit();
+
+                        Toast.makeText(getActivity(), "결제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        Bootpay.removePaymentWindow();
                     }
                 }).requestPayment();
 
