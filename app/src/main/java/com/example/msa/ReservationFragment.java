@@ -19,7 +19,6 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
     private TextView ticketTextView, dateTextView, timeTextView, seatTextView, ticketidTextView;
     private SharedViewModel sharedViewModel;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -27,12 +26,16 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
+        // 뷰 초기화
         imageView = view.findViewById(R.id.qrCodeImageView);
         ticketTextView = view.findViewById(R.id.ticket_name);
         dateTextView = view.findViewById(R.id.ticket_date);
         timeTextView = view.findViewById(R.id.ticket_time);
         seatTextView = view.findViewById(R.id.ticket_seat);
         ticketidTextView = view.findViewById(R.id.ticket_unique_id);
+
+        // 초기 상태 설정
+        setInitialState();
 
         sharedViewModel.getSelectedTicket().observe(getViewLifecycleOwner(), ticket -> {
             if (ticket != null) {
@@ -43,68 +46,87 @@ public class ReservationFragment extends Fragment implements View.OnClickListene
         sharedViewModel.getSelectedDate().observe(getViewLifecycleOwner(), date -> {
             if (date != null) {
                 dateTextView.setText(date);
-                dateTextView.setVisibility(View.VISIBLE);
             }
         });
 
         sharedViewModel.getPaymentStatus().observe(getViewLifecycleOwner(), isCompleted -> {
-            if (isCompleted) {  // 결제 완료 시 이미지 표시
-                //imageView.setVisibility(View.VISIBLE);
-                imageView.setImageResource(R.drawable.qr);
-                timeTextView.setVisibility(View.VISIBLE);
+            if (isCompleted) {  // 결제 완료 시
+                imageView.setImageResource(R.drawable.qr); // 실제 QR 코드 이미지로 변경
+                ticketTextView.setText(sharedViewModel.getSelectedTicket().getValue());
+                dateTextView.setText(sharedViewModel.getSelectedDate().getValue());
                 seatTextView.setText("사용가능");
-                ticketidTextView.setVisibility(View.VISIBLE);
+
+                // 인원 수 가져오기
+                int adultCount = sharedViewModel.getAdultCount().getValue() != null ? sharedViewModel.getAdultCount().getValue() : 0;
+                int adultCount2 = sharedViewModel.getAdultCount2().getValue() != null ? sharedViewModel.getAdultCount2().getValue() : 0;
+                int teenCount = sharedViewModel.getTeenCount().getValue() != null ? sharedViewModel.getTeenCount().getValue() : 0;
+                int teenCount2 = sharedViewModel.getTeenCount2().getValue() != null ? sharedViewModel.getTeenCount2().getValue() : 0;
+                int childCount = sharedViewModel.getChildCount().getValue() != null ? sharedViewModel.getChildCount().getValue() : 0;
+                int childCount2 = sharedViewModel.getChildCount2().getValue() != null ? sharedViewModel.getChildCount2().getValue() : 0;
+
+                int totalCount = adultCount + adultCount2 + teenCount + teenCount2 + childCount + childCount2;
+
+                // 총합을 timeTextView에 설정
+                timeTextView.setText(totalCount + "명");
+
+                // 뷰를 표시
+                imageView.setVisibility(View.VISIBLE);
                 ticketTextView.setVisibility(View.VISIBLE);
                 dateTextView.setVisibility(View.VISIBLE);
-            } else {    // 결제 완료되지 않았을 때 이미지 숨김
-//                //imageView.setVisibility(View.INVISIBLE);
-//                //ticketTextView.setVisibility(View.INVISIBLE);
-//                ticketTextView.setText("입장권을 구매하세요");
-//                //dateTextView.setVisibility(View.INVISIBLE);
-//                dateTextView.setText("없음");
-//                //timeTextView.setVisibility(View.INVISIBLE);
-//                timeTextView.setText("없음");
-//                //ticketidTextView.setVisibility(View.INVISIBLE);
-//                ticketidTextView.setText("-");
-                imageView.setImageResource(R.drawable.qr);
                 timeTextView.setVisibility(View.VISIBLE);
-                seatTextView.setText("사용가능");
+                seatTextView.setVisibility(View.VISIBLE);
                 ticketidTextView.setVisibility(View.VISIBLE);
+            } else {    // 결제 미완료 시
+                imageView.setImageResource(R.color.gray); // 회색으로 채움 (R.color.gray는 회색 리소스)
+
+                // 텍스트뷰들을 "-"로 설정
+                ticketTextView.setText("-");
+                dateTextView.setText("-");
+                timeTextView.setText("-");
+                seatTextView.setText("-");
+                ticketidTextView.setText("-");
+
+                // 뷰를 표시
+                imageView.setVisibility(View.VISIBLE);
                 ticketTextView.setVisibility(View.VISIBLE);
                 dateTextView.setVisibility(View.VISIBLE);
+                timeTextView.setVisibility(View.VISIBLE);
+                seatTextView.setVisibility(View.VISIBLE);
+                ticketidTextView.setVisibility(View.VISIBLE);
             }
         });
 
         Button ticket = view.findViewById(R.id.btn_ticket_reservation);
-
-        // 버튼 클릭 이벤트 리스너
         ticket.setOnClickListener(this);
         return view;
     }
 
-    // 버튼 클릭 이벤트 리스너
+    private void setInitialState() {
+        // 초기에는 결제 미완료 상태로 설정
+        imageView.setImageResource(R.color.gray); // 회색으로 채움
+        ticketTextView.setText("-");
+        dateTextView.setText("-");
+        timeTextView.setText("-");
+        seatTextView.setText("-");
+        ticketidTextView.setText("-");
+
+        // 뷰를 표시
+        imageView.setVisibility(View.VISIBLE);
+        ticketTextView.setVisibility(View.VISIBLE);
+        dateTextView.setVisibility(View.VISIBLE);
+        timeTextView.setVisibility(View.VISIBLE);
+        seatTextView.setVisibility(View.VISIBLE);
+        ticketidTextView.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ticket_reservation) {
-
-            // TicketSelectFragment로 전환
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new TicketSelectFragment());
-            transaction.addToBackStack(null); // 백 스택에 추가
+            transaction.addToBackStack(null);
             transaction.commit();
-
         }
     }
-
-//    public void onResume() {
-//        super.onResume();
-//        // 화면이 보여질 때 FLAG_SECURE 플래그 제거
-//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-//    }
-//
-//    public void onPause() {
-//        super.onPause();
-//        // 화면이 사라질 때 FLAG_SECURE 플래그 추가
-//        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-//    }
 }
+
