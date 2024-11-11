@@ -90,7 +90,7 @@
                     android:id="@+id/ticket_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2024-11-13"
+                    android:text="-"
                     android:textSize="16sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이용권"
+                    android:text="인원수"
                     android:textSize="14sp"
                     android:textColor="@android:color/darker_gray" />
 
@@ -115,7 +115,7 @@
                     android:id="@+id/ticket_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1Day"
+                    android:text="-"
                     android:textSize="16sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />

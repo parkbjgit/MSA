@@ -90,7 +90,7 @@ public class PaymentFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String selectedDate = year + " - " + (month + 1) + " - " + dayOfMonth ;
+                String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth ;
                 selectedDateTextView.setText(selectedDate);
             }
         });
@@ -309,6 +309,13 @@ public class PaymentFragment extends Fragment {
                         sharedViewModel.setSelectedTicket(selectedTicket);
                         sharedViewModel.setSelectedDate(selectedDate);
                         sharedViewModel.setPaymentCompleted(true);
+
+                        sharedViewModel.setAdultCount(adultCount);
+                        sharedViewModel.setAdultCount2(adultCount2);
+                        sharedViewModel.setTeenCount(teenCount);
+                        sharedViewModel.setTeenCount2(teenCount2);
+                        sharedViewModel.setChildCount(childCount);
+                        sharedViewModel.setChildCount2(childCount2);
 
                         ReservationFragment imageFragment = new ReservationFragment();
                         Bundle bundle = new Bundle();
