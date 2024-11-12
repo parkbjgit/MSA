@@ -15,6 +15,14 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.text.SimpleDateFormat;
+
+import java.util.Locale;
+import java.util.TimeZone;
+
+import java.util.Calendar;
+
+
 
 import java.util.Calendar;
 
@@ -73,7 +81,7 @@ public class InfoFragment3 extends Fragment {
                 if (reservationViewModel.getRideName().getValue() != null && !reservationViewModel.getRideName().getValue().isEmpty()) {
                     Toast.makeText(getContext(), "이미 예약이 있습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    enqueueUser(markerName, "1");
+                    enqueueUser("6732bc18b91092cb1d44504b", "1");  // 여기에 필요한 userId를 넣어 사용하세요
                 }
             });
         }
@@ -91,36 +99,64 @@ public class InfoFragment3 extends Fragment {
     }
 
     private void enqueueUser(String rideId, String userId) {
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        QueueRequest queueRequest = new QueueRequest(rideId, userId);
+        ReservationsApiService apiService = ReservationsRetrofitClient.getRetrofitInstance().create(ReservationsApiService.class);
 
-        String rideName = markerNameTextView.getText().toString();
-        String rideTime = choicedTimeTextView.getText().toString();
-        String ridePeople = ridePeopleTextView.getText().toString();
+        int numberOfPeople = Integer.parseInt(ridePeopleTextView.getText().toString());  // 탑승 인원수
+        String time = choicedTimeTextView.getText().toString();  // 선택된 시간 (예: "12:30")
+        String rideName = markerNameTextView.getText().toString();  // 놀이기구 이름
 
-        apiService.enqueueUser(queueRequest).enqueue(new Callback<QueueResponse>() {
+        // 현재 날짜와 선택한 시간으로 ISO 8601 형식의 reservation_time 생성
+        String reservationTime = getISO8601Time(time);
+
+        // ReservationRequest 객체 생성
+        ReservationRequest request = new ReservationRequest(numberOfPeople, reservationTime, userId);
+
+        apiService.reserveRide(rideId, request).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<QueueResponse> call, Response<QueueResponse> response) {
-                String message = response.isSuccessful() ? "대기열 등록 성공: " + response.body().getMessage() : "대기열 등록 성공";
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "예약이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
-                // ViewModel에 예약 정보 업데이트
-                updateReservationViewModel(rideName, rideTime, ridePeople);
-                getParentFragmentManager().popBackStack();
-                getParentFragmentManager().popBackStack();
+                    // ViewModel에 예약 정보를 설정하여 InfoFragment에서 자동으로 표시되도록 함
+                    reservationViewModel.setReservation(rideName, reservationTime, String.valueOf(numberOfPeople));
+
+                    // 뒤로가기
+                    getParentFragmentManager().popBackStack();
+                    getParentFragmentManager().popBackStack();
+                } else {
+                    Toast.makeText(getContext(), "예약에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<QueueResponse> call, Throwable t) {
-                //Toast.makeText(getContext(), "서버 통신 에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), "대기열 등록 성공", Toast.LENGTH_SHORT).show();
-
-                updateReservationViewModel(rideName, rideTime, ridePeople);
-                getParentFragmentManager().popBackStack();
-                getParentFragmentManager().popBackStack();
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "서버와의 통신에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private String getISO8601Time(String time) {
+        try {
+            // 현재 날짜를 가져와서 선택된 시간으로 설정
+            Calendar calendar = Calendar.getInstance();
+            String[] splitTime = time.split(":");
+            int hour = Integer.parseInt(splitTime[0]);
+            int minute = Integer.parseInt(splitTime[1]);
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, 0);
+
+            // ISO 8601 형식으로 변환
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            return sdf.format(calendar.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     private void updateReservationViewModel(String rideName, String rideTime, String ridePeople) {
         ReservationViewModel reservationViewModel = new ViewModelProvider(requireActivity()).get(ReservationViewModel.class);
