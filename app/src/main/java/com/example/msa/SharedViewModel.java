@@ -1,8 +1,18 @@
 package com.example.msa;
 
+import static java.security.AccessController.getContext;
+
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class SharedViewModel extends ViewModel {
     private final MutableLiveData<Integer> adultCount = new MutableLiveData<>(0);
@@ -70,5 +80,17 @@ public class SharedViewModel extends ViewModel {
     public void setSelectedDate(String date) {
         selectedDate.postValue(date);
     }
+
+    private final MutableLiveData<String> qrCode = new MutableLiveData<>();
+
+    public void setQrCode(String qrCode) {
+        this.qrCode.postValue(qrCode);
+    }
+
+    public LiveData<String> getQrCode() {
+        return qrCode;
+    }
+
+
 
 }

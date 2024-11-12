@@ -76,5 +76,6 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")  // Glide 컴파일러 추가
 
     implementation ("io.github.bootpay:android:+")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
 }

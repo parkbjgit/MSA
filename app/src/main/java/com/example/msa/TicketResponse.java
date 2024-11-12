@@ -1,14 +1,14 @@
 package com.example.msa;
 
+import android.util.Base64;
 import java.util.List;
 
 public class TicketResponse {
     private String status;
     private String ticket_id;
     private String message;
+    private String encoded_response;  // encoded_response 필드 추가
     private TicketData data;
-
-    // 기본 생성자와 getter 메서드 추가
 
     public String getStatus() {
         return status;
@@ -22,8 +22,35 @@ public class TicketResponse {
         return message;
     }
 
+    public String getEncodedResponse() {
+        return encoded_response;
+    }
+
+    public void setEncodedResponse(String encoded_response) {
+        this.encoded_response = encoded_response;
+    }
+
+    public String getDecodedQRCode() {
+        if (encoded_response != null) {
+            byte[] decodedBytes = Base64.decode(encoded_response, Base64.DEFAULT);
+            return new String(decodedBytes);
+        }
+        return null;
+    }
+
     public TicketData getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return "TicketResponse{" +
+                "status='" + status + '\'' +
+                ", ticket_id='" + ticket_id + '\'' +
+                ", message='" + message + '\'' +
+                ", encoded_response='" + encoded_response + '\'' +
+                ", data=" + data +
+                '}';
     }
 
     public static class TicketData {
@@ -31,7 +58,6 @@ public class TicketResponse {
         private List<String> allowed_facilities;
         private double amount;
 
-        // TicketData에 대한 getter 메서드
         public String getTicket_type() {
             return ticket_type;
         }
