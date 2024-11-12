@@ -21,6 +21,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class InfoFragment extends Fragment implements View.OnClickListener {
 
     private ReservationViewModel reservationViewModel;
@@ -93,9 +97,10 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         yesButton.setOnClickListener(v -> {
             // 예약을 취소하고 다이얼로그 닫기
-            reservationViewModel.clearReservation();
-            Toast.makeText(getActivity(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
+//            reservationViewModel.clearReservation();
+//            Toast.makeText(getActivity(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+//            dialog.dismiss();
+            cancelReservation(dialog);
         });
 
         noButton.setOnClickListener(v -> {
@@ -106,6 +111,31 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
+    private void cancelReservation(AlertDialog dialog) {
+        ReservationsApiService apiService = ReservationsRetrofitClient.getRetrofitInstance().create(ReservationsApiService.class);
+        String rideId = "6732bc18b91092cb1d44504b";
+        String userId = "1";
+        CancelRequest cancelRequest = new CancelRequest("User requested cancellation");
+
+        apiService.cancelRide(rideId, userId, cancelRequest).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    reservationViewModel.clearReservation();
+                    Toast.makeText(getActivity(), "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "예약 취소에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getActivity(), "서버와의 통신에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
     private void showNoReservation(TextView rideNameTextView, TextView rideTimeTextView, TextView ridePeopleTextView,
                                    TextView rideStatusTextView, Button reservationCancel, ImageView rideImageView, TextView noReservationMessage) {
         rideNameTextView.setText("예약 없음");
