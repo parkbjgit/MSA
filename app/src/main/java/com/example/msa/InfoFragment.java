@@ -15,6 +15,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class InfoFragment extends Fragment implements View.OnClickListener {
 
     private ReservationViewModel reservationViewModel;
@@ -36,12 +42,13 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         Button reservationCancel = view.findViewById(R.id.reservation_cancel);
         ImageView rideImageView = view.findViewById(R.id.attraction_image);
 
-        // 예약 상태 관찰 및 UI 업데이트
         reservationViewModel.getRideName().observe(getViewLifecycleOwner(), name -> {
             if (name.isEmpty()) {
                 showNoReservation(rideNameTextView, rideTimeTextView, ridePeopleTextView, rideStatusTextView, reservationCancel, rideImageView, noReservationMessage);
             } else {
-                showReservation(name, reservationViewModel.getRideTime().getValue(), reservationViewModel.getRidePeople().getValue(), rideNameTextView, rideTimeTextView, ridePeopleTextView, rideStatusTextView, reservationCancel, rideImageView, noReservationMessage);
+                String rideTime = convertToSimpleTime(reservationViewModel.getRideTime().getValue());
+                String ridePeople = reservationViewModel.getRidePeople().getValue();
+                showReservation(name, rideTime, ridePeople, rideNameTextView, rideTimeTextView, ridePeopleTextView, rideStatusTextView, reservationCancel, rideImageView, noReservationMessage);
             }
         });
 
@@ -54,6 +61,20 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    private String convertToSimpleTime(String isoTime) {
+        if (isoTime == null || isoTime.isEmpty()) return "없음";
+        try {
+            SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+            isoFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = isoFormat.parse(isoTime);
+
+            SimpleDateFormat simpleFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            return simpleFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "없음";
+        }
+    }
     private void showCancelDialog() {
         // 다이얼로그에 사용할 레이아웃을 생성
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_cancel_reservation, null);
