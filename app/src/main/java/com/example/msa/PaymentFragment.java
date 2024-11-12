@@ -23,6 +23,7 @@ import retrofit2.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import kr.co.bootpay.android.Bootpay;
@@ -31,6 +32,12 @@ import kr.co.bootpay.android.models.BootItem;
 import kr.co.bootpay.android.models.Payload;
 import retrofit2.Retrofit;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 public class PaymentFragment extends Fragment {
 
@@ -86,6 +93,18 @@ public class PaymentFragment extends Fragment {
 
         btnPurchaseTicket = view.findViewById(R.id.btn_purchase_ticket);
         updateTotalPrice();
+
+        // **오늘 날짜를 기본값으로 설정**
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String todayDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+        selectedDateTextView.setText(todayDate);  // **selectedDateTextView에 오늘 날짜 설정**
+
+        // **CalendarView의 날짜를 오늘 날짜로 설정**
+        calendarView.setDate(calendar.getTimeInMillis(), false, true);
 
         // 선택된 티켓 이름을 TextView에 표시
         Bundle arguments = getArguments();
@@ -328,9 +347,9 @@ public class PaymentFragment extends Fragment {
                         // 요청 바디 생성
                         TicketRequest request = new TicketRequest(
                                 "64c0b8a5e5f0c537f0d12345", // 실제 사용자 ID로 변경
-                                "64c0b8a5e5f0c537f0d67890", // 실제 공원 ID로 변경
+                                "6732bb6bb91092cb1d445046", // 실제 공원 ID로 변경
                                 "standard", // 티켓 종류
-                                Arrays.asList("64c0b8a5e5f0c537f0d11111") // 시설 ID 리스트
+                                Arrays.asList("6732bb8bb91092cb1d445048") // 시설 ID 리스트
                         );
 
                         // 요청 바디 로그 출력
@@ -360,45 +379,49 @@ public class PaymentFragment extends Fragment {
     }
 
     private void validateTicket(TicketRequest request) {
-        Log.d("Retrofit", "Request: " + request.toString());
-
         Call<TicketResponse> call = apiService.validateTicket(request);
         call.enqueue(new Callback<TicketResponse>() {
             @Override
             public void onResponse(Call<TicketResponse> call, Response<TicketResponse> response) {
-                Log.d("Retrofit", "Response received");
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("Retrofit", "Response Body: " + response.body().toString());
-
-                    // 디코딩된 QR 코드를 얻어 ViewModel에 설정
                     String decodedQRCode = response.body().getDecodedQRCode();
                     if (decodedQRCode != null) {
                         sharedViewModel.setQrCode(decodedQRCode);
-                        Log.d("Retrofit", "Decoded QR Code: " + decodedQRCode);
-                    } else {
-                        Log.e("Retrofit", "QR Code 디코딩 실패");
-                    }
 
-                    Toast.makeText(getContext(), "티켓 검증 성공", Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        String errorBody = response.errorBody().string();
-                        Log.e("Retrofit", "Response unsuccessful: " + errorBody);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        // QR 코드 이미지를 생성하여 ViewModel에 설정
+                        Bitmap qrBitmap = generateQrCode(decodedQRCode);
+                        if (qrBitmap != null) {
+                            sharedViewModel.setQrCodeBitmap(qrBitmap);
+                        }
                     }
-                    Toast.makeText(getContext(), "티켓 검증 실패", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<TicketResponse> call, Throwable t) {
                 Log.e("Retrofit", "Request failed: " + t.getMessage());
-                Toast.makeText(getContext(), "서버 요청 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private Bitmap generateQrCode(String text) {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        try {
+            int size = 512;
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, size, size);
+            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
+
+            for (int x = 0; x < size; x++) {
+                for (int y = 0; y < size; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+            return bitmap;
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     // 총 가격을 계산하고 결제하기 버튼의 텍스트를 업데이트하는 메서드
     private void updateTotalPrice() {

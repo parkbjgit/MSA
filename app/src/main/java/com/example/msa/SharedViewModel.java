@@ -1,20 +1,17 @@
 package com.example.msa;
 
-import static java.security.AccessController.getContext;
-
-import android.util.Log;
-import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Response;
+import android.graphics.Bitmap;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class SharedViewModel extends ViewModel {
+    private final MutableLiveData<String> qrCode = new MutableLiveData<>();
+    private final MutableLiveData<Bitmap> qrCodeBitmap = new MutableLiveData<>();
     private final MutableLiveData<Integer> adultCount = new MutableLiveData<>(0);
     private final MutableLiveData<Integer> adultCount2 = new MutableLiveData<>(0);
     private final MutableLiveData<Integer> teenCount = new MutableLiveData<>(0);
@@ -81,16 +78,20 @@ public class SharedViewModel extends ViewModel {
         selectedDate.postValue(date);
     }
 
-    private final MutableLiveData<String> qrCode = new MutableLiveData<>();
-
-    public void setQrCode(String qrCode) {
-        this.qrCode.postValue(qrCode);
-    }
-
     public LiveData<String> getQrCode() {
         return qrCode;
     }
 
+    public void setQrCode(String code) {
+        qrCode.setValue(code);
+    }
 
+    public LiveData<Bitmap> getQrCodeBitmap() {
+        return qrCodeBitmap;
+    }
+
+    public void setQrCodeBitmap(Bitmap bitmap) {
+        qrCodeBitmap.setValue(bitmap);
+    }
 
 }

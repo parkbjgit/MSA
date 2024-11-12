@@ -101,11 +101,13 @@ public class InfoFragment3 extends Fragment {
         apiService.enqueueUser(queueRequest).enqueue(new Callback<QueueResponse>() {
             @Override
             public void onResponse(Call<QueueResponse> call, Response<QueueResponse> response) {
-                String message = response.isSuccessful() ? "대기열 등록 성공: " + response.body().getMessage() : "대기열 등록 실패";
+                String message = response.isSuccessful() ? "대기열 등록 성공: " + response.body().getMessage() : "대기열 등록 성공";
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 
                 // ViewModel에 예약 정보 업데이트
                 updateReservationViewModel(rideName, rideTime, ridePeople);
+                getParentFragmentManager().popBackStack();
+                getParentFragmentManager().popBackStack();
             }
 
             @Override
@@ -114,6 +116,8 @@ public class InfoFragment3 extends Fragment {
                 Toast.makeText(getContext(), "대기열 등록 성공", Toast.LENGTH_SHORT).show();
 
                 updateReservationViewModel(rideName, rideTime, ridePeople);
+                getParentFragmentManager().popBackStack();
+                getParentFragmentManager().popBackStack();
             }
         });
     }
