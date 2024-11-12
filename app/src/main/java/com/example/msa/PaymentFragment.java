@@ -1,6 +1,7 @@
 package com.example.msa;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +20,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import kr.co.bootpay.android.Bootpay;
 import kr.co.bootpay.android.events.BootpayEventListener;
 import kr.co.bootpay.android.models.BootItem;
 import kr.co.bootpay.android.models.Payload;
+import retrofit2.Retrofit;
 
 
 public class PaymentFragment extends Fragment {
 
+    private ApiService apiService;
     // 종합이용권 섹션
     private TextView adultCountTextView, teenCountTextView, childCountTextView;
     private int adultCount = 0, teenCount = 0, childCount = 0;
@@ -60,6 +65,9 @@ public class PaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment에서 사용할 레이아웃 inflate
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
+
+        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+        apiService = retrofit.create(ApiService.class);
 
         // View 초기화
         parkNameTextView = view.findViewById(R.id.park_name_text_view);
@@ -317,6 +325,20 @@ public class PaymentFragment extends Fragment {
                         sharedViewModel.setChildCount(childCount);
                         sharedViewModel.setChildCount2(childCount2);
 
+                        // 요청 바디 생성
+                        TicketRequest request = new TicketRequest(
+                                "64c0b8a5e5f0c537f0d12345", // 실제 사용자 ID로 변경
+                                "64c0b8a5e5f0c537f0d67890", // 실제 공원 ID로 변경
+                                "standard", // 티켓 종류
+                                Arrays.asList("64c0b8a5e5f0c537f0d11111") // 시설 ID 리스트
+                        );
+
+                        // 요청 바디 로그 출력
+                        Log.d("PaymentFragment", "TicketRequest: " + request.toString());
+
+                        // POST 요청 보내기
+                        validateTicket(request);
+
                         ReservationFragment imageFragment = new ReservationFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("selectedTicket", selectedTicket);
@@ -337,26 +359,42 @@ public class PaymentFragment extends Fragment {
 
     }
 
-    private void createTicket(TicketRequest request) {
-        Call<TicketResponse> call = ticketApiService.createTicket(request);
+    private void validateTicket(TicketRequest request) {
+        Log.d("Retrofit", "Request: " + request.toString());
 
+        Call<TicketResponse> call = apiService.validateTicket(request);
         call.enqueue(new Callback<TicketResponse>() {
             @Override
             public void onResponse(Call<TicketResponse> call, Response<TicketResponse> response) {
-                Log.d("Retrofit", "Request sent");
+                Log.d("Retrofit", "Response received");
                 if (response.isSuccessful() && response.body() != null) {
-                    ticketViewModel.setTicket(response.body());
-                    Toast.makeText(getContext(), "티켓이 성공적으로 발급되었습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("Retrofit", "Response Body: " + response.body().toString());
+
+                    // 디코딩된 QR 코드를 얻어 ViewModel에 설정
+                    String decodedQRCode = response.body().getDecodedQRCode();
+                    if (decodedQRCode != null) {
+                        sharedViewModel.setQrCode(decodedQRCode);
+                        Log.d("Retrofit", "Decoded QR Code: " + decodedQRCode);
+                    } else {
+                        Log.e("Retrofit", "QR Code 디코딩 실패");
+                    }
+
+                    Toast.makeText(getContext(), "티켓 검증 성공", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e("Retrofit", "Response unsuccessful: " + response.errorBody());
-                    Toast.makeText(getContext(), "티켓 발급에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Response unsuccessful: " + errorBody);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getContext(), "티켓 검증 실패", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<TicketResponse> call, Throwable t) {
                 Log.e("Retrofit", "Request failed: " + t.getMessage());
-                Toast.makeText(getContext(), "서버 요청에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "서버 요청 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }

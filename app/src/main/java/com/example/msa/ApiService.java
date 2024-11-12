@@ -9,6 +9,9 @@ public interface ApiService {
     @POST("/enqueue")
     Call<QueueResponse> enqueueUser(@Body QueueRequest queueRequest);
 
-    @POST("/tickets/api/validate")
-    Call<TicketResponse> createTicket(@Body TicketRequest ticketRequest);
+//    @POST("/tickets/api/validate")
+//    Call<TicketResponse> createTicket(@Body TicketRequest ticketRequest);
+
+    @POST("api/tickets/validate")
+    Call<TicketResponse> validateTicket(@Body TicketRequest request);
 }
