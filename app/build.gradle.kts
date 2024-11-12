@@ -77,5 +77,6 @@ dependencies {
 
     implementation ("io.github.bootpay:android:+")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation ("com.google.zxing:core:3.5.1")
 
 }

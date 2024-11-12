@@ -11,10 +11,11 @@
     <!-- 검색창 및 필터 버튼 영역 -->
 
     <fragment
+        android:id="@+id/map_container"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/map_container"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+         />
 
     <LinearLayout
         android:id="@+id/search_bar"
